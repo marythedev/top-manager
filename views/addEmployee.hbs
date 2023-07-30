@@ -1,0 +1,81 @@
+<h2>Add Employee</h2>
+{{#if error}}
+<div class="alert alert-danger"> <strong> {{error}} </strong></div>
+{{/if}}
+
+<h3 style="margin-top: 35px; margin-bottom: 0;">Personal Information</h3>
+<hr style="margin-top: 5px;">
+
+<form name="addEmployee" method="post" action="/employees/add">
+
+    <div class="form-row">
+        <div class="form-group col-md-6" style="padding-left: 0;">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" id="firstName" name="firstName" required>
+        </div>
+        <div class="form-group col-md-6" style="padding-left: 0;">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" id="lastName" name="lastName" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6" style="padding-left: 0;">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email">
+        </div>
+        <div class="form-group col-md-6" style="padding-left: 0;">
+            <label for="city">City</label>
+            <input type="text" class="form-control" id="city" name="city">
+        </div>
+    </div>
+
+    <h3 style="margin-bottom: 0;">Contact Information</h3>
+    <hr style="margin-top: 5px;">
+
+    <div class="form-row">
+        <div class="form-group col-md-6" style="padding-left: 0;">
+            <label for="empNumber">Employee Number</label>
+            <input type="number" class="form-control" id="empNumber" name="empNumber" required>
+        </div>
+        <div class="form-group col-md-6" style="padding-left: 0;">
+            <label for="hireDate">Hire Date</label>
+            <input type="date" class="form-control" id="hireDate" name="hireDate" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6" style="padding-left: 0;">
+            <label for="status">Status</label>
+            <div class="form-row">
+                <div class="form-check col-md-6">
+                    <input class="form-check-input" type="radio" name="status" id="status1" value="Full Time">
+                    <label class="form-check-label" for="status" style="font-weight: 100;">Full Time</label>
+                </div>
+                <div class="form-check col-md-6">
+                    <input class="form-check-input" type="radio" name="status" id="status2" value="Part Time">
+                    <label class="form-check-label" for="status" style="font-weight: 100;">Part Time</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-6" style="padding-left: 0;">
+            <label for="department">Department</label>
+            {{#if departments}}
+            <select class="form-control" name="department" id="department">
+                {{#each departments}}
+                <option value="{{depNumber}}">{{name}}</option>
+                {{/each}}
+            </select>
+            {{else}}
+            <div>No Departments Available</div>
+            {{/if}}
+        </div>
+    </div>
+
+    <hr class="col-md-12">
+
+    <div class="form-row col-md-12 text-right" style="padding-left: 0;">
+        <button type="submit" class="btn btn-primary">Add Employee</button>
+    </div>
+
+</form>

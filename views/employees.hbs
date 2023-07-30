@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="col-md-12">
+        <h2>Employees
+            <a href="/employees/add" class="btn btn-success pull-right">Add New Employee</a>
+        </h2>
+        <hr />
+
+        {{#if message}}
+        <div scope="row" class="col-md-12 text-center">
+            <strong>{{message}}</strong>
+        </div>
+        {{else}}
+        
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Employee №</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Department</th>
+                        <th scope="col">Hired</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each employees}}
+                    <tr>
+                        <th scope="row">{{empNumber}}</th>
+                        <td><a href="/employee/{{empNumber}}">{{firstName}} {{lastName}}</a></td>
+                        <td>{{email}}</td>
+                        <td>{{city}}</td>
+                        <td><a href="/employees?status={{status}}">{{status}}</a></td>
+                        <td><a href="/employees?department={{department}}">{{department}}</a></td>
+                        <td>{{hireDate}}</td>
+                        <td><a href="/employee/delete/{{empNumber}}" class="btn btn-danger">Remove</a></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        {{/if}}
+    </div>
+</div>
