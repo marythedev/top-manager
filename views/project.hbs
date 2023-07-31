@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <h2>{{project.name}} - Project №{{ project.prjNumber}}</h2>
+        <hr />
+        <form method="post" action="/project/update">
+
+            <input class="form-control" id="prjNumber" name="prjNumber" type="hidden"
+                value="{{ project.prjNumber}}" />
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="name">Project</label>
+                        <input class="form-control" id="name" name="name" type="text" value="{{ project.name}}" />
+                    </div>
+                </div>
+            </div>
+
+            <input type="submit" class="btn btn-primary pull-right" value="Update Project" /><br /><br /><br />
+        </form>
+    </div>
+</div>

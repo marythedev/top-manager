@@ -14,10 +14,9 @@ router.post("/", (req, res) => {
         .then((user) => {
             req.session.user = {
                 username: user.username,
-                email: user.email,
                 history: user.history
             }
-            res.redirect('/employees');
+            res.redirect('/tasks');
         })
         .catch((e) => {
             res.render("login", {

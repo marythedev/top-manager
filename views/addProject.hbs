@@ -1,25 +1,25 @@
-<h2>Add Department</h2>
+<h2>Add Project</h2>
 <br>
 
 {{#if error}}
 <div class="alert alert-danger"> <strong> {{error}} </strong></div>
 {{/if}}
 
-<form method="post" action="/departments/add">
+<form method="post" action="/projects/add">
     
     <div class="form-row">
         <div class="form-group col-md-6" style="padding-left: 0;">
-            <label for="depNumber">Department №</label>
-            <input type="number" class="form-control" id="depNumber" name="depNumber" required>
+            <label for="prjNumber">Project №</label>
+            <input type="number" class="form-control" id="prjNumber" name="prjNumber" required>
         </div>
         <div class="form-group col-md-6" style="padding-left: 0;">
-            <label for="name">Department Name</label>
+            <label for="name">Project Name</label>
             <input type="text" class="form-control" id="name" name="name">
         </div>
     </div>
 
     <div class="form-row col-md-12 text-right" style="padding-left: 0;">
-        <button type="submit" class="btn btn-primary">Add Department</button>
+        <button type="submit" class="btn btn-primary">Add Project</button>
     </div>
     
 </form>

@@ -3,10 +3,10 @@ const { checkAuthorization } = require("./middleware-functions.js");
 
 const loginRoute = require("./routes/login.js");
 const registerRoute = require("./routes/register.js");
-const employeesRoute = require("./routes/employees.js");
-const employeeRoute = require("./routes/employee.js");
-const departmentsRoute = require("./routes/departments.js");
-const departmentRoute = require("./routes/department.js");
+const tasksRoute = require("./routes/tasks.js");
+const taskRoute = require("./routes/task.js");
+const projectsRoute = require("./routes/projects.js");
+const projectRoute = require("./routes/project.js");
 
 const hbs = require('express-handlebars');
 const sessions = require('client-sessions');
@@ -50,8 +50,6 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, './views'));
 
 
-
-
 //start the app
 db.connect()
     .then(() => {
@@ -78,10 +76,10 @@ app.get("/userHistory", checkAuthorization, (req, res) => {
 
 app.use("/login", loginRoute);
 app.use("/register", registerRoute);
-app.use("/employees", employeesRoute);
-app.use("/employee", employeeRoute);
-app.use("/departments", departmentsRoute);
-app.use("/department", departmentRoute);
+app.use("/tasks", tasksRoute);
+app.use("/task", taskRoute);
+app.use("/projects", projectsRoute);
+app.use("/project", projectRoute);
 
 app.get("/logout", (req, res) => {
     req.session.reset();

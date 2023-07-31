@@ -11,7 +11,6 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    "email": String,
     "history": [{
         "dateTime": Date
     }],

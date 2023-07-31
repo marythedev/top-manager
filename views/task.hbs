@@ -1,0 +1,59 @@
+<h2>{{task.name}} - Task №{{task.taskNumber}}</h2>
+
+<form name="updateTask" method="post" action="/task/update">
+
+    <div class="form-row">
+        <div class="form-group col-md-6" style="padding-left: 0;">
+            <label for="name">Name</label>
+            <input class="form-control" id="name" name="name" type="text" value="{{ task.name}}" />
+        </div>
+        <div class="form-group col-md-6" style="padding-left: 0;">
+            <label for="dueDate">Due Date</label>
+            <input type="text" class="form-control" id="dueDate" name="dueDate" value="{{ task.dueDate }}" disabled />
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6" style="padding-left: 0;">
+            <label for="project">Project</label>
+            {{#if projects}}
+            <select class="form-control" name="project" id="project">
+                {{#each projects}}
+                <option value="{{prjNumber}}" {{#if selected}} selected {{/if}}>
+                    {{name}}
+                </option>
+                {{/each}}
+            </select>
+            {{else}}
+            <div>No Projects Available</div>
+            {{/if}}
+        </div>
+        <div class="form-group col-md-6" style="padding-left: 0;">
+            <label for="priority">Priority</label>
+            <div class="form-row">
+                <div class="form-check col-md-4">
+                    <input class="form-check-input" type="radio" name="priority" id="priority1" value="High" {{#eq
+                        task.priority "High" }} checked {{/eq}}>
+                    <label class="form-check-label" for="priority" style="font-weight: 100;">High</label>
+                </div>
+                <div class="form-check col-md-4">
+                    <input class="form-check-input" type="radio" name="priority" id="priority2" value="Medium" {{#eq
+                        task.priority "Medium" }} checked {{/eq}}>
+                    <label class="form-check-label" for="priority" style="font-weight: 100;">Medium</label>
+                </div>
+                <div class="form-check col-md-4">
+                    <input class="form-check-input" type="radio" name="priority" id="priority3" value="Low" {{#eq
+                        task.priority "Low" }} checked {{/eq}}>
+                    <label class="form-check-label" for="priority" style="font-weight: 100;">Low</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="col-md-12">
+
+    <div class="form-row col-md-12 text-right" style="padding-left: 0;">
+        <button type="submit" class="btn btn-primary">Add Task</button>
+    </div>
+
+</form>

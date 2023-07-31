@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
-        <h2>Departments
-            <a href="/departments/add" class="btn btn-success pull-right">Add New Department</a>
+        <h2>Projects
+            <a href="/projects/add" class="btn btn-success pull-right">Add New Project</a>
         </h2>
         <hr>
 
@@ -15,16 +15,16 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Department №</th>
-                        <th scope="col">Department Name</th>
+                        <th scope="col">Project №</th>
+                        <th scope="col">Project Name</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each departments}}
+                    {{#each projects}}
                     <tr>
-                        <th scope="row"><a href="/employees?department={{depNumber}}">{{depNumber}}</a></th>
-                        <td><a href="/department/{{depNumber}}">{{name}}</a></td>
-                        <td><a href="/department/delete/{{depNumber}}" class="btn btn-danger">Remove</a></td>
+                        <th scope="row"><a href="/tasks?project={{prjNumber}}">{{prjNumber}}</a></th>
+                        <td><a href="/project/{{prjNumber}}">{{name}}</a></td>
+                        <td><a href="/project/delete/{{prjNumber}}" class="btn btn-danger">Remove</a></td>
                     </tr>
                     {{/each}}
                 </tbody>
