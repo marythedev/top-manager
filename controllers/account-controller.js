@@ -1,3 +1,6 @@
+const db_task = require("./task-controller.js");
+const db_prj = require("./project-controller.js");
+
 const mongoose = require('mongoose');
 require('dotenv').config();     //for environment variables
 const bcrypt = require('bcryptjs');
@@ -73,7 +76,7 @@ module.exports.updateAccount = (update, session) => {
     return new Promise((res, rej) => {
 
         usersModel.updateOne({ username: update.username },
-            { $set: {"username": update.new_username} })
+            { $set: { "username": update.new_username } })
             .then(() => {
                 session.user.username = update.new_username;
                 res("User updated.");
@@ -87,6 +90,18 @@ module.exports.updateAccount = (update, session) => {
 
 module.exports.deleteAccount = (username) => {
     return new Promise((res, rej) => {
+        db_task.getAllTasks(username)
+            .then((tasks) => {
+                for (const task of tasks)
+                    db_task.deleteTask(username, task.taskNumber);
+            }).catch(() => { rej("Application encountered a problem deleting tasks. Try again later."); });
+
+        db_prj.getAllProjects(username)
+            .then((projects) => {
+                for (const project of projects)
+                    db_prj.deleteProject(username, project.prjNumber);
+            }).catch(() => { rej("Application encountered a problem deleting projects. Try again later."); });
+
         usersModel.deleteOne({ username: username }).exec()
             .then(() => {
                 res("User deleted.");
