@@ -62,7 +62,7 @@ module.exports.updateProject = (update) => {
 
         processInput(update);      //process received data to store in db
 
-        projectsModel.updateMany({ prjNumber: update.prjNumber },
+        projectsModel.updateOne({ prjNumber: update.prjNumber },
             { $set: update })
             .then(() => {
                 res("Project updated.")

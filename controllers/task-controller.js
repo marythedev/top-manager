@@ -84,7 +84,7 @@ module.exports.updateTask = (update) => {
 
         processInput(update);      //process received data to store in db
 
-        tasksModel.updateMany({ taskNumber: update.taskNumber },
+        tasksModel.updateOne({ taskNumber: update.taskNumber },
             { $set: update })
             .then(() => {
                 res("Task updated.");

@@ -1,4 +1,4 @@
-const db_auth = require("../controllers/authorization-controller.js");
+const db_acc = require("../controllers/account-controller.js");
 
 const express = require("express");
 const router = express.Router();
@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
     res.render("register", { title: register_title });
 });
 router.post("/", (req, res) => {
-    db_auth.register(req.body)
+    db_acc.register(req.body)
         .then(() => {
             res.render("register", {
                 success: "User created!",

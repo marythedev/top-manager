@@ -1,0 +1,16 @@
+<h2>Account Details</h2>
+<hr style="margin-top: 5px;">
+
+{{#if error}}
+<div class="alert alert-danger"> <strong> {{error}} </strong> </div>
+{{/if}}
+
+<form name="delete" method="post" action="/account/delete">
+
+    <h4>Please confim that you want to delete your account.</h4>
+    <h4>This action <strong>is not reversible</strong>!</h4>
+
+    <div class="form-row col-md-12 text-right" style="padding-left: 0;">
+        <button type="submit" class="btn btn-primary btn-danger">Delete Account</button>
+    </div>
+</form>

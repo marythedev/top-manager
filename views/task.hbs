@@ -2,6 +2,8 @@
 
 <form name="updateTask" method="post" action="/task/update">
 
+    <input class="form-control" id="tasNumber" name="taskNumber" type="hidden" value="{{ task.taskNumber}}" />
+    
     <div class="form-row">
         <div class="form-group col-md-6" style="padding-left: 0;">
             <label for="name">Name</label>

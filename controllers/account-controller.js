@@ -68,3 +68,31 @@ module.exports.login = (login) => {
 
     });
 }
+
+module.exports.updateAccount = (update, session) => {
+    return new Promise((res, rej) => {
+
+        usersModel.updateOne({ username: update.username },
+            { $set: {"username": update.new_username} })
+            .then(() => {
+                session.user.username = update.new_username;
+                res("User updated.");
+            })
+            .catch((e) => {
+                rej("Application encountered a problem updating user. Try again later." + e);
+            });
+
+    });
+}
+
+module.exports.deleteAccount = (username) => {
+    return new Promise((res, rej) => {
+        usersModel.deleteOne({ username: username }).exec()
+            .then(() => {
+                res("User deleted.");
+            })
+            .catch(() => {
+                rej("Application encountered a problem deleting user. Try again later.");
+            });
+    });
+}

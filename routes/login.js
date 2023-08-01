@@ -1,4 +1,4 @@
-const db_auth = require("../controllers/authorization-controller.js");
+const db_acc = require("../controllers/account-controller.js");
 
 const express = require("express");
 
@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
     res.render("login", { title: login_title });
 });
 router.post("/", (req, res) => {
-    db_auth.login(req.body)
+    db_acc.login(req.body)
         .then((user) => {
             req.session.user = {
                 username: user.username,

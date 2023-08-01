@@ -8,9 +8,9 @@ const project_title = "Project";  //html title for rendered file
 
 router.get('/:prjNumber', checkAuthorization, (req, res) => {
     db_prj.getProjectByNum(req.params.prjNumber)
-        .then((data) => {
-            if (data != undefined)
-                res.render("project", { project: data, title: project_title });
+        .then((project) => {
+            if (project != undefined)
+                res.render("project", { project: project, title: project_title });
             else
                 res.status(404).send("Project Not Found");
         }, (rej) => { throw rej; })
