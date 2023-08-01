@@ -8,9 +8,9 @@ const router = express.Router();
 const task_title = "Task";  //html title for rendered file
 
 router.get("/:taskNumber", checkAuthorization, (req, res) => {
-    db_task.getTaskByNum(req.params.taskNumber)
+    db_task.getTaskByNum(req.session.user.username, req.params.taskNumber)
     .then((task) => {
-        db_prj.getAllProjects()
+        db_prj.getAllProjects(req.session.user.username, req.session.user.username)
         .then((projects) => {
 
             //set selected property for tasks's project
@@ -50,7 +50,7 @@ router.post("/update", checkAuthorization, (req, res) => {
 
 });
 router.get("/delete/:taskNumber", checkAuthorization, (req, res) => {
-    db_task.deleteTask(req.params.taskNumber)
+    db_task.deleteTask(req.session.user.username, req.params.taskNumber)
         .then(() => {
             res.redirect("/tasks");
         }).catch(() => {

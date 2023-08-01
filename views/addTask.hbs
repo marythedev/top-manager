@@ -6,6 +6,8 @@
 
 <form name="addTask" method="post" action="/tasks/add">
 
+    <input class="form-control" id="owner" name="owner" type="hidden" value="{{ username }}" />
+    
     <div class="form-row">
         <div class="form-group col-md-6" style="padding-left: 0;">
             <label for="name">Name</label>

@@ -26,7 +26,7 @@ router.get("/", checkAuthorization, (req, res) => {
 
     //possible priority values: "High", "Medium", "Low"
     if (req.query.priority != undefined) {
-        db_task.getTasksByPriority(req.query.priority)
+        db_task.getTasksByPriority(req.session.user.username, req.query.priority)
             .then((tasks) => displayTasks(tasks, res))
             .catch(() => {
                 res.render("tasks", {
@@ -35,7 +35,7 @@ router.get("/", checkAuthorization, (req, res) => {
                 });
             });
     } else if (req.query.project != undefined) {
-        db_task.getTasksByProject(req.query.project)
+        db_task.getTasksByProject(req.session.user.username, req.query.project)
             .then((tasks) => displayTasks(tasks, res))
             .catch(() => {
                 res.render("tasks", {
@@ -44,7 +44,7 @@ router.get("/", checkAuthorization, (req, res) => {
                 });
             });
     } else {
-        db_task.getAllTasks()
+        db_task.getAllTasks(req.session.user.username)
             .then((tasks) => displayTasks(tasks, res))
             .catch((e) => {
                 console.log(e);
@@ -57,10 +57,11 @@ router.get("/", checkAuthorization, (req, res) => {
 
 });
 router.get("/add", checkAuthorization, (req, res) => {
-    db_prj.getAllProjects()
+    db_prj.getAllProjects(req.session.user.username)
         .then((projects) => {
             res.render("addTask", {
                 projects: projects,
+                username: req.session.user.username,
                 title: addTask_title
             });
         })
@@ -74,11 +75,12 @@ router.post("/add", checkAuthorization, (req, res) => {
             res.redirect("/tasks")
         })
         .catch((e) => {
-            db_prj.getAllProjects()
+            db_prj.getAllProjects(req.session.user.username)
                 .then((projects) => {
                     res.render("addTask", {
                         error: e,
                         projects: projects,
+                        username: req.session.user.username,
                         title: addTask_title
                     });
                 })

@@ -7,6 +7,7 @@ const taskSchema = new Schema({
         unique: true,
         required: true
     },
+    owner: String,
     name: {
         type: String,
         required: true

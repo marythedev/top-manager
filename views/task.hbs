@@ -2,8 +2,9 @@
 
 <form name="updateTask" method="post" action="/task/update">
 
-    <input class="form-control" id="tasNumber" name="taskNumber" type="hidden" value="{{ task.taskNumber}}" />
-    
+    <input class="form-control" id="taskNumber" name="taskNumber" type="hidden" value="{{ task.taskNumber}}" />
+    <input class="form-control" id="owner" name="owner" type="hidden" value="{{ task.owner}}" />
+
     <div class="form-row">
         <div class="form-group col-md-6" style="padding-left: 0;">
             <label for="name">Name</label>
@@ -55,7 +56,7 @@
     <hr class="col-md-12">
 
     <div class="form-row col-md-12 text-right" style="padding-left: 0;">
-        <button type="submit" class="btn btn-primary">Add Task</button>
+        <button type="submit" class="btn btn-primary">Update Task</button>
     </div>
 
 </form>

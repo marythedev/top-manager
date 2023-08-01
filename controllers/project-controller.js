@@ -11,9 +11,9 @@ const processInput = (project) => {
     }
 }
 
-module.exports.getAllProjects = () => {
+module.exports.getAllProjects = (username) => {
     return new Promise((res, rej) => {
-        projectsModel.find().lean()
+        projectsModel.find({ owner: username }).lean()
             .then((projects) => {
                 res(projects);
             })
@@ -23,10 +23,10 @@ module.exports.getAllProjects = () => {
     });
 }
 
-module.exports.getProjectByNum = (prjNumber) => {
+module.exports.getProjectByNum = (username, prjNumber) => {
     return new Promise((res, rej) => {
 
-        projectsModel.findOne({ prjNumber: prjNumber }).lean().exec()
+        projectsModel.findOne({ owner: username, prjNumber: prjNumber }).lean().exec()
             .then((project) => {
                 res(project);
             })
@@ -53,7 +53,7 @@ module.exports.addProject = (project) => {
                 else
                     rej(`Problems creating Project: ${e}`);
             });
-        
+
     });
 }
 
@@ -62,7 +62,7 @@ module.exports.updateProject = (update) => {
 
         processInput(update);      //process received data to store in db
 
-        projectsModel.updateOne({ prjNumber: update.prjNumber },
+        projectsModel.updateOne({ owner: update.owner, prjNumber: update.prjNumber },
             { $set: update })
             .then(() => {
                 res("Project updated.")
@@ -74,9 +74,9 @@ module.exports.updateProject = (update) => {
     });
 }
 
-module.exports.deleteProject = (prjNumber) => {
+module.exports.deleteProject = (username, prjNumber) => {
     return new Promise((res, rej) => {
-        projectsModel.deleteOne({ prjNumber: prjNumber }).exec()
+        projectsModel.deleteOne({ owner: username, prjNumber: prjNumber }).exec()
             .then(() => {
                 res("Project deleted.");
             })

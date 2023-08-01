@@ -11,9 +11,9 @@ const processInput = (task) => {
     }
 }
 
-module.exports.getAllTasks = () => {
+module.exports.getAllTasks = (username) => {
     return new Promise((res, rej) => {
-        tasksModel.find().lean()
+        tasksModel.find({owner: username}).lean()
             .then((tasks) => {
                 res(tasks);
             })
@@ -23,9 +23,9 @@ module.exports.getAllTasks = () => {
     });
 }
 
-module.exports.getTasksByPriority = (priority) => {
+module.exports.getTasksByPriority = (username, priority) => {
     return new Promise((res, rej) => {
-        tasksModel.find({ priority: priority }).lean().exec()
+        tasksModel.find({ owner: username, priority: priority }).lean().exec()
             .then((tasks) => {
                 res(tasks);
             })
@@ -35,9 +35,9 @@ module.exports.getTasksByPriority = (priority) => {
     });
 }
 
-module.exports.getTasksByProject = (project) => {
+module.exports.getTasksByProject = (username, project) => {
     return new Promise((res, rej) => {
-        tasksModel.find({ project: project }).lean().exec()
+        tasksModel.find({ owner: username, project: project }).lean().exec()
             .then((tasks) => {
                 res(tasks);
             })
@@ -47,9 +47,9 @@ module.exports.getTasksByProject = (project) => {
     });
 }
 
-module.exports.getTaskByNum = (taskNumber) => {
+module.exports.getTaskByNum = (username, taskNumber) => {
     return new Promise((res, rej) => {
-        tasksModel.findOne({ taskNumber: taskNumber }).lean().exec()
+        tasksModel.findOne({ owner: username, taskNumber: taskNumber }).lean().exec()
             .then((task) => {
                 res(task);
             })
@@ -84,7 +84,7 @@ module.exports.updateTask = (update) => {
 
         processInput(update);      //process received data to store in db
 
-        tasksModel.updateOne({ taskNumber: update.taskNumber },
+        tasksModel.updateOne({ owner: update.owner, taskNumber: update.taskNumber },
             { $set: update })
             .then(() => {
                 res("Task updated.");
@@ -96,9 +96,9 @@ module.exports.updateTask = (update) => {
     });
 }
 
-module.exports.deleteTask = (taskNumber) => {
+module.exports.deleteTask = (username, taskNumber) => {
     return new Promise((res, rej) => {
-        tasksModel.deleteOne({ taskNumber: taskNumber }).exec()
+        tasksModel.deleteOne({ owner: username, taskNumber: taskNumber }).exec()
             .then(() => {
                 res("Task deleted.");
             })

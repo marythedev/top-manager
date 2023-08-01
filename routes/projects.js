@@ -9,7 +9,7 @@ const projects_title = "Projects";
 const addProject_title = "Add Project";
 
 router.get("/", checkAuthorization, (req, res) => {
-    db_prj.getAllProjects()
+    db_prj.getAllProjects(req.session.user.username)
         .then((projects) => {
             if (projects.length == 0)
                 res.render("projects", {
@@ -32,7 +32,8 @@ router.get("/", checkAuthorization, (req, res) => {
 });
 router.get("/add", checkAuthorization, (req, res) => {
     res.render("addProject", { 
-        title: addProject_title 
+        username: req.session.user.username,
+        title: addProject_title
     });
 });
 router.post("/add", checkAuthorization, (req, res) => {
@@ -43,6 +44,7 @@ router.post("/add", checkAuthorization, (req, res) => {
         .catch((e) => {
             res.render("addProject", {
                 error: e,
+                username: req.session.user.username,
                 title: addProject_title
             });
         });

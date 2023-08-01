@@ -7,6 +7,7 @@ const projectSchema = new Schema({
         unique: true,
         required: true
     },
+    owner: String,
     name: String
 });
 

@@ -7,7 +7,7 @@ const router = express.Router();
 const project_title = "Project";  //html title for rendered file
 
 router.get('/:prjNumber', checkAuthorization, (req, res) => {
-    db_prj.getProjectByNum(req.params.prjNumber)
+    db_prj.getProjectByNum(req.session.user.username, req.params.prjNumber)
         .then((project) => {
             if (project != undefined)
                 res.render("project", { project: project, title: project_title });
@@ -30,7 +30,7 @@ router.post("/update", checkAuthorization, (req, res) => {
 
 });
 router.get("/delete/:prjNumber", checkAuthorization, (req, res) => {
-    db_prj.deleteProject(req.params.prjNumber)
+    db_prj.deleteProject(req.session.user.username, req.params.prjNumber)
         .then(() => {
             res.redirect("/projects");
         }).catch(() => {
