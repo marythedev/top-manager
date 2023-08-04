@@ -1,4 +1,4 @@
-# top-manager
+# Top-manager
 
 ### Environmental variables
 1. MONGODB_URI = mongodb+srv://uri
