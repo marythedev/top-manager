@@ -3,62 +3,66 @@
 
 <head>
     <title>{{ title }}</title>
+
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles/main-style.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/about">About</a></li>
-                </ul>
-                {{#if session.user}}
-                <form class="navbar-form navbar-right">
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="userMenu"
-                            data-toggle="dropdown">
-                            <span class="glyphicon glyphiconuser">{{session.user.username}}</span>
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="userMenu">
-                            <li><a href="/account">My Account</a></li>
-                            <li><a href="/account/history">Login History</a></li>
-                            <li><a href="/logout">Log Out</a></li>
-                        </ul>
-                    </div>
-                </form>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/tasks">Tasks</a></li>
-                    <li><a href="/projects">Projects</a></li>
-                </ul>
-                {{else}}
-                <form class="navbar-form navbar-right">
-                    <a href="/register" class="btn btn-success">Register</a>
-                    <a href="/login" class="btn btn-primary">Login</a>
-                </form>
-                {{/if}}
+    <nav class="justify-content align-center">
+        <div>
+            {{#if session.user}}
+            <ul class="justify-content">
+                <li><a href="/projects">Projects</a></li>
+                <li><a href="/tasks">Tasks</a></li>
+            </ul>
+            {{else}}
+            <ul class="justify-content">
+                <li><a href="/contact">Contact Us</a></li> <!--Implement this route-->
+            </ul>
+            {{/if}}
 
-
+        </div>
+        <a href="/">
+            <div class="justify-content align-center">
+                <img id="logo" src="logo.png">
+                <h1>TopManager</h1>
             </div>
+        </a>
+        <div>
+            {{#if session.user}}
+            <div>
+                <ul class="justify-content align-center">
+                    <li id="username">{{session.user.username}}</li>
+                    <img id="avatar" src="avatar.png">
+                </ul>
+                {{!-- <ul>
+                    <li><a href="/account">My Account</a></li>
+                    <li><a href="/contact">Contact Us</a></li> <!--Implement this route-->
+                    <li><a href="/logout">Logout</a></li>
+                </ul> --}}
+            </div>
+            {{else}}
+            <ul>
+                <li><button href="/login">Login</button></li>
+                <li><a href="/signup">Sign Up</a></li> <!--Update this route-->
+            </ul>
+
+            {{/if}}
+
         </div>
     </nav>
 
     <div class="container">
         {{{body}}}
     </div>
-
-    <!-- jQuery libraries -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
-        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
-        crossorigin="anonymous"></script>
 
 </body>
 
