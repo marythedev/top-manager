@@ -19,6 +19,21 @@
     align-items: center;
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.grow-on-hover {
+    transition: all 0.2s ease-in-out;
+    backface-visibility: hidden;
+
+}
+
+.grow-on-hover:hover {
+    transform: scale(1.1);
+    color: #363636;
+}
+
 
 /*Navbar*/
 nav * {
@@ -39,13 +54,23 @@ nav h1 {
     padding: 0 12px;
 }
 
+nav li,
 nav li * {
     color: #9C9C9C;
     font-size: 16px;
 }
 
 nav li#username {
+    color: #000000;
     font-weight: bold;
+}
+
+nav li#login-button {
+    padding: 4px 24px;
+    margin: 0 12px;
+    border-radius: 50px;
+    background: linear-gradient(180deg, #A128EC 0%, rgba(161, 40, 236, 0.50) 100%);
+    color: white;
 }
 
 nav img#logo {
