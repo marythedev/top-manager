@@ -37,17 +37,26 @@
             </div>
         </a>
         <div>
+
             {{#if session.user}}
-            <div>
-                <ul class="justify-content align-center">
+            <div class="dropdown" tabindex="0">
+                <ul class="justify-content align-center ">
                     <li id="username">{{session.user.username}}</li>
                     <img id="avatar" src="avatar.png">
+                    <hr style="background-color: black;">
                 </ul>
-                {{!-- <ul>
+                <ul class="dropdown-content">
                     <li><a href="/account">My Account</a></li>
+                    <li>
+                        <hr class="hr">
+                    </li>
                     <li><a href="/contact">Contact Us</a></li> <!--Implement this route-->
+                    <li>
+                        <hr class="hr">
+                    </li>
                     <li><a href="/logout">Logout</a></li>
-                </ul> --}}
+                </ul>
+                </ul>
             </div>
             {{else}}
             <ul>
@@ -57,12 +66,25 @@
 
             {{/if}}
 
+
         </div>
     </nav>
 
     <div class="container">
         {{{body}}}
     </div>
+
+    <script>
+        const dropdown = document.getElementsByClassName("dropdown")[0];
+        const dropdownContent = document.getElementsByClassName("dropdown-content")[0];
+        
+        dropdown.addEventListener("focus", function () {
+            dropdownContent.style.display = "block";
+        });
+        dropdown.addEventListener("blur", function () {
+            dropdownContent.style.display = "none";
+        });
+    </script>
 
 </body>
 
