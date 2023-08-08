@@ -16,22 +16,22 @@
 </head>
 
 <body>
-    <nav class="justify-content align-center">
+    <nav class="justify-space-between align-center">
         <div>
             {{#if session.user}}
-            <ul class="justify-content">
+            <ul class="justify-space-between">
                 <li><a href="/projects">Projects</a></li>
                 <li><a href="/tasks">Tasks</a></li>
             </ul>
             {{else}}
-            <ul class="justify-content">
+            <ul class="justify-space-between">
                 <li><a href="/contact">Contact Us</a></li> <!--Implement this route-->
             </ul>
             {{/if}}
 
         </div>
         <a href="/">
-            <div class="justify-content align-center">
+            <div class="justify-space-between align-center">
                 <img id="logo" src="logo.png">
                 <h1>TopManager</h1>
             </div>
@@ -40,7 +40,7 @@
 
             {{#if session.user}}
             <div class="dropdown" tabindex="0">
-                <ul class="justify-content align-center cursor-pointer">
+                <ul class="justify-space-between align-center cursor-pointer">
                     <li id="username">{{session.user.username}}</li>
                     <img id="avatar" src="avatar.png">
                 </ul>
@@ -58,7 +58,7 @@
                 </ul>
             </div>
             {{else}}
-            <ul class="justify-content align-center">
+            <ul class="justify-space-between align-center">
                 <a href="/login"><li id="login-button">Login</li></a>
                 <li><a href="/signup">Sign Up</a></li> <!--Update this route-->
             </ul>
@@ -80,20 +80,20 @@
         const contact = document.getElementById("contact");
         const logout = document.getElementById("logout");
         
-        dropdown.addEventListener("focus", function () {
+        dropdown.addEventListener("focus", () => {
             dropdownContent.style.display = "block";
         });
-        dropdown.addEventListener("blur", function () {
+        dropdown.addEventListener("blur", () => {
             dropdownContent.style.display = "none";
         });
 
-        account.addEventListener("click", function () {
+        account.addEventListener("click", () => {
             window.location.href = "/account";
         });
-        contact.addEventListener("click", function () {
+        contact.addEventListener("click", () => {
             window.location.href = "/contact";
         });
-        logout.addEventListener("click", function () {
+        logout.addEventListener("click", () => {
             window.location.href = "/logout";
         });
 
