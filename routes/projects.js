@@ -13,7 +13,7 @@ router.get("/", checkAuthorization, (req, res) => {
         .then((projects) => {
             if (projects.length == 0)
                 res.render("projects", {
-                    message: "No results",
+                    message: "You have no projects yet!",
                     title: projects_title
                 });
             else

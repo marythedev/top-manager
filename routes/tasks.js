@@ -12,7 +12,7 @@ const addTask_title = "Add Task";
 const displayTasks = (tasks, res) => {
     if (tasks.length == 0)
         res.render("tasks", {
-            message: "No results",
+            message: "You have no tasks yet!",
             title: tasks_title
         });
     else

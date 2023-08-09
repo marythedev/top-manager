@@ -1,42 +1,42 @@
-<div class="row">
-    <div class="col-md-12">
-        <h2>Tasks
-            <a href="/tasks/add" class="btn btn-success pull-right">Add New Task</a>
-        </h2>
-        <hr />
-
-        {{#if message}}
-        <div scope="row" class="col-md-12 text-center">
-            <strong>{{message}}</strong>
-        </div>
-        {{else}}
-        
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Task №</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Priority</th>
-                        <th scope="col">Project</th>
-                        <th scope="col">Due</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each tasks}}
-                    <tr>
-                        <th scope="row">{{taskNumber}}</th>
-                        <td><a href="/task/{{taskNumber}}">{{name}}</a></td>
-                        <td><a href="/tasks?priority={{priority}}">{{priority}}</a></td>
-                        <td><a href="/tasks?project={{project}}">{{project}}</a></td>
-                        <td>{{dueDate}}</td>
-                        <td><a href="/task/delete/{{taskNumber}}" class="btn btn-danger">Remove</a></td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-        </div>
-        {{/if}}
-    </div>
+{{#if message}}
+<div id="no-tasks">
+    <h1>{{message}}</h1>
+    <img src="guy-with-guitar.png">
+    <p class="tiny-text">Try adding one</p>
+    <a class="add-button" href="/projects/add">
+        <img src="add-icon.png">
+    </a>
 </div>
+{{else}}
+
+<h2>Tasks
+    <a href="/tasks/add" class="btn btn-success pull-right">Add New Task</a>
+</h2>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Task №</th>
+                <th scope="col">Name</th>
+                <th scope="col">Priority</th>
+                <th scope="col">Project</th>
+                <th scope="col">Due</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each tasks}}
+            <tr>
+                <th scope="row">{{taskNumber}}</th>
+                <td><a href="/task/{{taskNumber}}">{{name}}</a></td>
+                <td><a href="/tasks?priority={{priority}}">{{priority}}</a></td>
+                <td><a href="/tasks?project={{project}}">{{project}}</a></td>
+                <td>{{dueDate}}</td>
+                <td><a href="/task/delete/{{taskNumber}}" class="btn btn-danger">Remove</a></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+{{/if}}

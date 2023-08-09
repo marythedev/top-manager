@@ -252,21 +252,43 @@ nav img#avatar {
     font-weight: 700;
 }
 
-/*404 Page*/
-#page404 {
+/*404 Page, No Projects, No Tasks*/
+#page404,
+#no-projects,
+#no-tasks {
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100%;
 }
 
-#page404>h1 {
+#page404>h1,
+#no-projects>h1,
+#no-tasks>h1 {
     font-size: 20px;
     margin-top: 84px;
 }
 
-#page404>img {
+#page404>img,
+#no-projects>img,
+#no-tasks>img {
     width: 320px;
+}
+
+.add-button {
+    width: 42px;
+    height: 42px;
+    background-color: #FFB61D;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 12px;
+}
+
+.add-button > img {
+    width: 20px;
+    height: 20px;
 }
 
 /*Home Page*/
