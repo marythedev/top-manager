@@ -59,7 +59,9 @@
             </div>
             {{else}}
             <ul class="justify-space-between align-center">
-                <a href="/login"><li id="login-button">Login</li></a>
+                <a href="/login">
+                    <li id="login-button">Login</li>
+                </a>
                 <li><a href="/signup">Sign Up</a></li> <!--Update this route-->
             </ul>
 
@@ -69,9 +71,7 @@
         </div>
     </nav>
 
-    <div class="container">
-        {{{body}}}
-    </div>
+    {{{body}}}
 
     <script>
         const dropdown = document.getElementsByClassName("dropdown")[0];
@@ -79,7 +79,7 @@
         const account = document.getElementById("account");
         const contact = document.getElementById("contact");
         const logout = document.getElementById("logout");
-        
+
         dropdown.addEventListener("focus", () => {
             dropdownContent.style.display = "block";
         });

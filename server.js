@@ -69,9 +69,6 @@ db.connect()
 app.get("/", (req, res) => {
     res.render("home", { title: "Home" });
 });
-app.get("/about", (req, res) => {
-    res.render("about", { title: "About" });
-});
 
 app.use("/login", loginRoute);
 app.use("/register", registerRoute);
@@ -86,5 +83,5 @@ app.get("/logout", (req, res) => {
     res.redirect('/');
 });
 app.get("/*", (req, res) => {
-    res.status(404).send("<h1>404 Page Not Found :(</h1>");
+    res.status(404).render("page404", { title: "Not Found" });
 });
