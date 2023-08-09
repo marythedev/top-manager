@@ -7,6 +7,7 @@
     color: black;
     font-family: 'Lato', sans-serif;
     background-color: transparent;
+    text-decoration: none;
 }
 
 html,
@@ -53,7 +54,6 @@ body {
 /*Navbar*/
 nav * {
     list-style: none;
-    text-decoration: none;
     border: none;
 }
 
@@ -185,14 +185,23 @@ nav img#avatar {
     margin-bottom: 21px;
 }
 
-.card-header {
+.mid-text {
     font-size: 16px;
     margin-bottom: 4px;
 }
 
-.card-paragraph {
+.small-text {
     font-size: 14px;
     color: #9C9C9C;
+}
+
+.tiny-text {
+    font-size: 12px;
+    color: #9C9C9C;
+}
+
+.center {
+    text-align: center;
 }
 
 /*404 Page*/
@@ -239,3 +248,4 @@ nav img#avatar {
 #home .side-header {
     font-size: 20px;
 }
+
