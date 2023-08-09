@@ -2,7 +2,7 @@ const db = require("./controllers/db-connection-controller.js");
 const { checkAuthorization } = require("./middleware-functions.js");
 
 const loginRoute = require("./routes/login.js");
-const registerRoute = require("./routes/register.js");
+const signupRoute = require("./routes/signup.js");
 const accountRoute = require("./routes/account.js");
 const tasksRoute = require("./routes/tasks.js");
 const taskRoute = require("./routes/task.js");
@@ -71,7 +71,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/login", loginRoute);
-app.use("/register", registerRoute);
+app.use("/signup", signupRoute);
 app.use("/account", accountRoute);
 app.use("/tasks", tasksRoute);
 app.use("/task", taskRoute);

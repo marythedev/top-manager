@@ -8,7 +8,7 @@ const bcrypt = require('bcryptjs');
 const userSchema = require('../model/User');
 const usersModel = mongoose.model(process.env.USER_COLLECTION, userSchema);
 
-module.exports.register = (user) => {
+module.exports.signup = (user) => {
     return new Promise((res, rej) => {
         if (user.password == "" || user.password.match(/^ *$/) !== null
             || user.confirm_password == "" || user.confirm_password.match(/^ *$/) !== null)
@@ -19,10 +19,11 @@ module.exports.register = (user) => {
             bcrypt.hash(user.password, 8)
                 .then((hash) => {
                     user.password = hash;
+                    user.history = [{dateTime: (new Date()).toString()}];
                     const newUser = new usersModel(user);
                     newUser.save()
                         .then(() => {
-                            res("User created.");
+                            res(newUser);
                         })
                         .catch((e) => {
                             if (e.code == 11000)    //duplicate entry
@@ -32,7 +33,7 @@ module.exports.register = (user) => {
                         });
                 })
                 .catch(() => {
-                    rej("Application encountered a problem processing registration data. Try again later.");
+                    rej("Application encountered a problem processing signup data. Try again later.");
                 });
         }
 
