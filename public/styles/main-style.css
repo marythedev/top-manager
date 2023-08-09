@@ -207,13 +207,14 @@ nav img#avatar {
     text-align: center;
 }
 
-.card form > div {
+.card form>div {
     text-align: left;
     margin: 24px 36px;
 }
 
 .card .label {
     font-size: 14px;
+    margin-bottom: 4px;
 }
 
 .card input,
@@ -246,7 +247,7 @@ nav img#avatar {
     height: 48px;
     border-radius: 10px;
     border: none;
-    background-color: rgba(255,182,29, 0.65);
+    background-color: rgba(255, 182, 29, 0.65);
     font-size: 16px;
     font-weight: 700;
 }
@@ -313,13 +314,28 @@ nav img#avatar {
 #login .card,
 #login .error,
 #signup .card,
-#signup .error  {
+#signup .error {
     width: 320px;
     margin-top: 36px;
 }
 
 #login .card .big-text,
-#signup .card .big-text  {
+#signup .card .big-text {
     margin: 36px 0;
 }
 
+#login .card button,
+#signup .card button {
+    margin-bottom: 4px;
+}
+
+#login .card .tiny-text,
+#signup .card .tiny-text {
+    margin-bottom: 36px;
+}
+
+#login .card .tiny-text a,
+#signup .card .tiny-text a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
