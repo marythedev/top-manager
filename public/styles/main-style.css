@@ -35,6 +35,29 @@ body {
     flex-direction: column;
 }
 
+.center {
+    text-align: center;
+}
+
+.big-text {
+    font-size: 20px;
+}
+
+.mid-text {
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.small-text {
+    font-size: 14px;
+    color: #9C9C9C;
+}
+
+.tiny-text {
+    font-size: 12px;
+    color: #9C9C9C;
+}
+
 .cursor-pointer {
     cursor: pointer;
 }
@@ -49,6 +72,8 @@ body {
     transform: scale(1.1);
     color: #363636;
 }
+
+
 
 
 /*Navbar*/
@@ -176,32 +201,54 @@ nav img#avatar {
 
 /*Card Design*/
 .card {
-    width: 240px;
     border-radius: 15px;
     background-color: white;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
     text-align: center;
-    padding: 24px;
-    margin-bottom: 21px;
 }
 
-.mid-text {
-    font-size: 16px;
-    margin-bottom: 4px;
+.card form > div {
+    text-align: left;
+    margin: 24px 36px;
 }
 
-.small-text {
+.card .label {
     font-size: 14px;
-    color: #9C9C9C;
 }
 
-.tiny-text {
-    font-size: 12px;
-    color: #9C9C9C;
+.card input,
+.card button {
+    width: 248px;
+    height: 36px;
+    border-radius: 10px;
+    border: 1px solid #000;
 }
 
-.center {
-    text-align: center;
+.card input {
+    padding: 0 12px;
+    font-size: 16px;
+}
+
+.card button {
+    background-color: #A128EC;
+    border: none;
+    color: #FFF;
+    font-size: 16px;
+    margin: 24px 36px;
+    margin-bottom: 36px;
+}
+
+/*Error Message*/
+.error {
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    height: 48px;
+    border-radius: 10px;
+    border: none;
+    background-color: rgba(255,182,29, 0.65);
+    font-size: 16px;
+    font-weight: 700;
 }
 
 /*404 Page*/
@@ -247,5 +294,28 @@ nav img#avatar {
 
 #home .side-header {
     font-size: 20px;
+}
+
+#home .card {
+    width: 240px;
+    padding: 24px;
+    margin-bottom: 21px;
+}
+
+/*Login Page*/
+#login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#login .card,
+#login .error {
+    width: 320px;
+    margin-top: 36px;
+}
+
+#login .card .big-text {
+    margin: 36px 0;
 }
 
