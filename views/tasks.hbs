@@ -132,36 +132,27 @@
     </a>
 </div>
 {{else}}
-<!--Disregard this part for now-->
-<h2>Tasks
-    <a href="/tasks/add" id="open-add-task-popup">Add New Task</a>
-</h2>
-
-<div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Task №</th>
-                <th scope="col">Name</th>
-                <th scope="col">Priority</th>
-                <th scope="col">Project</th>
-                <th scope="col">Due</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each tasks}}
-            <tr>
-                <th scope="row">{{taskNumber}}</th>
-                <td><a href="/task/{{taskNumber}}">{{name}}</a></td>
-                <td><a href="/tasks?priority={{priority}}">{{priority}}</a></td>
-                <td><a href="/tasks?project={{project}}">{{project}}</a></td>
-                <td>{{dueDate}}</td>
-                <td><a href="/task/delete/{{taskNumber}}" class="btn btn-danger">Remove</a></td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
+<!--Tasks-->
+<div id="tasks">
+    <div class="header-row align-center">
+        <div class="flex-row align-center">
+            <h2 class="big-text">Tasks</h2>
+            <img src="sort-icon.png" id="sort">
+        </div>
+        <a id="open-add-task-popup">
+            <img src="add-icon-white.png">
+        </a>
+    </div>
+    <div class="task-cards">
+        {{#each tasks}}
+        <div class="card">
+            <h3 class="mid-text">{{name}}</h3>
+            <p class="small-text">{{dueDate}}</p>
+            <p class="small-text">{{project}}</p>
+            <a href="/task/delete/{{taskNumber}}">Remove</a>
+        </div>
+        {{/each}}
+    </div>
 </div>
 
 <!---->

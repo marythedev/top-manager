@@ -64,30 +64,27 @@
     </a>
 </div>
 {{else}}
-<!--Disregard this part for now-->
-<h2>Projects
-    <a href="/projects/add" class="btn btn-success pull-right">Add New Project</a>
-</h2>
-<div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Project №</th>
-                <th scope="col">Project Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each projects}}
-            <tr>
-                <th scope="row"><a href="/tasks?project={{prjNumber}}">{{prjNumber}}</a></th>
-                <td><a href="/project/{{prjNumber}}">{{name}}</a></td>
-                <td><a href="/project/delete/{{prjNumber}}" class="btn btn-danger">Remove</a></td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
+<!--Projects-->
+<div id="projects">
+    <div class="header-row align-center">
+        <div class="flex-row align-center">
+            <h2 class="big-text">Projects</h2>
+            <img src="sort-icon.png" id="sort">
+        </div>
+        <a id="open-add-project-popup">
+            <img src="add-icon-white.png">
+        </a>
+    </div>
+    <div class="project-cards">
+        {{#each projects}}
+        <div class="card">
+            <h3 class="mid-text">{{name}}</h3>
+            <p class="small-text">Closest due date: </p>
+            <a href="/project/delete/{{prjNumber}}" class="btn btn-danger">Remove</a>
+        </div>
+        {{/each}}
+    </div>
 </div>
-<!---->
 {{/if}}
 
 <script>
