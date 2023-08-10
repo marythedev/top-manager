@@ -15,7 +15,7 @@ router.get("/:taskNumber", checkAuthorization, (req, res) => {
 
             //set selected property for tasks's project
             for (const project in projects) {
-                if (project.prjNumber == task.project) {
+                if (project._id == task.project) {
                     project.selected = true;
                     break;
                 }

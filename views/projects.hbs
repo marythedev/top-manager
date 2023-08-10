@@ -1,33 +1,4 @@
 <!--Add Project Popup-->
-{{#if error}}
-<div id="add-project-popup" class="active">
-
-    <div class="nav-height"></div>
-
-    <div class="error"> {{error}}</div>
-
-    <div class="card">
-        <h2 class="big-text">New Project</h2>
-        <form method="post" name="add-project" action="/projects">
-            <input id="owner" name="owner" type="hidden" value="{{ username }}" />
-            <div>
-                <p class="label">Project №</p>
-                <input type="number" id="prjNumber" name="prjNumber" required>
-            </div>
-            <div>
-                <p class="label">Name</p>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="button">
-                <button>Add project</button>
-                <img src="cancel-icon.svg" id="close-add-project-popup">
-            </div>
-
-        </form>
-    </div>
-</div>
-{{/if}}
-
 <div id="add-project-popup">
 
     <div class="nav-height"></div>
@@ -36,13 +7,10 @@
         <h2 class="big-text">New Project</h2>
         <form method="post" name="add-project" action="/projects">
             <input id="owner" name="owner" type="hidden" value="{{ username }}" />
-            <div>
-                <p class="label">Project №</p>
-                <input type="number" id="prjNumber" name="prjNumber" required>
-            </div>
+
             <div>
                 <p class="label">Name</p>
-                <input type="text" id="name" name="name" required>
+                <input type="text" id="name" name="name" autocomplete="off" required>
             </div>
             <div class="button">
                 <button>Add project</button>
@@ -80,7 +48,7 @@
         <div class="card">
             <h3 class="mid-text">{{name}}</h3>
             <p class="small-text">Closest due date: </p>
-            <a href="/project/delete/{{prjNumber}}" class="btn btn-danger">Remove</a>
+            <a href="/project/delete/{{_id}}">Remove</a>
         </div>
         {{/each}}
     </div>

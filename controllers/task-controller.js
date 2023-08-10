@@ -47,18 +47,6 @@ module.exports.getTasksByProject = (username, project) => {
     });
 }
 
-module.exports.getTaskByNum = (username, taskNumber) => {
-    return new Promise((res, rej) => {
-        tasksModel.findOne({ owner: username, taskNumber: taskNumber }).lean().exec()
-            .then((task) => {
-                res(task);
-            })
-            .catch(() => {
-                rej(`Task №${taskNumber} was not found.`);
-            });
-    });
-}
-
 module.exports.addTask = (task) => {
     return new Promise((res, rej) => {
 
@@ -84,7 +72,7 @@ module.exports.updateTask = (update) => {
 
         processInput(update);      //process received data to store in db
 
-        tasksModel.updateOne({ owner: update.owner, taskNumber: update.taskNumber },
+        tasksModel.updateOne({ owner: update.owner, _id: update._id },
             { $set: update })
             .then(() => {
                 res("Task updated.");
@@ -96,9 +84,9 @@ module.exports.updateTask = (update) => {
     });
 }
 
-module.exports.deleteTask = (username, taskNumber) => {
+module.exports.deleteTask = (username, _id) => {
     return new Promise((res, rej) => {
-        tasksModel.deleteOne({ owner: username, taskNumber: taskNumber }).exec()
+        tasksModel.deleteOne({ owner: username, _id: _id }).exec()
             .then(() => {
                 res("Task deleted.");
             })

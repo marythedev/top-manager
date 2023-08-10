@@ -17,23 +17,7 @@ module.exports.getAllProjects = (username) => {
             .then((projects) => {
                 res(projects);
             })
-            .catch(() => {
-                rej("No results returned.");
-            });
-    });
-}
-
-module.exports.getProjectByNum = (username, prjNumber) => {
-    return new Promise((res, rej) => {
-
-        projectsModel.findOne({ owner: username, prjNumber: prjNumber }).lean().exec()
-            .then((project) => {
-                res(project);
-            })
-            .catch(() => {
-                rej(`Project №${prjNumber} was not found.`);
-            });
-
+            .catch(() => { rej(); });
     });
 }
 
@@ -44,42 +28,35 @@ module.exports.addProject = (project) => {
 
         const newProject = new projectsModel(project);
         newProject.save()
-            .then(() => {
-                res("Project created.");
-            })
+            .then(() => { res(); })
             .catch((e) => {
-                if (e.code == 11000)    //duplicate entry
-                    rej("Project № should be unique.");
-                else
-                    rej(`Problems creating Project: ${e}`);
+                rej(`Problems creating Project: ${e}`);
             });
 
     });
 }
 
-module.exports.updateProject = (update) => {
+// module.exports.updateProject = (update) => {
+//     return new Promise((res, rej) => {
+
+//         processInput(update);      //process received data to store in db
+
+//         projectsModel.updateOne({ owner: update.owner, _id: update._id },
+//             { $set: update })
+//             .then(() => {
+//                 res("Project updated.")
+//             })
+//             .catch(() => {
+//                 rej("Application encountered a problem updating project. Try again later.");
+//             });
+
+//     });
+// }
+
+module.exports.deleteProject = (username, _id) => {
     return new Promise((res, rej) => {
-
-        processInput(update);      //process received data to store in db
-
-        projectsModel.updateOne({ owner: update.owner, prjNumber: update.prjNumber },
-            { $set: update })
-            .then(() => {
-                res("Project updated.")
-            })
-            .catch(() => {
-                rej("Application encountered a problem updating project. Try again later.");
-            });
-
-    });
-}
-
-module.exports.deleteProject = (username, prjNumber) => {
-    return new Promise((res, rej) => {
-        projectsModel.deleteOne({ owner: username, prjNumber: prjNumber }).exec()
-            .then(() => {
-                res("Project deleted.");
-            })
+        projectsModel.deleteOne({ owner: username, _id: _id }).exec()
+            .then(() => { res(); })
             .catch(() => {
                 rej("Application encountered a problem deleting project. Try again later.");
             });

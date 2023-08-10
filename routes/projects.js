@@ -7,28 +7,32 @@ const router = express.Router();
 //html titles for rendered files
 const projects_title = "Projects";
 
+const renderNoProjects = (res, message, username, title) => {
+    res.render("projects", {
+        message: message,
+        username: username,
+        title: title
+    });
+}
+
+const renderProjects = (res, projects, username, title) => {
+    res.render("projects", {
+        projects: projects,
+        username: username,
+        title: title
+    });
+}
+
 router.get("/", checkAuthorization, (req, res) => {
     db_prj.getAllProjects(req.session.user.username)
         .then((projects) => {
             if (projects.length == 0)
-                res.render("projects", {
-                    message: "You have no projects yet!",
-                    username: req.session.user.username,
-                    title: projects_title
-                });
+                renderNoProjects(res, "You have no projects yet!", req.session.user.username, projects_title);
             else
-                res.render("projects", {
-                    projects: projects,
-                    username: req.session.user.username,
-                    title: projects_title
-                });
+                renderProjects(res, projects, req.session.user.username, projects_title);
         })
-        .catch((e) => {
-            res.render("projects", {
-                message: "Problem retrieving projects.",
-                username: req.session.user.username,
-                title: projects_title
-            });
+        .catch(() => {
+            renderNoProjects(res, "Problem retrieving projects.", req.session.user.username, projects_title);
         });
 
 });
@@ -38,23 +42,7 @@ router.post("/", checkAuthorization, (req, res) => {
             res.redirect("/projects");
         })
         .catch((e) => {
-            db_prj.getAllProjects(req.session.user.username)
-                .then((projects) => {
-                    if (projects.length == 0)
-                        res.render("projects", {
-                            error: e,
-                            message: "You have no projects yet!",
-                            username: req.session.user.username,
-                            title: projects_title
-                        });
-                    else
-                        res.render("projects", {
-                            error: e,
-                            projects: projects,
-                            username: req.session.user.username,
-                            title: projects_title
-                        });
-                })
+            res.status(500).send("Problem encountered while adding project data. Try again later.");
         });
 });
 
