@@ -1,13 +1,70 @@
+<!--Add Project Popup-->
+{{#if error}}
+<div id="add-project-popup" class="active">
+
+    <div class="nav-height"></div>
+
+    <div class="error"> {{error}}</div>
+
+    <div class="card">
+        <h2 class="big-text">New Project</h2>
+        <form method="post" name="add-project" action="/projects">
+            <input id="owner" name="owner" type="hidden" value="{{ username }}" />
+            <div>
+                <p class="label">Project №</p>
+                <input type="number" id="prjNumber" name="prjNumber" required>
+            </div>
+            <div>
+                <p class="label">Name</p>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="button">
+                <button>Add project</button>
+                <img src="cancel-icon.svg" id="close-add-project-popup">
+            </div>
+
+        </form>
+    </div>
+</div>
+{{/if}}
+
+<div id="add-project-popup">
+
+    <div class="nav-height"></div>
+
+    <div class="card">
+        <h2 class="big-text">New Project</h2>
+        <form method="post" name="add-project" action="/projects">
+            <input id="owner" name="owner" type="hidden" value="{{ username }}" />
+            <div>
+                <p class="label">Project №</p>
+                <input type="number" id="prjNumber" name="prjNumber" required>
+            </div>
+            <div>
+                <p class="label">Name</p>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="button">
+                <button>Add project</button>
+                <img src="cancel-icon.svg" id="close-add-project-popup">
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!--No Projects Message-->
 {{#if message}}
 <div id="no-projects">
     <h1>{{message}}</h1>
     <img src="guy-with-guitar.png">
     <p class="tiny-text">Try adding one</p>
-    <a class="add-button" href="/projects/add">
+    <a id="open-add-project-popup">
         <img src="add-icon.png">
     </a>
 </div>
 {{else}}
+<!--Disregard this part for now-->
 <h2>Projects
     <a href="/projects/add" class="btn btn-success pull-right">Add New Project</a>
 </h2>
@@ -30,4 +87,19 @@
         </tbody>
     </table>
 </div>
+<!---->
 {{/if}}
+
+<script>
+    const openPopup = document.getElementById('open-add-project-popup');
+    const closePopup = document.getElementById('close-add-project-popup');
+    const addProjectPopup = document.getElementById('add-project-popup');
+
+    openPopup.addEventListener('click', () => {
+        addProjectPopup.classList.add('active');
+    });
+
+    closePopup.addEventListener('click', () => {
+        addProjectPopup.classList.remove('active');
+    });
+</script>

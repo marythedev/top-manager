@@ -199,6 +199,12 @@ nav img#avatar {
     background-color: #717171;
 }
 
+#priority-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 /*Card Design*/
 .card {
     border-radius: 15px;
@@ -217,15 +223,17 @@ nav img#avatar {
     margin-bottom: 4px;
 }
 
-.card input,
-.card button {
+.card form>div>input,
+.card button,
+.card select {
     width: 248px;
     height: 36px;
     border-radius: 10px;
     border: 1px solid #000;
 }
 
-.card input {
+.card form>div>input,
+.card select {
     padding: 0 12px;
     font-size: 16px;
 }
@@ -239,6 +247,23 @@ nav img#avatar {
     margin-bottom: 36px;
 }
 
+.card form>div.button {
+    margin: 48px 36px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.card form>div.button > button {
+    width: 180px;
+    margin: 0;
+}
+
+.card form>div.button > img {
+    height: 20px;
+}
+
 /*Error Message*/
 .error {
     display: flex;
@@ -250,45 +275,6 @@ nav img#avatar {
     background-color: rgba(255, 182, 29, 0.65);
     font-size: 16px;
     font-weight: 700;
-}
-
-/*404 Page, No Projects, No Tasks*/
-#page404,
-#no-projects,
-#no-tasks {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-}
-
-#page404>h1,
-#no-projects>h1,
-#no-tasks>h1 {
-    font-size: 20px;
-    margin-top: 84px;
-}
-
-#page404>img,
-#no-projects>img,
-#no-tasks>img {
-    width: 320px;
-}
-
-.add-button {
-    width: 42px;
-    height: 42px;
-    background-color: #FFB61D;
-    border-radius: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 12px;
-}
-
-.add-button > img {
-    width: 20px;
-    height: 20px;
 }
 
 /*Home Page*/
@@ -325,25 +311,96 @@ nav img#avatar {
     margin-bottom: 21px;
 }
 
-/*Login & Sign Up Page*/
+/*404 Page, No Projects, No Tasks*/
 #login,
-#signup {
+#signup,
+#add-project-popup,
+#add-task-popup,
+#page404,
+#no-projects,
+#no-tasks {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+#page404>h1,
+#no-projects>h1,
+#no-tasks>h1 {
+    font-size: 20px;
+    margin-top: 84px;
+}
+
+#page404>img,
+#no-projects>img,
+#no-tasks>img {
+    width: 320px;
+}
+
+#open-add-project-popup,
+#open-add-task-popup {
+    width: 42px;
+    height: 42px;
+    background-color: #FFB61D;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 12px;
+    cursor: pointer;
+}
+
+#close-add-project-popup,
+#close-add-task-popup {
+    cursor: pointer;
+}
+
+#open-add-project-popup > img,
+#open-add-task-popup > img {
+    width: 20px;
+    height: 20px;
+}
+
+/*Login & Sign Up Page, Add Project & Add Task PopUps*/
+#add-project-popup,
+#add-task-popup {
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.70);
+    overflow: hidden;
+    margin-top: -100px;
+    display: none;
+}
+
+#add-project-popup.active,
+#add-task-popup.active {
+    display: flex;
+}
+
 #login .card,
 #login .error,
 #signup .card,
-#signup .error {
+#signup .error,
+#add-project-popup .card,
+#add-project-popup .error,
+#add-task-popup .card,
+#add-task-popup .error {
     width: 320px;
     margin-top: 36px;
 }
 
 #login .card .big-text,
-#signup .card .big-text {
+#signup .card .big-text,
+#add-project-popup .card .big-text,
+#add-task-popup .card .big-text {
     margin: 36px 0;
+}
+
+#add-project-popup .nav-height,
+#add-task-popup .nav-height {
+    height: 100px;
 }
 
 #login .card button,
@@ -360,4 +417,25 @@ nav img#avatar {
 #signup .card .tiny-text a {
     text-decoration: underline;
     text-underline-offset: 3px;
+}
+
+
+#priority-container {
+    width: 248px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 36px;
+}
+
+#priority-container .label {
+    margin-left: 4px;
+}
+
+.priority-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }

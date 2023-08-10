@@ -4,15 +4,15 @@
 <head>
     <title>{{ title }}</title>
 
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="styles/main-style.css">
+    <link rel="stylesheet" href="/styles/main-style.css" media="all">
 </head>
 
 <body>
@@ -32,7 +32,7 @@
         </div>
         <a href="/">
             <div class="justify-space-between align-center">
-                <img id="logo" src="logo.png">
+                <img id="logo" src="/logo.png">
                 <h1>TopManager</h1>
             </div>
         </a>
@@ -42,7 +42,7 @@
             <div class="dropdown" tabindex="0">
                 <ul class="justify-space-between align-center cursor-pointer">
                     <li id="username">{{session.user.username}}</li>
-                    <img id="avatar" src="avatar.png">
+                    <img id="avatar" src="/avatar.png">
                 </ul>
                 <ul class="dropdown-content cursor-pointer">
                     <li id="account" class="grow-on-hover">My Account</li>
