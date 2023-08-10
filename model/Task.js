@@ -8,7 +8,7 @@ const taskSchema = new Schema({
         required: true
     },
     priority: String,
-    project: Number,
+    project: String,
     dueDate: {
         type: String,
         required: true

@@ -1,68 +1,4 @@
 <!--Add Task Popup-->
-{{#if error}}
-<div id="add-task-popup" class="active">
-    <div class="nav-height"></div>
-
-    <div class="error"> {{error}}</div>
-
-    <div class="card">
-        <h2 class="big-text">New Task</h2>
-        <form method="post" name="add-task" action="/tasks">
-            <input id="owner" name="owner" type="hidden" value="{{ username }}" />
-
-            <div>
-                <p class="label">Task №</p>
-                <input type="number" id="prjNumber" name="prjNumber" required>
-            </div>
-            <div>
-                <p class="label">Name</p>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div>
-                <p class="label">Due Date</p>
-                <input type="date" id="dueDate" name="dueDate" required>
-            </div>
-            <div>
-                <p class="label">Project</p>
-                <select name="project" id="project">
-                    {{#if projects}}
-                    {{#each projects}}
-                    <option value="{{prjNumber}}">{{name}}</option>
-                    {{/each}}
-                    {{else}}
-                    <option value="No Projects Available">No Projects Available</option>
-                    {{/if}}
-                </select>
-            </div>
-
-            <div>
-                <p class="label">Priority</p>
-                <div id="priority-container">
-                    <div class="priority-item">
-                        <input class="checkbox" type="radio" name="priority" id="priority3" value="Low">
-                        <p class="label">Low</p>
-                    </div>
-                    <div class="priority-item">
-                        <input class="checkbox" type="radio" name="priority" id="priority2" value="Medium">
-                        <p class="label">Medium</p>
-                    </div>
-                    <div class="priority-item">
-                        <input class="checkbox" type="radio" name="priority" id="priority1" value="High">
-                        <p class="label">High</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="button">
-                <button>Add Task</button>
-                <img src="cancel-icon.svg" id="close-add-task-popup">
-            </div>
-
-        </form>
-    </div>
-</div>
-{{/if}}
-
 <div id="add-task-popup">
     <div class="nav-height"></div>
 
@@ -84,7 +20,7 @@
                 <select name="project" id="project">
                     {{#if projects}}
                     {{#each projects}}
-                    <option value="{{prjNumber}}">{{name}}</option>
+                    <option value="{{_id}}">{{name}}</option>
                     {{/each}}
                     {{/if}}
                 </select>
@@ -145,7 +81,7 @@
             <h3 class="mid-text">{{name}}</h3>
             <p class="small-text">{{dueDate}}</p>
             <p class="small-text">{{project}}</p>
-            <a href="/task/delete/{{taskNumber}}">Remove</a>
+            <a href="/task/delete/{{_id}}">Remove</a>
         </div>
         {{/each}}
     </div>

@@ -13,13 +13,11 @@ const processInput = (task) => {
 
 module.exports.getAllTasks = (username) => {
     return new Promise((res, rej) => {
-        tasksModel.find({owner: username}).lean()
+        tasksModel.find({ owner: username }).lean()
             .then((tasks) => {
                 res(tasks);
             })
-            .catch(() => {
-                rej("No results.");
-            });
+            .catch(() => { rej(); });
     });
 }
 
@@ -54,42 +52,35 @@ module.exports.addTask = (task) => {
 
         const newTask = new tasksModel(task);
         newTask.save()
-            .then(() => {
-                res("Task created.");
-            })
+            .then(() => { res(); })
             .catch((e) => {
-                if (e.code == 11000)    //duplicate entry
-                    rej("Task № should be unique.");
-                else
-                    rej(`Problems creating Task: ${e}`);
+                rej(`Problems creating Task: ${e}`);
             });
 
     });
 }
 
-module.exports.updateTask = (update) => {
-    return new Promise((res, rej) => {
+// module.exports.updateTask = (update) => {
+//     return new Promise((res, rej) => {
 
-        processInput(update);      //process received data to store in db
+//         processInput(update);      //process received data to store in db
 
-        tasksModel.updateOne({ owner: update.owner, _id: update._id },
-            { $set: update })
-            .then(() => {
-                res("Task updated.");
-            })
-            .catch(() => {
-                rej("Application encountered a problem updating task. Try again later.");
-            });
+//         tasksModel.updateOne({ owner: update.owner, _id: update._id },
+//             { $set: update })
+//             .then(() => {
+//                 res("Task updated.");
+//             })
+//             .catch(() => {
+//                 rej("Application encountered a problem updating task. Try again later.");
+//             });
 
-    });
-}
+//     });
+// }
 
 module.exports.deleteTask = (username, _id) => {
     return new Promise((res, rej) => {
         tasksModel.deleteOne({ owner: username, _id: _id }).exec()
-            .then(() => {
-                res("Task deleted.");
-            })
+            .then(() => { res(); })
             .catch(() => {
                 rej("Application encountered a problem deleting task. Try again later.");
             });
