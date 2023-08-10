@@ -1,5 +1,5 @@
 <!--Add Task Popup-->
-<div id="add-task-popup">
+<div class="column align-center add-popup no-display">
     <div class="nav-height"></div>
 
     <div class="card">
@@ -8,16 +8,16 @@
             <input id="owner" name="owner" type="hidden" value="{{ username }}" />
 
             <div>
-                <p class="label">Name</p>
-                <input type="text" id="name" name="name" required>
+                <p class="label small-text">Name</p>
+                <input type="text" id="name" name="name" class="input-field mid-text" autocomplete="off" required>
             </div>
             <div>
-                <p class="label">Due Date</p>
-                <input type="date" id="dueDate" name="dueDate" required>
+                <p class="label small-text">Due Date</p>
+                <input type="date" id="dueDate" name="dueDate" class="input-field mid-text" required>
             </div>
             <div>
-                <p class="label">Project</p>
-                <select name="project" id="project">
+                <p class="label small-text">Project</p>
+                <select name="project" id="project" class="input-field mid-text">
                     {{#if projects}}
                     {{#each projects}}
                     <option value="{{_id}}">{{name}}</option>
@@ -27,26 +27,26 @@
             </div>
 
             <div>
-                <p class="label">Priority</p>
-                <div id="priority-container">
-                    <div class="priority-item">
+                <p class="label small-text">Priority</p>
+                <div id="priority" class="flex row space-around align-center">
+                    <div class="flex row align-center justify-center">
                         <input class="checkbox" type="radio" name="priority" id="priority3" value="Low">
-                        <p class="label">Low</p>
+                        <p class="label small-text">Low</p>
                     </div>
-                    <div class="priority-item">
+                    <div class="flex row align-center justify-center">
                         <input class="checkbox" type="radio" name="priority" id="priority2" value="Medium">
-                        <p class="label">Medium</p>
+                        <p class="label small-text">Medium</p>
                     </div>
-                    <div class="priority-item">
+                    <div class="flex row align-center justify-center">
                         <input class="checkbox" type="radio" name="priority" id="priority1" value="High">
-                        <p class="label">High</p>
+                        <p class="label small-text">High</p>
                     </div>
                 </div>
             </div>
 
-            <div class="button">
-                <button>Add Task</button>
-                <img src="cancel-icon.svg" id="close-add-task-popup">
+            <div class="add-cancel-buttons center flex space-between align-center">
+                <button class="mid-text">Add Task</button>
+                <img src="cancel-icon.svg" id="close-add-popup" class="cursor-pointer icon">
             </div>
 
         </form>
@@ -55,24 +55,24 @@
 
 <!--No Tasks Message-->
 {{#if message}}
-<div id="no-tasks">
-    <h1>{{message}}</h1>
+<div id="no-tasks" class="flex column align-center">
+    <h1 class="big-text">{{message}}</h1>
     <img src="guy-with-guitar.png">
     <p class="tiny-text">Try adding one</p>
-    <a id="open-add-task-popup">
-        <img src="add-icon.png">
+    <a class="flex justify-center align-center open-add-popup cursor-pointer">
+        <img src="add-icon.png" class="icon">
     </a>
 </div>
 {{else}}
 <!--Tasks-->
-<div id="tasks">
-    <div class="header-row align-center">
-        <div class="flex-row align-center">
+<div class="flex column">
+    <div class="header-row flex row space-between align-center">
+        <div class="flex row align-center">
             <h2 class="big-text">Tasks</h2>
             <img src="sort-icon.png" id="sort">
         </div>
-        <a id="open-add-task-popup">
-            <img src="add-icon-white.png">
+        <a class="flex justify-center align-center open-add-popup cursor-pointer purple">
+            <img src="add-icon-white.png" class="icon">
         </a>
     </div>
     <div class="task-cards">
@@ -91,15 +91,19 @@
 {{/if}}
 
 <script>
-    const openPopup = document.getElementById('open-add-task-popup');
-    const closePopup = document.getElementById('close-add-task-popup');
-    const addProjectPopup = document.getElementById('add-task-popup');
+    const openPopups = document.getElementsByClassName('open-add-popup');
+    const closePopup = document.getElementById('close-add-popup');
+    const addTask = document.getElementsByClassName('add-popup')[0];
 
-    openPopup.addEventListener('click', () => {
-        addProjectPopup.classList.add('active');
-    });
+    for (openPopup of openPopups) {
+        openPopup.addEventListener('click', () => {
+            addTask.classList.remove('no-display');
+            addTask.classList.add('flex');
+        });
+    }
 
     closePopup.addEventListener('click', () => {
-        addProjectPopup.classList.remove('active');
+        addTask.classList.remove('flex');
+        addTask.classList.add('no-display');
     });
 </script>

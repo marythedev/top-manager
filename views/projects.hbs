@@ -1,5 +1,5 @@
 <!--Add Project Popup-->
-<div id="add-project-popup">
+<div class="column align-center add-popup no-display">
 
     <div class="nav-height"></div>
 
@@ -9,12 +9,12 @@
             <input id="owner" name="owner" type="hidden" value="{{ username }}" />
 
             <div>
-                <p class="label">Name</p>
-                <input type="text" id="name" name="name" autocomplete="off" required>
+                <p class="label small-text">Name</p>
+                <input type="text" id="name" name="name" class="input-field mid-text" autocomplete="off" required>
             </div>
-            <div class="button">
-                <button>Add project</button>
-                <img src="cancel-icon.svg" id="close-add-project-popup">
+            <div class="add-cancel-buttons center flex space-between align-center">
+                <button class="mid-text">Add project</button>
+                <img src="cancel-icon.svg" id="close-add-popup" class="cursor-pointer icon">
             </div>
 
         </form>
@@ -23,24 +23,24 @@
 
 <!--No Projects Message-->
 {{#if message}}
-<div id="no-projects">
-    <h1>{{message}}</h1>
+<div id="no-projects" class="flex column align-center">
+    <h1 class="big-text">{{message}}</h1>
     <img src="guy-with-guitar.png">
     <p class="tiny-text">Try adding one</p>
-    <a id="open-add-project-popup">
-        <img src="add-icon.png">
+    <a class="flex justify-center align-center open-add-popup cursor-pointer">
+        <img src="add-icon.png" class="icon">
     </a>
 </div>
 {{else}}
 <!--Projects-->
-<div id="projects">
-    <div class="header-row align-center">
-        <div class="flex-row align-center">
+<div class="flex column">
+    <div class="header-row flex row space-between align-center">
+        <div class="flex row align-center">
             <h2 class="big-text">Projects</h2>
-            <img src="sort-icon.png" id="sort">
+            <img src="sort-icon.png" class="icon">
         </div>
-        <a id="open-add-project-popup">
-            <img src="add-icon-white.png">
+        <a class="flex justify-center align-center open-add-popup cursor-pointer purple">
+            <img src="add-icon-white.png" class="icon">
         </a>
     </div>
     <div class="project-cards">
@@ -56,15 +56,19 @@
 {{/if}}
 
 <script>
-    const openPopup = document.getElementById('open-add-project-popup');
-    const closePopup = document.getElementById('close-add-project-popup');
-    const addProjectPopup = document.getElementById('add-project-popup');
+    const openPopups = document.getElementsByClassName('open-add-popup');
+    const closePopup = document.getElementById('close-add-popup');
+    const addProject = document.getElementsByClassName('add-popup')[0];
 
-    openPopup.addEventListener('click', () => {
-        addProjectPopup.classList.add('active');
-    });
+    for (openPopup of openPopups) {
+        openPopup.addEventListener('click', () => {
+            addProject.classList.remove('no-display');
+            addProject.classList.add('flex');
+        });
+    }
 
     closePopup.addEventListener('click', () => {
-        addProjectPopup.classList.remove('active');
+        addProject.classList.remove('flex');
+        addProject.classList.add('no-display');
     });
 </script>

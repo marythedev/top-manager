@@ -16,22 +16,22 @@
 </head>
 
 <body>
-    <nav class="justify-space-between align-center">
+    <nav class="flex space-between align-center">
         <div>
             {{#if session.user}}
-            <ul class="justify-space-between">
+            <ul class="flex space-between">
                 <li><a href="/projects">Projects</a></li>
                 <li><a href="/tasks">Tasks</a></li>
             </ul>
             {{else}}
-            <ul class="justify-space-between">
+            <ul class="flex space-between">
                 <li><a href="/contact">Contact Us</a></li> <!--Implement this route-->
             </ul>
             {{/if}}
 
         </div>
         <a href="/">
-            <div class="justify-space-between align-center">
+            <div class="flex space-between align-center">
                 <img id="logo" src="/logo.png">
                 <h1>TopManager</h1>
             </div>
@@ -40,11 +40,11 @@
 
             {{#if session.user}}
             <div class="dropdown" tabindex="0">
-                <ul class="justify-space-between align-center cursor-pointer">
+                <ul class="flex space-between align-center cursor-pointer">
                     <li id="username">{{session.user.username}}</li>
                     <img id="avatar" src="/avatar.png">
                 </ul>
-                <ul class="dropdown-content cursor-pointer">
+                <ul class="card dropdown-content cursor-pointer no-display">
                     <li id="account" class="grow-on-hover">My Account</li>
                     <li>
                         <hr class="hr">
@@ -58,7 +58,7 @@
                 </ul>
             </div>
             {{else}}
-            <ul class="justify-space-between align-center">
+            <ul class="flex space-between align-center">
                 <a href="/login">
                     <li id="login-button">Login</li>
                 </a>
@@ -81,10 +81,12 @@
         const logout = document.getElementById("logout");
 
         dropdown.addEventListener("focus", () => {
-            dropdownContent.style.display = "block";
+            dropdownContent.classList.remove("no-display");
+            dropdownContent.classList.add("block-display");
         });
         dropdown.addEventListener("blur", () => {
-            dropdownContent.style.display = "none";
+            dropdownContent.classList.remove("block-display");
+            dropdownContent.classList.add("no-display");
         });
 
         account.addEventListener("click", () => {

@@ -15,33 +15,54 @@ body {
     height: 100%;
 }
 
-.justify-space-between {
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.no-display {
+    display: none;
+}
+
+.block-display {
+    display: block;
+}
+
+/*Flexbox classes*/
+.flex {
     display: flex;
+}
+
+.space-between {
     justify-content: space-between;
 }
 
+.space-around {
+    justify-content: space-around;
+}
+
 .justify-center {
-    display: flex;
     justify-content: center;
 }
 
 .align-center {
-    display: flex;
     align-items: center;
 }
 
-.flex-column {
-    display: flex;
-    flex-direction: column;
-}
-
-.flex-row {
-    display: flex;
+.row {
     flex-direction: row;
 }
 
+.column {
+    flex-direction: column;
+}
+
+/*Text styling*/
 .center {
     text-align: center;
+}
+
+.main-header {
+    font-size: 24px;
 }
 
 .big-text {
@@ -63,23 +84,14 @@ body {
     color: #9C9C9C;
 }
 
-.cursor-pointer {
-    cursor: pointer;
+.label {
+    margin-bottom: 4px;
+    color: black;
 }
 
-.grow-on-hover {
-    transition: all 0.2s ease-in-out;
-    backface-visibility: hidden;
-
+#priority .label {
+    margin-left: 4px;
 }
-
-.grow-on-hover:hover {
-    transform: scale(1.1);
-    color: #363636;
-}
-
-
-
 
 /*Navbar*/
 nav * {
@@ -87,8 +99,12 @@ nav * {
     border: none;
 }
 
-nav {
+nav,
+.nav-height {
     height: 100px;
+}
+
+nav {
     padding: 36px 24px;
     background-color: white;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
@@ -96,18 +112,13 @@ nav {
 
 nav li,
 nav h1 {
-    padding: 0 12px;
+    margin: 0 12px;
 }
 
 nav li,
 nav li * {
     color: #9C9C9C;
     font-size: 16px;
-}
-
-nav li#username {
-    color: #000000;
-    font-weight: bold;
 }
 
 nav li#login-button {
@@ -118,6 +129,11 @@ nav li#login-button {
     color: white;
 }
 
+nav li#username {
+    color: #000000;
+    font-weight: bold;
+}
+
 nav img#logo {
     height: 70px;
 }
@@ -126,21 +142,17 @@ nav img#avatar {
     height: 50px;
 }
 
-/*Dropdown*/
+/*Navbar Dropdown*/
 .dropdown {
     position: relative;
 }
 
 .dropdown-content {
-    display: none;
     position: absolute;
     right: 0;
     margin-top: 10px;
     padding: 24px 12px;
     width: 135px;
-    border-radius: 15px;
-    background-color: white;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
 }
 
 .dropdown-content .hr {
@@ -152,62 +164,50 @@ nav img#avatar {
 }
 
 /*Image Carousel*/
-.carousel {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+#carousel {
     position: relative;
 }
 
-.carousel #previous,
-.carousel #next {
+#carousel #previous,
+#carousel #next {
     z-index: 1;
 }
 
-.carousel #previous {
+#carousel #previous {
     margin-right: -5%;
 }
 
-.carousel #next {
+#carousel #next {
     margin-left: -5%;
 }
 
-.carousel .carousel-img {
-    object-fit: contain;
+#carousel .carousel-img {
     height: auto;
     max-height: 65vh;
+    object-fit: contain;
     display: none;
 }
 
-.carousel .active {
-    display: block;
-}
-
 .carousel-dots {
-    display: flex;
-    flex-direction: row;
     gap: 5px;
     margin: 10px;
 }
 
-.dot {
-    border-radius: 100%;
-    border: 1px solid #9C9C9C;
+.carousel-dots .dot {
     width: 10px;
     height: 10px;
+    border: 1px solid #9C9C9C;
+    border-radius: 100%;
     background-color: white;
     transition: background-color 0.6s ease;
 }
 
-.carousel-dots .active {
-    background-color: #717171;
+#carousel .active {
+    display: block;
 }
 
-#priority-item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.carousel-dots .active {
+    background-color: #717171;
 }
 
 /*Card Design*/
@@ -223,194 +223,78 @@ nav img#avatar {
     margin: 24px 36px;
 }
 
-.card .label {
-    font-size: 14px;
-    margin-bottom: 4px;
-}
-
-.card form>div>input,
+.card .input-field,
 .card button,
-.card select {
+.card #priority {
     width: 248px;
     height: 36px;
     border-radius: 10px;
     border: 1px solid #000;
 }
 
-.card form>div>input,
-.card select {
+.card .input-field,
+.card button {
+    border-radius: 10px;
+    border: 1px solid #000;
+}
+
+.card .input-field {
     padding: 0 12px;
-    font-size: 16px;
 }
 
 .card button {
     background-color: #A128EC;
     border: none;
     color: #FFF;
-    font-size: 16px;
     margin: 24px 36px;
     margin-bottom: 36px;
 }
 
-.card form>div.button {
-    margin: 48px 36px;
-    text-align: center;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
+.card .add-cancel-buttons {
+    margin: 36px;
 }
-.card form>div.button > button {
+
+.card .add-cancel-buttons>button {
     width: 180px;
     margin: 0;
 }
 
-.card form>div.button > img {
-    height: 20px;
-}
-
-/*Error Message*/
+/*Error (designed to go with cards)*/
 .error {
-    display: flex;
-    align-items: center;
     padding: 0 24px;
     height: 48px;
     border-radius: 10px;
     border: none;
     background-color: rgba(255, 182, 29, 0.65);
-    font-size: 16px;
     font-weight: 700;
 }
 
-/*Home Page*/
-#home {
-    margin: 42px;
-    display: grid;
-    grid-template-columns: auto 240px;
-    grid-gap: 42px;
-}
-
-#home>div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#home .main-header,
-#home .side-header {
-    text-align: center;
-    margin-bottom: 42px;
-}
-
-#home .main-header {
-    font-size: 24px;
-}
-
-#home .side-header {
-    font-size: 20px;
-}
-
-#home .card {
-    width: 240px;
-    padding: 24px;
-    margin-bottom: 21px;
-}
-
-/*404 Page, No Projects, No Tasks*/
-#login,
-#signup,
-#add-project-popup,
-#add-task-popup,
-#page404,
-#no-projects,
-#no-tasks {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#page404>h1,
-#no-projects>h1,
-#no-tasks>h1 {
-    font-size: 20px;
-    margin-top: 84px;
-}
-
+/*Cards & Errors Settings*/
+#login .card,
+#login .error,
+#signup .card,
+#signup .error,
 #page404>img,
 #no-projects>img,
-#no-tasks>img {
+#no-tasks>img,
+.add-popup .card,
+.add-popup .error {
     width: 320px;
-}
-
-#open-add-project-popup,
-#open-add-task-popup {
-    width: 42px;
-    height: 42px;
-    background-color: #FFB61D;
-    border-radius: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 12px;
-    cursor: pointer;
-}
-
-#projects #open-add-project-popup,
-#tasks #open-add-task-popup {
-    background-color: #A128EC;
-}
-
-#close-add-project-popup,
-#close-add-task-popup {
-    cursor: pointer;
-}
-
-#open-add-project-popup > img,
-#open-add-task-popup > img {
-    width: 20px;
-    height: 20px;
-}
-
-/*Login & Sign Up Page, Add Project & Add Task PopUps*/
-#add-project-popup,
-#add-task-popup {
-    z-index: 1;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.70);
-    overflow: hidden;
-    margin-top: -100px;
-    display: none;
-}
-
-#add-project-popup.active,
-#add-task-popup.active {
-    display: flex;
 }
 
 #login .card,
 #login .error,
 #signup .card,
 #signup .error,
-#add-project-popup .card,
-#add-project-popup .error,
-#add-task-popup .card,
-#add-task-popup .error {
-    width: 320px;
+.add-popup .card,
+.add-popup .error {
     margin-top: 36px;
 }
 
 #login .card .big-text,
 #signup .card .big-text,
-#add-project-popup .card .big-text,
-#add-task-popup .card .big-text {
+.add-popup .card .big-text {
     margin: 36px 0;
-}
-
-#add-project-popup .nav-height,
-#add-task-popup .nav-height {
-    height: 100px;
 }
 
 #login .card button,
@@ -429,43 +313,78 @@ nav img#avatar {
     text-underline-offset: 3px;
 }
 
-
-#priority-container {
-    width: 248px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    height: 36px;
+/*Open Popup Buttons*/
+.open-add-popup {
+    width: 42px;
+    height: 42px;
+    background-color: #FFB61D;
+    border-radius: 100%;
+    margin: 12px;
 }
 
-#priority-container .label {
-    margin-left: 4px;
+.open-add-popup.purple {
+    background-color: #A128EC;
 }
 
-.priority-item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+.icon {
+    width: 20px;
+    height: 20px;
 }
 
-/*Projects & Tasks Page*/
-#projects,
-#tasks {
-    display: flex;
-    flex-direction: column;
+/*Popup*/
+.add-popup {
+    position: absolute;
+    z-index: 1;
+
+    margin-top: -100px;
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.70);
+}
+
+/*Animations*/
+.grow-on-hover {
+    transition: all 0.2s ease-in-out;
+    backface-visibility: hidden;
+
+}
+
+.grow-on-hover:hover {
+    transform: scale(1.1);
+    color: #363636;
+}
+
+
+/*Other Custom Stylings for Pages*/
+#home {
+    margin: 42px;
+    display: grid;
+    grid-template-columns: auto 240px;
+    grid-gap: 42px;
+}
+
+#home .main-header,
+#home .big-text {
+    margin-bottom: 42px;
+}
+
+#home .card {
+    width: 240px;
+    padding: 24px;
+    margin-bottom: 21px;
+}
+
+#page404>h1,
+#no-projects>h1,
+#no-tasks>h1 {
+    margin-top: 84px;
 }
 
 .header-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     margin: 36px;
 }
 
-#sort {
-    width: 20px;
-    height: 20px;
-    margin: 12px;
+.header-row .big-text {
+    margin-right: 12px;
 }
