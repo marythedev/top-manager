@@ -39,7 +39,7 @@ app.use((req, res, next) => {
 
 app.engine("hbs", hbs.engine({
     extname: "hbs",
-    defaultLayout: 'main-layout',
+    defaultLayout: 'main',
     helpers: {
         eq: (arg1, arg2, options) => {
             if (arg1 == arg2)

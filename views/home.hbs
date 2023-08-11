@@ -5,8 +5,8 @@
         <div id="carousel" class="flex row justify-center align-center">
             <img src="/icons/previous.svg" id="previous">
             <div>
-                <img src="preview.jpg" class="active carousel-img">
-                <img src="preview-1.jpg" class="carousel-img">
+                <img src="/assets/preview.jpg" class="active carousel-img">
+                <img src="/assets/preview-1.jpg" class="carousel-img">
             </div>
             <img src="/icons/next.svg" id="next">
         </div>
@@ -50,38 +50,4 @@
     </div>
 </div>
 
-<script>
-    const previous = document.getElementById("previous");
-    const next = document.getElementById("next");
-
-    const carouselImages = document.getElementsByClassName("carousel-img");
-    const dots = document.getElementsByClassName("dot");
-
-    let currentIndex = 0;
-
-    next.addEventListener("click", () => {
-        carouselImages[currentIndex].classList.remove("active");
-        dots[currentIndex].classList.remove("active");
-
-        currentIndex++;
-        if (currentIndex >= carouselImages.length)
-            currentIndex = 0;
-
-        carouselImages[currentIndex].classList.add("active");
-        dots[currentIndex].classList.add("active");
-    });
-
-    previous.addEventListener("click", () => {
-        carouselImages[currentIndex].classList.remove("active");
-        dots[currentIndex].classList.remove("active");
-
-        currentIndex--;
-        if (currentIndex <= -1)
-            currentIndex = carouselImages.length - 1;
-
-        carouselImages[currentIndex].classList.add("active");
-        dots[currentIndex].classList.add("active");
-    });
-
-
-</script>
+<script src="/scripts/home.js"></script>

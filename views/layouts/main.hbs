@@ -12,7 +12,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/styles/main-style.css" media="all">
+    <link rel="stylesheet" href="/styles/main.css" media="all">
 </head>
 
 <body>
@@ -32,7 +32,7 @@
         </div>
         <a href="/">
             <div class="flex space-between align-center">
-                <img id="logo" src="/logo.png">
+                <img id="logo" src="/assets/logo.png">
                 <h1>TopManager</h1>
             </div>
         </a>
@@ -42,7 +42,7 @@
             <div class="dropdown" tabindex="0">
                 <ul class="flex space-between align-center cursor-pointer">
                     <li id="username">{{session.user.username}}</li>
-                    <img id="avatar" src="/avatar.png">
+                    <img id="avatar" src="/assets/avatar.png">
                 </ul>
                 <ul class="card dropdown-content cursor-pointer no-display">
                     <li id="account" class="grow-on-hover">My Account</li>
@@ -73,33 +73,7 @@
 
     {{{body}}}
 
-    <script>
-        const dropdown = document.getElementsByClassName("dropdown")[0];
-        const dropdownContent = document.getElementsByClassName("dropdown-content")[0];
-        const account = document.getElementById("account");
-        const contact = document.getElementById("contact");
-        const logout = document.getElementById("logout");
-
-        dropdown.addEventListener("focus", () => {
-            dropdownContent.classList.remove("no-display");
-            dropdownContent.classList.add("block-display");
-        });
-        dropdown.addEventListener("blur", () => {
-            dropdownContent.classList.remove("block-display");
-            dropdownContent.classList.add("no-display");
-        });
-
-        account.addEventListener("click", () => {
-            window.location.href = "/account";
-        });
-        contact.addEventListener("click", () => {
-            window.location.href = "/contact";
-        });
-        logout.addEventListener("click", () => {
-            window.location.href = "/logout";
-        });
-
-    </script>
+    <script src="/scripts/main.js"></script>
 
 </body>
 

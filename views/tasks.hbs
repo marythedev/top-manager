@@ -57,10 +57,10 @@
 {{#if message}}
 <div id="no-tasks" class="flex column align-center">
     <h1 class="big-text">{{message}}</h1>
-    <img src="guy-with-guitar.png">
+    <img src="/assets/guy-with-guitar.png">
     <p class="tiny-text">Try adding one</p>
     <a class="flex justify-center align-center open-add-popup cursor-pointer">
-        <img src="/icons/add-black.png" class="icon">
+        <img src="/icons/add-black.svg" class="icon">
     </a>
 </div>
 {{else}}
@@ -69,10 +69,10 @@
     <div class="header-row flex row space-between align-center">
         <div class="flex row align-center">
             <h2 class="big-text">Tasks</h2>
-            <img src="/icons/sort.png" class="icon">
+            <img src="/icons/sort.svg" class="icon">
         </div>
         <a class="flex justify-center align-center open-add-popup cursor-pointer purple">
-            <img src="/icons/add-white.png" class="icon">
+            <img src="/icons/add-white.svg" class="icon">
         </a>
     </div>
     <div class="task-cards">
@@ -90,20 +90,4 @@
 <!---->
 {{/if}}
 
-<script>
-    const openPopups = document.getElementsByClassName('open-add-popup');
-    const closePopup = document.getElementById('close-add-popup');
-    const addTask = document.getElementsByClassName('add-popup')[0];
-
-    for (openPopup of openPopups) {
-        openPopup.addEventListener('click', () => {
-            addTask.classList.remove('no-display');
-            addTask.classList.add('flex');
-        });
-    }
-
-    closePopup.addEventListener('click', () => {
-        addTask.classList.remove('flex');
-        addTask.classList.add('no-display');
-    });
-</script>
+<script src="/scripts/projects-tasks.js"></script>

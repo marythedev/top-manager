@@ -228,6 +228,10 @@ nav img#avatar {
 .card #priority {
     width: 248px;
     height: 36px;
+}
+
+.card .input-field,
+.card button{
     border-radius: 10px;
     border: 1px solid #000;
 }
@@ -280,15 +284,12 @@ nav img#avatar {
 .add-popup .card,
 .add-popup .error {
     width: 320px;
+    margin-top: 36px;
 }
 
-#login .card,
-#login .error,
-#signup .card,
-#signup .error,
-.add-popup .card,
-.add-popup .error {
-    margin-top: 36px;
+#no-projects>img,
+#no-tasks>img {
+    margin-bottom: 36px;
 }
 
 #login .card .big-text,
