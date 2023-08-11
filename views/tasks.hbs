@@ -17,28 +17,31 @@
             </div>
             <div>
                 <p class="label small-text">Project</p>
-                <select name="project" id="project" class="input-field mid-text">
+                
                     {{#if projects}}
+                    <select name="project" id="project" class="input-field mid-text">
                     {{#each projects}}
                     <option value="{{_id}}">{{name}}</option>
                     {{/each}}
+                    </select>
+                    {{else}}
+                    <select name="project" id="project" class="input-field mid-text"></select>
                     {{/if}}
-                </select>
             </div>
 
             <div>
                 <p class="label small-text">Priority</p>
                 <div id="priority" class="flex row space-around align-center">
-                    <div class="flex row align-center justify-center">
-                        <input class="checkbox" type="radio" name="priority" id="priority3" value="Low">
+                    <div class="flex row checkbox">
+                        <input type="checkbox" name="priority" value="Low">
                         <p class="label small-text">Low</p>
                     </div>
-                    <div class="flex row align-center justify-center">
-                        <input class="checkbox" type="radio" name="priority" id="priority2" value="Medium">
+                    <div class="flex row checkbox">
+                        <input type="checkbox" name="priority" value="Medium">
                         <p class="label small-text">Medium</p>
                     </div>
-                    <div class="flex row align-center justify-center">
-                        <input class="checkbox" type="radio" name="priority" id="priority1" value="High">
+                    <div class="flex row checkbox">
+                        <input type="checkbox" name="priority" value="High">
                         <p class="label small-text">High</p>
                     </div>
                 </div>
@@ -81,7 +84,9 @@
         <div class="card">
             <div class="flex row space-between">
                 <h3 class="mid-text">{{name}}</h3>
+                {{#if priority}}
                 <p class="small-text">{{priority}} Priority</p>
+                {{/if}}
             </div>
             <p class="small-text">{{dueDate}}</p>
             <div class="flex row space-between">
@@ -97,3 +102,4 @@
 {{/if}}
 
 <script src="/scripts/projects-tasks.js"></script>
+<script src="/scripts/tasks.js"></script>

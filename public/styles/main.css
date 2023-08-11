@@ -235,7 +235,7 @@ nav img#avatar {
 }
 
 .card .input-field,
-.card button{
+.card button {
     border-radius: 10px;
     border: 1px solid #000;
 }
@@ -403,4 +403,28 @@ nav img#avatar {
 
 .header-row .big-text {
     margin-right: 12px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.5;
+}
+
+.checkbox .label {
+    margin: 0;
+    padding-left: 2px;
+}
+
+.checkbox input[type="checkbox"] {
+    /* black checkmark on white background (without borders) */
+    accent-color: white;
+
+    /* white checkmark on greyish backbround */
+    /* filter: grayscale(100%) contrast(200%); */
+}
+
+select {
+    appearance: none;
+    background: url("/icons/arrow-down.svg") no-repeat;
+    background-size: 13px 13px;
+    background-position: calc(100% - 15px) center;
 }

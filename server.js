@@ -42,7 +42,7 @@ app.engine("hbs", hbs.engine({
     defaultLayout: 'main',
     helpers: {
         getProjectName: (projects, _id) => {
-            for (project of projects) {
+            for (const project of projects) {
                 if (project._id == _id)
                     return project.name;
             }
