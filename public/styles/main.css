@@ -229,19 +229,15 @@ nav img#avatar {
 
 .card .input-field,
 .card button,
-.card #priority {
+.card #priority,
+#delete-button {
     width: 248px;
     height: 36px;
 }
 
 .card .input-field,
-.card button {
-    border-radius: 10px;
-    border: 1px solid #000;
-}
-
-.card .input-field,
-.card button {
+.card button,
+#delete-button {
     border-radius: 10px;
     border: 1px solid #000;
 }
@@ -250,7 +246,8 @@ nav img#avatar {
     padding: 0 12px;
 }
 
-.card button {
+.card button,
+#delete-button {
     background-color: #A128EC;
     border: none;
     color: #FFF;
@@ -267,6 +264,14 @@ nav img#avatar {
     margin: 0;
 }
 
+#delete-button {
+    background-color: rgba(236, 40, 40, 0.30);
+}
+
+#delete-button:hover {
+    background-color: rgba(236, 40, 40, 1);
+}
+
 /*Error (designed to go with cards)*/
 .error {
     padding: 0 24px;
@@ -278,6 +283,12 @@ nav img#avatar {
 }
 
 /*Cards & Errors Settings*/
+#account .card,
+#delete-button {
+    width: calc(320px * 2);
+    margin-top: 36px;
+}
+
 #login .card,
 #login .error,
 #signup .card,
@@ -345,6 +356,11 @@ nav img#avatar {
 .icon {
     width: 20px;
     height: 20px;
+}
+
+.delete-icon {
+    width: 14px;
+    height: 16px;
 }
 
 /*Popup*/

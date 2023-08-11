@@ -31,10 +31,6 @@ router.post("/", checkAuthorization, (req, res) => {
 
 });
 
-router.get("/history", checkAuthorization, (req, res) => {
-    res.render("history", { title: "Login History" });
-});
-
 router.get("/delete", checkAuthorization, (req, res) => {
     res.render("delete", {
         title: delete_title

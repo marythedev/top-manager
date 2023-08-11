@@ -19,7 +19,6 @@ module.exports.signup = (user) => {
             bcrypt.hash(user.password, 8)
                 .then((hash) => {
                     user.password = hash;
-                    user.history = [{dateTime: (new Date()).toString()}];
                     const newUser = new usersModel(user);
                     newUser.save()
                         .then(() => {
@@ -47,18 +46,8 @@ module.exports.login = (login) => {
             .then((user) => {
                 bcrypt.compare(login.password, user.password)
                     .then((result) => {
-                        if (result) {
-                            user.history.push({
-                                dateTime: (new Date()).toString()
-                            });
-                            user.save()
-                                .then(() => {
-                                    res(user);
-                                })
-                                .catch((e) => {
-                                    rej(`Error updating user history in the database. ${e}`);
-                                });
-                        }
+                        if (result)
+                            res(user);
                         else
                             rej(`Incorrect login or password.`);
                     })

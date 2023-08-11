@@ -1,26 +1,18 @@
-<h2>Account Details</h2>
-<hr style="margin-top: 5px;">
+<div id="account">
+    {{#if error}}
+    <div class="flex align-center error mid-text"> {{error}}</div>
+    {{/if}}
 
-{{#if error}}
-<div class="alert alert-danger"> <strong> {{error}} </strong> </div>
-{{/if}}
 
-<form name="update" method="post" action="/account">
+    <form name="update-account" method="post" class="card" action="/account">
+        <input type="hidden" id="username" name="username" placeholder="Username" value='{{user.username}}'>
 
-    <div class="form-row">
-        <div class="form-group col-md-12" style="padding-left: 0;">
-            <input type="text" class="form-control" id="new_username" name="new_username" placeholder="New Username"
-                value='{{user.username}}' required>
-        </div>
-    </div>
 
-    <input type="hidden" class="form-control" id="username" name="username" placeholder="Username"
-                value='{{user.username}}' >
+        <input type="text" id="new_username" name="new_username" placeholder="New Username" value='{{user.username}}'
+            required>
 
-    <hr >
+        <button class="mid-text" type="submit">Update Account</button>
+    </form>
 
-    <div class="form-row col-md-12 text-right" style="padding-left: 0;">
-        <button type="submit" class="btn btn-primary btn-success">Update Account</button>
-        <a href="/account/delete" class="btn btn-primary btn-danger">Delete Account</a>
-    </div>
-</form>
+    <button id="delete-button" class="mid-text" href="/account/delete" >Delete my account</button>
+</div>

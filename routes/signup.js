@@ -12,8 +12,7 @@ router.post("/", (req, res) => {
     db_acc.signup(req.body)
         .then((user) => {
             req.session.user = {
-                username: user.username,
-                history: user.history
+                username: user.username
             }
             res.redirect('/tasks');
         })

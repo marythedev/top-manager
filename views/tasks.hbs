@@ -17,16 +17,16 @@
             </div>
             <div>
                 <p class="label small-text">Project</p>
-                
-                    {{#if projects}}
-                    <select name="project" id="project" class="input-field mid-text">
+
+                {{#if projects}}
+                <select name="project" id="project" class="input-field mid-text">
                     {{#each projects}}
                     <option value="{{_id}}">{{name}}</option>
                     {{/each}}
-                    </select>
-                    {{else}}
-                    <select name="project" id="project" class="input-field mid-text"></select>
-                    {{/if}}
+                </select>
+                {{else}}
+                <select name="project" id="project" class="input-field mid-text"></select>
+                {{/if}}
             </div>
 
             <div>
@@ -79,7 +79,7 @@
         </a>
     </div>
     <div class="flex row wrap" id="cards">
-        
+
         {{#each tasks}}
         <div class="card">
             <div class="flex row space-between">
@@ -91,7 +91,7 @@
             <p class="small-text">{{dueDate}}</p>
             <div class="flex row space-between">
                 <p class="small-text">{{getProjectName ../projects project}}</p>
-                <a href="/task/delete/{{_id}}"><img src="/icons/delete.svg" class="icon"></a>
+                <a href="/task/delete/{{_id}}"><img src="/icons/delete.svg" class="delete-icon"></a>
             </div>
         </div>
         {{/each}}

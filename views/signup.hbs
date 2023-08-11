@@ -1,7 +1,7 @@
 <div id="signup" class="flex column align-center">
 
     {{#if error}}
-    <div class="flex align-center error mid-text"> {{error}}</div>
+    <div class="flex align-center error mid-text">{{error}}</div>
     {{/if}}
 
     <div class="card">
@@ -19,7 +19,7 @@
                 <p class="label small-text">Confirm Password</p>
                  <input type="password" class="input-field mid-text" id="confirm_password" name="confirm_password" required>
             </div>
-            <button class="mid-text">Create my account</button>
+            <button class="mid-text" type="submit">Create my account</button>
             <p class="tiny-text center">Have an account?
                 <a href="/login" class="tiny-text">Login</a>
             </p>
