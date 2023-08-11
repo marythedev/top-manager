@@ -43,12 +43,14 @@
             <img src="/icons/add-white.svg" class="icon">
         </a>
     </div>
-    <div class="project-cards">
+    <div class="flex row wrap" id="cards">
         {{#each projects}}
         <div class="card">
             <h3 class="mid-text">{{name}}</h3>
-            <p class="small-text">Closest due date: </p>
-            <a href="/project/delete/{{_id}}">Remove</a>
+            <div class="flex row space-between">
+                <p class="small-text">Closest due date: </p>
+                <a href="/project/delete/{{_id}}"><img src="/icons/delete.svg" class="icon"></a>
+            </div>
         </div>
         {{/each}}
     </div>

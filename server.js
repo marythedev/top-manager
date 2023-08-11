@@ -41,10 +41,11 @@ app.engine("hbs", hbs.engine({
     extname: "hbs",
     defaultLayout: 'main',
     helpers: {
-        eq: (arg1, arg2, options) => {
-            if (arg1 == arg2)
-                return options.fn(this);
-            return options.fn(this);
+        getProjectName: (projects, _id) => {
+            for (project of projects) {
+                if (project._id == _id)
+                    return project.name;
+            }
         }
     }
 }));

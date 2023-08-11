@@ -75,13 +75,19 @@
             <img src="/icons/add-white.svg" class="icon">
         </a>
     </div>
-    <div class="task-cards">
+    <div class="flex row wrap" id="cards">
+        
         {{#each tasks}}
         <div class="card">
-            <h3 class="mid-text">{{name}}</h3>
+            <div class="flex row space-between">
+                <h3 class="mid-text">{{name}}</h3>
+                <p class="small-text">{{priority}} Priority</p>
+            </div>
             <p class="small-text">{{dueDate}}</p>
-            <p class="small-text">{{project}}</p>
-            <a href="/task/delete/{{_id}}">Remove</a>
+            <div class="flex row space-between">
+                <p class="small-text">{{getProjectName ../projects project}}</p>
+                <a href="/task/delete/{{_id}}"><img src="/icons/delete.svg" class="icon"></a>
+            </div>
         </div>
         {{/each}}
     </div>

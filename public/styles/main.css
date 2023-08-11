@@ -56,6 +56,10 @@ body {
     flex-direction: column;
 }
 
+.wrap {
+    flex-wrap: wrap;
+}
+
 /*Text styling*/
 .center {
     text-align: center;
@@ -287,6 +291,17 @@ nav img#avatar {
     margin-top: 36px;
 }
 
+#cards .card {
+    width: 320px;
+    padding: 20px;
+    text-align: left;
+}
+
+#cards {
+    margin: 36px;
+    gap: 24px;
+}
+
 #no-projects>img,
 #no-tasks>img {
     margin-bottom: 36px;
@@ -383,7 +398,7 @@ nav img#avatar {
 }
 
 .header-row {
-    margin: 36px;
+    margin: 36px 36px 0 36px;
 }
 
 .header-row .big-text {

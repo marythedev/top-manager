@@ -59,7 +59,7 @@ router.get("/", checkAuthorization, (req, res) => {
                         if (tasks.length == 0)
                             renderNoTasks(res, "You have no tasks yet!", req.session.user.username, projects, tasks_title);
                         else
-                            renderTasks(res, tasks, req.session.user.username, projects, tasks_title)
+                            renderTasks(res, tasks, req.session.user.username, projects, tasks_title);
                     })
                     .catch(() => {
                         renderNoTasks(res, "Problem retrieving tasks.", req.session.user.username, projects, tasks_title);
