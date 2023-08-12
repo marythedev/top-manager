@@ -46,11 +46,14 @@
     <div class="flex row wrap" id="cards">
         {{#each projects}}
         <div class="card">
-            <h3 class="mid-text">{{name}}</h3>
             <div class="flex row space-between">
-                <p class="small-text">Closest due date: </p>
+                <h3 class="mid-text">{{name}}</h3>
                 <a href="/project/delete/{{_id}}"><img src="/icons/delete.svg" class="delete-icon"></a>
             </div>
+            {{#if closestDueDate}}
+            <p class="small-text">Closest due date: {{closestDueDate.date}}</p>
+            {{/if}}
+
         </div>
         {{/each}}
     </div>

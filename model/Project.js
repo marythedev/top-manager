@@ -4,7 +4,10 @@ const Schema = mongoose.Schema;
 const projectSchema = new Schema({
     owner: String,
     name: String,
-    closestDueDate: Date,
+    closestDueDate: {
+        date: String,
+        taskId: String
+    },
     tasks: [{
         taskId: String
     }],
