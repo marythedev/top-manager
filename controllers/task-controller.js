@@ -13,10 +13,30 @@ const processInput = (task) => {
     }
 }
 
-module.exports.getTaskById = (task_id) => {
+module.exports.getTaskById = (_id) => {
+    return new Promise((res, rej) => {
+        tasksModel.findOne({ _id: _id })
+            .then((task) => { res(task); });
+    });
+}
+
+module.exports.unassignTaskfromProject = (task_id) => {
     return new Promise((res, rej) => {
         tasksModel.findOne({ _id: task_id })
-            .then((task) => { res(task); });
+            .then((task) => {
+
+                if (task) {
+                    task.project = undefined;
+                    task.save()
+                        .then(() => { res(); });
+                } else
+                    rej("Task not found.");
+
+
+            }).catch((e) => {
+                console.log(`task-controller: unassignTaskfromProject save task in db ${e}`);
+                rej("Application encountered a problem trying to unassign task from project. Try again later or Contact Us.");
+            });
     });
 }
 
@@ -57,28 +77,33 @@ module.exports.addTask = (task) => {
 module.exports.deleteTask = (username, task_id) => {
     return new Promise((res, rej) => {
 
-        tasksModel.findOne({ owner: username, _id: task_id })   //session username will make sure that external user won't delete task
-                                                                //task can be deleted by /task/delete/:id route
+        //session username will make sure that external user won't delete task
+        //task can be deleted by /task/delete/:id route
+        tasksModel.findOne({ owner: username, _id: task_id })
             .then((task) => {
 
-                //remove task from project if it was assigned to one
-                if (task.project) {
-                    db_prj.deleteTaskFromProject(task_id, task.project)
-                        .then(() => {
-                            deleteTaskFromDb(task_id)
-                                .then(() => { res(); });
+                if (task) {
+                    //remove task from project if it was assigned to one
+                    if (task.project) {
+                        db_prj.deleteTaskFromProject(task_id, task.project)
+                            .then(() => {
+                                deleteTaskFromDb(task_id)
+                                    .then(() => { res(); });
 
-                        }).catch((e) => {
-                            console.log(`task-controller: deleteTask couldn't delete task from db ${e}`);
-                            rej("Application encountered a problem trying to delete task. Try again later or Contact Us.");
-                        });
-                }
+                            }).catch((e) => {
+                                console.log(`task-controller: deleteTask couldn't delete task from db ${e}`);
+                                rej("Application encountered a problem trying to delete task. Try again later or Contact Us.");
+                            });
+                    }
 
-                //if task wasn't assigned to a project, just delete it
-                else {
-                    deleteTaskFromDb(task_id)
-                        .then(() => { res(); });
-                }
+                    //if task wasn't assigned to a project, just delete it
+                    else {
+                        deleteTaskFromDb(task_id)
+                            .then(() => { res(); });
+                    }
+                } else
+                    rej("Task not found.");
+
             }).catch((e) => {
                 console.log(`task-controller: deleteTask encountered a problem ${e}`);
                 rej("Application encountered a problem trying to delete task. Try again later or Contact Us.");

@@ -50,7 +50,7 @@
                 <h3 class="mid-text">{{name}}</h3>
                 <a href="/project/delete/{{_id}}"><img src="/icons/delete.svg" class="delete-icon"></a>
             </div>
-            {{#if closestDueDate}}
+            {{#if closestDueDate.date}}
             <p class="small-text">Closest due date: {{closestDueDate.date}}</p>
             {{/if}}
 
