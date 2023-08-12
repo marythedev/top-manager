@@ -146,20 +146,6 @@ nav li#username {
     font-weight: bold;
 }
 
-nav img#logo {
-    height: 70px;
-}
-
-nav img#avatar {
-    height: 50px;
-}
-
-#account img#avatar {
-    height: 115px;
-    margin: 36px;
-    margin-bottom: 24px;
-}
-
 /*Navbar Dropdown*/
 .dropdown {
     position: relative;
@@ -476,4 +462,9 @@ select {
     background: url("/icons/arrow-down.svg") no-repeat;
     background-size: 13px 13px;
     background-position: calc(100% - 15px) center;
+}
+
+#account img#avatar {
+    margin: 36px;
+    margin-bottom: 24px;
 }

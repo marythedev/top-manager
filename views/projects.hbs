@@ -15,7 +15,7 @@
 
             <div class="add-cancel-buttons center flex space-between align-center">
                 <button class="mid-text">Add project</button>
-                <img src="/icons/cancel.svg" id="close-add-popup" class="cursor-pointer icon">
+                <img src="/icons/cancel.svg" id="close-add-popup" class="cursor-pointer icon" alt="Cancel icon">
             </div>
 
         </form>
@@ -26,10 +26,10 @@
 {{#if message}}
 <div id="no-projects" class="flex column align-center">
     <h1 class="big-text">{{message}}</h1>
-    <img src="/assets/guy-with-guitar.png">
+    <img src="/assets/guy-with-guitar.png" alt="No projects illustration">
     <p class="tiny-text">Try adding one</p>
     <a class="flex justify-center align-center open-add-popup cursor-pointer">
-        <img src="/icons/add-black.svg" class="icon">
+        <img src="/icons/add-black.svg" class="icon" alt="Add project icon">
     </a>
 </div>
 {{else}}
@@ -38,10 +38,10 @@
     <div class="header-row flex row space-between align-center">
         <div class="flex row align-center">
             <h2 class="big-text">Projects</h2>
-            <img src="/icons/sort.svg" class="icon">
+            <img src="/icons/sort.svg" class="icon" alt="Sort projects icon">
         </div>
         <a class="flex justify-center align-center open-add-popup cursor-pointer purple">
-            <img src="/icons/add-white.svg" class="icon">
+            <img src="/icons/add-white.svg" class="icon" alt="Add project icon">
         </a>
     </div>
     <div class="flex row wrap" id="cards">
@@ -49,7 +49,7 @@
         <div class="card">
             <div class="flex row space-between">
                 <h3 class="mid-text">{{name}}</h3>
-                <a href="/project/delete/{{_id}}"><img src="/icons/delete.svg" class="delete-icon"></a>
+                <a href="/project/delete/{{_id}}"><img src="/icons/delete.svg" class="delete-icon" alt="Delete project icon"></a>
             </div>
             {{#if closestDueDate.date}}
             <p class="small-text">Closest due date: {{closestDueDate.date}}</p>
