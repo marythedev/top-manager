@@ -45,13 +45,10 @@ module.exports.addTasktoProject = (task, project_id) => {
                     project.save()
                         .then(() => { res(); });
                 } else
-                    rej("Project not found.");
+                    rej("project-controller (addTasktoProject): Project Not Found");
 
             })
-            .catch((e) => {
-                console.log(`project-controller: addTasktoProject encountered a problem ${e}`);
-                rej("Application encountered a problem trying to add task to the project. Try again later or Contact Us.");
-            });
+            .catch((e) => { rej(`project-controller (addTasktoProject): ${e}`); });
     });
 }
 
@@ -78,11 +75,7 @@ module.exports.deleteTaskFromProject = (task_id, project_id) => {
                             const promise = db_task.getTaskById(task.taskId)
                                 .then((task) => {
                                     project.closestDueDate = updateClosestDueDate(project.closestDueDate, task);
-                                })
-                                .catch((e) => {
-                                    console.log(`project-controller: deleteTaskFromProject update project's ClosestDueDate ${e}`);
-                                    rej("Application encountered a problem trying to delete task from the project. Try again later or Contact Us.");
-                                });
+                                }).catch((e) => { rej(`project-controller (deleteTaskFromProject): ${e}`); });
                             updatePromises.push(promise);
                         }
                     }
@@ -93,13 +86,10 @@ module.exports.deleteTaskFromProject = (task_id, project_id) => {
                         })
 
                 } else
-                    rej("Project not found.");
+                    rej("project-controller (deleteTaskFromProject): Project Not Found");
 
             })
-            .catch((e) => {
-                console.log(`project-controller: deleteTaskFromProject encountered a problem ${e}`);
-                rej("Application encountered a problem trying to delete task from the project. Try again later or Contact Us.");
-            });
+            .catch((e) => { rej(`project-controller (deleteTaskFromProject): ${e}`); });
     });
 }
 
@@ -108,7 +98,8 @@ module.exports.deleteTaskFromProject = (task_id, project_id) => {
 module.exports.getAllProjects = (username) => {
     return new Promise((res, rej) => {
         projectsModel.find({ owner: username }).lean()
-            .then((projects) => { res(projects); });
+            .then((projects) => { res(projects); })
+            .catch((e) => { rej(`project-controller (getAllProjects): ${e}`); });
     });
 }
 
@@ -119,7 +110,8 @@ module.exports.addProject = (project) => {
 
         const newProject = new projectsModel(project);
         newProject.save()
-            .then(() => { res(); });
+            .then(() => { res(); })
+            .catch((e) => { rej(`project-controller (addProject): ${e}`); });
 
     });
 }
@@ -137,15 +129,16 @@ module.exports.deleteProject = (username, project_id) => {
                     for (const task of project.tasks) {
                         db_task.unassignTaskfromProject(task.taskId)
                             .then(() => { })
-                            .catch((e) => { console.log(`project-controller: deleteProject unassignTaskfromProject ${e}`); });
+                            .catch((e) => { rej(`project-controller (deleteProject): ${e}`); });
                     }
 
                     projectsModel.deleteOne({ _id: project_id }).exec()
                         .then(() => { res(); });
                 } else
-                    rej("Project not found.");
+                    rej("project-controller (deleteProject): Project Not Found");
 
             })
+            .catch((e) => { rej(`project-controller (deleteProject): ${e}`); });
     });
 }
 

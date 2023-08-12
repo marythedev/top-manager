@@ -53,8 +53,9 @@ router.get("/delete/:_id", checkAuthorization, (req, res) => {
     db_task.deleteTask(req.session.user.username, req.params._id)
         .then(() => {
             res.redirect("/tasks");
-        }).catch(() => {
-            res.status(500).send("Problem encountered while deleting task. Try again later.");
+        }).catch((e) => {
+            console.log(`${e}.`);
+            res.status(500).send("Problem encountered while deleting task. Try again later or Contact Us.");
         });
 });
 

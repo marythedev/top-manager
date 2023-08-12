@@ -18,15 +18,15 @@
             <div>
                 <p class="label small-text">Project</p>
 
-                {{#if projects}}
                 <select name="project" id="project" class="input-field mid-text">
+                    <option value="">No project</option>
+                    {{#if projects}}
                     {{#each projects}}
                     <option value="{{_id}}">{{name}}</option>
                     {{/each}}
+                    {{/if}}
                 </select>
-                {{else}}
-                <select name="project" id="project" class="input-field mid-text"></select>
-                {{/if}}
+
             </div>
 
             <div>

@@ -16,7 +16,8 @@ const processInput = (task) => {
 module.exports.getTaskById = (_id) => {
     return new Promise((res, rej) => {
         tasksModel.findOne({ _id: _id })
-            .then((task) => { res(task); });
+            .then((task) => { res(task); })
+            .catch((e) => { rej(`task-controller (getTaskById): ${e}`); });
     });
 }
 
@@ -30,20 +31,18 @@ module.exports.unassignTaskfromProject = (task_id) => {
                     task.save()
                         .then(() => { res(); });
                 } else
-                    rej("Task not found.");
+                    rej("task-controller (unassignTaskfromProject): Task Not Found");
 
 
-            }).catch((e) => {
-                console.log(`task-controller: unassignTaskfromProject save task in db ${e}`);
-                rej("Application encountered a problem trying to unassign task from project. Try again later or Contact Us.");
-            });
+            }).catch((e) => { rej(`task-controller (unassignTaskfromProject): ${e}`); });
     });
 }
 
 const deleteTaskFromDb = (_id) => {
     return new Promise((res, rej) => {
         tasksModel.deleteOne({ _id: _id }).exec()
-            .then(() => { res(); });
+            .then(() => { res(); })
+            .catch((e) => { rej(`task-controller (deleteTaskFromDb): ${e}`); });
     });
 }
 
@@ -51,7 +50,8 @@ const deleteTaskFromDb = (_id) => {
 module.exports.getAllTasks = (username) => {
     return new Promise((res, rej) => {
         tasksModel.find({ owner: username }).lean()
-            .then((tasks) => { res(tasks); });
+            .then((tasks) => { res(tasks); })
+            .catch((e) => { rej(`task-controller (getAllTasks): ${e}`); });
     });
 }
 
@@ -63,13 +63,14 @@ module.exports.addTask = (task) => {
         const newTask = new tasksModel(task);
         newTask.save()
             .then(() => {
-                db_prj.addTasktoProject(newTask, newTask.project)
-                    .then(() => { res(); });
+                if (task.project) {
+                    db_prj.addTasktoProject(newTask, newTask.project)
+                        .then(() => { res(); })
+                        .catch((e) => { rej(`task-controller (addTask): ${e}`); });
+                } else
+                    res();
             })
-            .catch((e) => {
-                console.log(`task-controller: addTask couldn't add task to the project ${e}`);
-                rej("Application encountered a problem trying to add task. Try again later or Contact Us.");
-            });
+            .catch((e) => { rej(`task-controller (addTask): ${e}`); });
 
     });
 }
@@ -88,26 +89,22 @@ module.exports.deleteTask = (username, task_id) => {
                         db_prj.deleteTaskFromProject(task_id, task.project)
                             .then(() => {
                                 deleteTaskFromDb(task_id)
-                                    .then(() => { res(); });
-
-                            }).catch((e) => {
-                                console.log(`task-controller: deleteTask couldn't delete task from db ${e}`);
-                                rej("Application encountered a problem trying to delete task. Try again later or Contact Us.");
-                            });
+                                    .then(() => { res(); })
+                                    .catch((e) => { rej(`task-controller (deleteTask): ${e}`); });
+                            })
+                            .catch((e) => { rej(`task-controller (deleteTask): ${e}`); });
                     }
 
                     //if task wasn't assigned to a project, just delete it
                     else {
                         deleteTaskFromDb(task_id)
-                            .then(() => { res(); });
+                            .then(() => { res(); })
+                            .catch((e) => { rej(`task-controller (deleteTask): ${e}`); });
                     }
                 } else
-                    rej("Task not found.");
+                    rej("task-controller (deleteTask): Task Not Found");
 
-            }).catch((e) => {
-                console.log(`task-controller: deleteTask encountered a problem ${e}`);
-                rej("Application encountered a problem trying to delete task. Try again later or Contact Us.");
-            });
+            }).catch((e) => { rej(`task-controller (deleteTask): ${e}`); });
 
     });
 }

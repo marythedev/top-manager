@@ -42,7 +42,8 @@ router.post("/", checkAuthorization, (req, res) => {
             res.redirect("/projects");
         })
         .catch((e) => {
-            res.status(500).send("Problem encountered while adding project data. Try again later.");
+            console.log(`${e}.`);
+            res.status(500).send("Problem encountered while adding project data. Try again later or Contact Us.");
         });
 });
 

@@ -33,8 +33,9 @@ router.get("/delete/:_id", checkAuthorization, (req, res) => {
     db_prj.deleteProject(req.session.user.username, req.params._id)
         .then(() => {
             res.redirect("/projects");
-        }).catch(() => {
-            res.status(500).send("Problem encountered while deleting project. Try again later.");
+        }).catch((e) => {
+            console.log(`${e}.`);
+            res.status(500).send("Problem encountered while deleting project. Try again later or Contact Us.");
         });
 });
 

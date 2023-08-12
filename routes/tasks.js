@@ -65,8 +65,9 @@ router.get("/", checkAuthorization, (req, res) => {
                         renderNoTasks(res, "Problem retrieving tasks.", req.session.user.username, projects, tasks_title);
                     });
             }
-        }).catch(() => {
-            res.status(500).send("Problem encountered while retrieving project data. Try again later.");
+        }).catch((e) => {
+            console.log(`${e}.`);
+            res.status(500).send("Problem encountered while retrieving project data. Try again later or Contact Us.");
         })
 
 });
@@ -75,8 +76,9 @@ router.post("/", checkAuthorization, (req, res) => {
         .then(() => {
             res.redirect("/tasks")
         })
-        .catch(() => {
-            res.status(500).send("Problem encountered while adding task. Try again later.");
+        .catch((e) => {
+            console.log(`${e}.`);
+            res.status(500).send("Problem encountered while adding task. Try again later or Contact Us.");
         });
 })
 
