@@ -5,20 +5,20 @@
     <div class="card">
         <h2 class="big-text">New Task</h2>
         <form method="post" name="add-task" action="/tasks">
-            <input id="owner" name="owner" type="hidden" value="{{ username }}" />
+            <input name="owner" type="hidden" value="{{ username }}" />
 
-            <div>
+            <div class="form-label-input-div">
                 <p class="label small-text">Name</p>
-                <input type="text" id="name" name="name" class="input-field mid-text" autocomplete="off" required>
+                <input type="text" name="name" class="input-field mid-text" autocomplete="off" required>
             </div>
-            <div>
+            <div class="form-label-input-div">
                 <p class="label small-text">Due Date</p>
-                <input type="date" id="dueDate" name="dueDate" class="input-field mid-text" required>
+                <input type="date" name="dueDate" class="input-field mid-text" required>
             </div>
-            <div>
+            <div class="form-label-input-div">
                 <p class="label small-text">Project</p>
 
-                <select name="project" id="project" class="input-field mid-text">
+                <select name="project" class="input-field mid-text">
                     <option value="">No project</option>
                     {{#if projects}}
                     {{#each projects}}
@@ -28,8 +28,7 @@
                 </select>
 
             </div>
-
-            <div>
+            <div class="form-label-input-div">
                 <p class="label small-text">Priority</p>
                 <div id="priority" class="flex row space-around align-center">
                     <div class="flex row checkbox">

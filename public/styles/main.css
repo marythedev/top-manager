@@ -146,6 +146,12 @@ nav img#avatar {
     height: 50px;
 }
 
+#account img#avatar {
+    height: 115px;
+    margin: 36px;
+    margin-bottom: 24px;
+}
+
 /*Navbar Dropdown*/
 .dropdown {
     position: relative;
@@ -222,9 +228,18 @@ nav img#avatar {
     text-align: center;
 }
 
-.card form>div {
+.card .form-label-input-div {
     text-align: left;
     margin: 24px 36px;
+}
+
+#account .card .form-label-input-div {
+    margin: 0;
+    margin-right: 36px;
+}
+
+#account .card .grouped-inputs {
+    margin: 24px 0 24px 36px;
 }
 
 .card .input-field,
@@ -287,6 +302,16 @@ nav img#avatar {
 #delete-button {
     width: calc(320px * 2);
     margin-top: 36px;
+}
+
+#account .card button {
+    width: calc((320px * 2 - 36px * 2));
+    /* card width - side margins */
+}
+
+.card .form-label-input-div .input-field {
+    width: calc((320px* 2 - 36px * 3) / 2);
+    /* (card width - all margins) / 2 inputs per column */
 }
 
 #login .card,

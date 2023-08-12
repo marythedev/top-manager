@@ -1,18 +1,40 @@
-<div id="account">
+<div id="account" class="flex column align-center">
     {{#if error}}
     <div class="flex align-center error mid-text"> {{error}}</div>
     {{/if}}
 
+    <div class="card">
+        <form name="update-account" method="post" action="/account">
+            <input type="hidden" name="username" value='{{user.username}}'>
 
-    <form name="update-account" method="post" class="card" action="/account">
-        <input type="hidden" id="username" name="username" placeholder="Username" value='{{user.username}}'>
+            <img id="avatar" src="/assets/avatar.png">
 
+            <div class="grouped-inputs flex row">
+                <div class="form-label-input-div">
+                    <p class="label small-text">Username</p>
+                    <input type="text" name="new_username" class="input-field mid-text" placeholder="New Username"
+                        autocomplete="off" value='{{user.username}}' required>
+                </div>
+                <div class="form-label-input-div">
+                    <p class="label small-text">Current Password</p>
+                    <input type="password" name="password" class="input-field mid-text" autocomplete="off">
+                </div>
+            </div>
 
-        <input type="text" id="new_username" name="new_username" placeholder="New Username" value='{{user.username}}'
-            required>
+            <div class="grouped-inputs flex row">
+                <div class="form-label-input-div">
+                    <p class="label small-text">New Password</p>
+                    <input type="password" name="new_password" class="input-field mid-text" autocomplete="off">
+                </div>
+                <div class="form-label-input-div">
+                    <p class="label small-text">Confirm New Password</p>
+                    <input type="password" name="confirm_new_password" class="input-field mid-text" autocomplete="off">
+                </div>
+            </div>
 
-        <button class="mid-text" type="submit">Update Account</button>
-    </form>
+            <button class="mid-text" type="submit">Update Account</button>
+        </form>
+    </div>
 
-    <button id="delete-button" class="mid-text" href="/account/delete" >Delete my account</button>
+    <button id="delete-button" class="mid-text" href="/account/delete">Delete my account</button>
 </div>

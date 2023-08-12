@@ -6,12 +6,13 @@
     <div class="card">
         <h2 class="big-text">New Project</h2>
         <form method="post" name="add-project" action="/projects">
-            <input id="owner" name="owner" type="hidden" value="{{ username }}" />
+            <input name="owner" type="hidden" value="{{ username }}" />
 
-            <div>
+            <div class="form-label-input-div">
                 <p class="label small-text">Name</p>
-                <input type="text" id="name" name="name" class="input-field mid-text" autocomplete="off" required>
+                <input type="text" name="name" class="input-field mid-text" autocomplete="off" required>
             </div>
+
             <div class="add-cancel-buttons center flex space-between align-center">
                 <button class="mid-text">Add project</button>
                 <img src="/icons/cancel.svg" id="close-add-popup" class="cursor-pointer icon">

@@ -7,14 +7,15 @@
     <div class="card">
         <h2 class="big-text">Welcome back!</h2>
         <form name="login" method="post" action="/login">
-            <div>
+            <div class="form-label-input-div">
                 <p class="label small-text">Username</p>
-                <input type="text" class="input-field mid-text" id="username" name="username" autocomplete="off" required>
+                <input type="text" class="input-field mid-text" name="username" autocomplete="off" required>
             </div>
-            <div>
+            <div class="form-label-input-div">
                 <p class="label small-text">Password</p>
-                <input type="password" class="input-field mid-text" id="password" name="password" required>
+                <input type="password" class="input-field mid-text" name="password" required>
             </div>
+            
             <button class="mid-text" type="submit">Login</button>
             <p class="tiny-text center">Don't have account?
                 <a href="/signup" class="tiny-text">Sign Up</a>
