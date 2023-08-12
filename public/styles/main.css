@@ -19,6 +19,10 @@ body {
     cursor: pointer;
 }
 
+button {
+    cursor: pointer;
+}
+
 .no-display {
     display: none;
 }
@@ -63,6 +67,10 @@ body {
 /*Text styling*/
 .center {
     text-align: center;
+}
+
+.grey {
+    color: #9C9C9C;
 }
 
 .main-header {
@@ -228,40 +236,40 @@ nav img#avatar {
     text-align: center;
 }
 
-.card .form-label-input-div {
+.form-label-input-div {
     text-align: left;
     margin: 24px 36px;
 }
 
-#account .card .form-label-input-div {
+#account .form-label-input-div {
     margin: 0;
     margin-right: 36px;
 }
 
-#account .card .grouped-inputs {
+#account .grouped-inputs {
     margin: 24px 0 24px 36px;
 }
 
-.card .input-field,
-.card button,
-.card #priority,
+.input-field,
+button,
+#priority,
 #delete-button {
     width: 248px;
     height: 36px;
 }
 
-.card .input-field,
-.card button,
+.input-field,
+button,
 #delete-button {
     border-radius: 10px;
     border: 1px solid #000;
 }
 
-.card .input-field {
+.input-field {
     padding: 0 12px;
 }
 
-.card button,
+button,
 #delete-button {
     background-color: #A128EC;
     border: none;
@@ -270,11 +278,11 @@ nav img#avatar {
     margin-bottom: 36px;
 }
 
-.card .add-cancel-buttons {
+.add-cancel-buttons {
     margin: 36px;
 }
 
-.card .add-cancel-buttons>button {
+.add-cancel-buttons>button {
     width: 180px;
     margin: 0;
 }
@@ -299,17 +307,17 @@ nav img#avatar {
 
 /*Cards & Errors Settings*/
 #account .card,
-#delete-button {
+#account #delete-button {
     width: calc(320px * 2);
     margin-top: 36px;
 }
 
-#account .card button {
+#account button:not(#delete-button) {
     width: calc((320px * 2 - 36px * 2));
     /* card width - side margins */
 }
 
-.card .form-label-input-div .input-field {
+.form-label-input-div .input-field {
     width: calc((320px* 2 - 36px * 3) / 2);
     /* (card width - all margins) / 2 inputs per column */
 }
@@ -349,8 +357,8 @@ nav img#avatar {
     margin: 36px 0;
 }
 
-#login .card button,
-#signup .card button {
+#login button,
+#signup button {
     margin-bottom: 4px;
 }
 
