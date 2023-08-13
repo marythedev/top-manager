@@ -77,8 +77,24 @@ button,
     margin: var(--gutter);
 }
 
-.primary-secondary-buttons>button {
+.primary-secondary-buttons #primary {
     margin: 0;
     width: 192px;
     width: calc(var(--button-width) - var(--gutter) - var(--icon-width));
+}
+
+#delete-account .primary-secondary-buttons {
+    margin: 0;
+}
+
+#delete-account .primary-secondary-buttons #primary {
+    margin-top: 24px;
+    width: 283px;
+    width: calc(var(--delete-page-width) / 3 * 2);
+}
+
+#delete-account .primary-secondary-buttons #delete-button {
+    margin-right: 0;
+    width: 105px;
+    width: calc(var(--delete-page-width) / 3 * 2 - var(--gutter));
 }

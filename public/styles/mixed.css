@@ -81,3 +81,11 @@ nav li#username {
 .header-row {
     margin: 36px 36px 0 36px;
 }
+
+#delete-account > * {
+    width: 425px;
+    width: var(--delete-page-width);
+
+    margin-top: 72px;
+    margin-top: calc(var(--gutter) * 2);
+}

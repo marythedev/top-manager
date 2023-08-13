@@ -43,10 +43,8 @@ router.post("/delete", checkAuthorization, (req, res) => {
             res.redirect("/logout");
         })
         .catch((e) => {
-            res.render("delete", {
-                error: e,
-                title: delete_title
-            });
+            console.log(`${e}.`);
+            res.status(500).send("Problem encountered while deleting account. Try again later or Contact Us.");
         })
 
 });

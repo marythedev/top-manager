@@ -95,10 +95,14 @@ nav h1 {
 
 #page404 .big-text,
 #no-projects .big-text,
-#no-tasks .big-text {
+#no-tasks .big-text{
     margin-top: 84px;
 }
 
 .header-row .big-text {
     margin-right: 12px;
+}
+
+#delete-account .mid-text.grey {
+    margin-top: 24px;
 }

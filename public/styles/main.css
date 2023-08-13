@@ -10,6 +10,7 @@ are hardcoded (usually on the line above)
 
     --base-unit: 4px;
     --icon-width: 20px;
+    --delete-page-width: 425px;
 
     --home-page-card-width: calc(var(--base-unit) * 60); /* 240px */
     --card-width: calc(var(--base-unit) * 80); /* 320px */
@@ -71,6 +72,10 @@ body {
 
 .align-center {
     align-items: center;
+}
+
+.align-end {
+    align-items: flex-end;
 }
 
 .row {
