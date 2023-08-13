@@ -3,6 +3,7 @@ const { checkAuthorization } = require("./middleware-functions.js");
 
 const loginRoute = require("./routes/login.js");
 const signupRoute = require("./routes/signup.js");
+const contactRoute = require("./routes/contact.js");
 const accountRoute = require("./routes/account.js");
 const tasksRoute = require("./routes/tasks.js");
 const taskRoute = require("./routes/task.js");
@@ -73,6 +74,7 @@ app.get("/", (req, res) => {
 
 app.use("/login", loginRoute);
 app.use("/signup", signupRoute);
+app.use("/contact", contactRoute);
 app.use("/account", accountRoute);
 app.use("/tasks", tasksRoute);
 app.use("/task", taskRoute);

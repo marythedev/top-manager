@@ -72,6 +72,11 @@ nav h1 {
     margin: var(--gutter) 0;
 }
 
+#contact .big-text {
+    margin: 36px 0 8px 0;
+    margin: var(--gutter) 0 8px 0;
+}
+
 #login .tiny-text,
 #signup .tiny-text {
     margin-bottom: 36px;
