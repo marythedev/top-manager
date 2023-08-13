@@ -8,15 +8,15 @@
             <input name="owner" type="hidden" value="{{ username }}" />
 
             <div class="form-label-input-div">
-                <p class="label small-text">Name</p>
+                <p class="label">Name</p>
                 <input type="text" name="name" class="input-field mid-text" autocomplete="off" required>
             </div>
             <div class="form-label-input-div">
-                <p class="label small-text">Due Date</p>
+                <p class="label">Due Date</p>
                 <input type="date" name="dueDate" class="input-field mid-text" required>
             </div>
             <div class="form-label-input-div">
-                <p class="label small-text">Project</p>
+                <p class="label">Project</p>
 
                 <select name="project" class="input-field mid-text">
                     <option value="">No project</option>
@@ -29,24 +29,24 @@
 
             </div>
             <div class="form-label-input-div">
-                <p class="label small-text">Priority</p>
+                <p class="label">Priority</p>
                 <div id="priority" class="flex row space-around align-center">
                     <div class="flex row checkbox">
                         <input type="checkbox" name="priority" value="Low">
-                        <p class="label small-text">Low</p>
+                        <p class="label">Low</p>
                     </div>
                     <div class="flex row checkbox">
                         <input type="checkbox" name="priority" value="Medium">
-                        <p class="label small-text">Medium</p>
+                        <p class="label">Medium</p>
                     </div>
                     <div class="flex row checkbox">
                         <input type="checkbox" name="priority" value="High">
-                        <p class="label small-text">High</p>
+                        <p class="label">High</p>
                     </div>
                 </div>
             </div>
 
-            <div class="add-cancel-buttons center flex space-between align-center">
+            <div class="primary-secondary-buttons center flex space-between align-center">
                 <button class="mid-text">Add Task</button>
                 <img src="/icons/cancel.svg" id="close-add-popup" class="cursor-pointer icon" alt="Cancel icon">
             </div>

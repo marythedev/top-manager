@@ -9,25 +9,25 @@
 
             <img id="avatar" src="/assets/avatar.png" height="115px" alt="Avatar">
 
-            <div class="grouped-inputs flex row">
-                <div class="form-label-input-div">
-                    <p class="label small-text">Username</p>
+            <div class="form-label-input-div flex row space-between">
+                <div>
+                    <p class="label">Username</p>
                     <input type="text" name="new_username" class="input-field mid-text" placeholder="New Username"
                         autocomplete="off" value='{{user.username}}' required>
                 </div>
-                <div class="form-label-input-div">
-                    <p class="label small-text">Current Password</p>
+                <div>
+                    <p class="label">Current Password</p>
                     <input type="password" name="password" class="input-field mid-text" autocomplete="off">
                 </div>
             </div>
 
-            <div class="grouped-inputs flex row">
-                <div class="form-label-input-div">
-                    <p class="label small-text">New Password</p>
+            <div class="form-label-input-div flex row space-between">
+                <div>
+                    <p class="label">New Password</p>
                     <input type="password" name="new_password" class="input-field mid-text" autocomplete="off">
                 </div>
-                <div class="form-label-input-div">
-                    <p class="label small-text">Confirm New Password</p>
+                <div>
+                    <p class="label">Confirm New Password</p>
                     <input type="password" name="confirm_new_password" class="input-field mid-text" autocomplete="off">
                 </div>
             </div>

@@ -1,0 +1,59 @@
+/*General Form Input Setting*/
+select {
+    appearance: none;
+    background: url("/icons/arrow-down.svg") no-repeat;
+    background-size: 13px 13px;
+    background-position: calc(100% - 15px) center;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.5;
+}
+
+.checkbox .label {
+    margin: 0;
+    padding-left: 2px;
+}
+
+.checkbox input[type="checkbox"] {
+    /* black checkmark on white background (without borders) */
+    accent-color: white;
+
+    /* white checkmark on greyish backbround */
+    /* filter: grayscale(100%) contrast(200%); */
+}
+
+.input-field,
+#priority {
+    width: 248px;
+    width: calc(var(--card-width) - var(--gutter) * 2);
+
+    height: 36px;
+    height: var(--input-height);
+}
+
+.input-field {
+    padding: 0 12px;
+    border-radius: 10px;
+    border: 1px solid #000;
+}
+
+
+
+/*Label + Input Div*/
+.form-label-input-div {
+    text-align: left;
+    margin: 24px 36px;
+    margin: 24px var(--gutter);
+}
+
+
+
+/* Custom Input Settings For Different Pages */
+
+/* Account page has 2 inputs per row */
+#account .form-label-input-div .input-field {
+    width: 266px;
+    width: calc((var(--large-card-width) - var(--gutter) * 3) / 2);
+    /* (card width - all margins (2-size + 1-inner)) / 2 inputs per row */
+}

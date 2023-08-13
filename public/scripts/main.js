@@ -1,5 +1,5 @@
 const dropdown = document.getElementsByClassName("dropdown")[0];
-const dropdownContent = document.getElementsByClassName("dropdown-content")[0];
+const dropdownContent = document.querySelector(".dropdown .card");
 const account = document.getElementById("account");
 const contact = document.getElementById("contact");
 const logout = document.getElementById("logout");

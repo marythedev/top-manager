@@ -1,5 +1,5 @@
-const previous = document.getElementById("previous");
-const next = document.getElementById("next");
+const previous = document.getElementById("previous-icon");
+const next = document.getElementById("next-icon");
 
 const carouselImages = document.getElementsByClassName("carousel-img");
 const dots = document.getElementsByClassName("dot");
