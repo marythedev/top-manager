@@ -80,8 +80,6 @@
 #account .error {
     width: 640px;
     width: var(--large-card-width);
-
-    
 }
 
 #account .card {
