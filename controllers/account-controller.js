@@ -26,7 +26,7 @@ module.exports.signup = (user) => {
                         })
                         .catch((e) => {
                             if (e.code == 11000)    //duplicate entry
-                                rej("Username is already taken.");
+                                rej(11000);
                             else
                                 rej(`Problems creating user: ${e}`);
                         });
@@ -72,7 +72,10 @@ module.exports.updateAccount = (update, session) => {
                 res("User updated.");
             })
             .catch((e) => {
-                rej("Application encountered a problem updating user. Try again later." + e);
+                if (e.code == 11000)    //duplicate entry
+                    rej(11000);
+                else
+                    rej("Application encountered a problem updating user. Try again later." + e);
             });
 
     });

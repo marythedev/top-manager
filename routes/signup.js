@@ -17,11 +17,17 @@ router.post("/", (req, res) => {
             res.redirect('/tasks');
         })
         .catch((e) => {
-            res.render("signup", {
-                error: e,
-                username: req.body.username,
-                title: signup_title
-            });
+            if (e == 11000) {    //duplicate entry
+                res.render("signup", {
+                    error: "Username is already taken.",
+                    username: req.body.username,
+                    title: signup_title
+                });
+            } else {
+                console.log(`${e}.`);
+                res.status(500).send("Problem encountered while creating account. Try again later or Contact Us.");
+            }
+           
         })
 });
 

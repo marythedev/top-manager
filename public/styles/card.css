@@ -76,10 +76,15 @@
 }
 
 /*Account page large card*/
-#account .card {
+#account .card,
+#account .error {
     width: 640px;
     width: var(--large-card-width);
 
+    
+}
+
+#account .card {
     padding-top: 36px;
     padding-top: var(--gutter);
 }

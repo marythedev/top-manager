@@ -6,7 +6,7 @@ const express = require("express");
 const router = express.Router();
 
 //html titles for rendered files
-const account_title = "Account"; 
+const account_title = "My Account";
 const delete_title = "Delete Account";
 
 router.get("/", checkAuthorization, (req, res) => {
@@ -22,11 +22,16 @@ router.post("/", checkAuthorization, (req, res) => {
             res.redirect("/");
         })
         .catch((e) => {
-            res.render("account", {
-                error: e,
-                user: req.session.user,
-                title: account_title
-            });
+            if (e == 11000) {    //duplicate entry
+                res.render("account", {
+                    error: "Username is already taken.",
+                    user: req.session.user,
+                    title: account_title
+                });
+            } else {
+                console.log(`${e}.`);
+                res.status(500).send("Problem encountered while updating account. Try again later or Contact Us.");
+            }
         })
 
 });
