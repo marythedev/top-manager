@@ -15,21 +15,17 @@ router.post("/", (request, response) => {
             response.redirect('/tasks');
         })
         .catch((error) => {
-            //Client error format: {code: 400, message: "error message"};
-            //Frontend displays error message for the user
+            //Client error format: {code: 400, message: "error message"}
             if (error.code == 400) {
                 response.render("login", {
                     error: error.message,
-                    username: request.body.username,
                     title: login_title
                 });
             }
-            //Any internal error format: "error message";
-            //Frontend displays an oops page
+            //Internal error format: "error message"
             else {
                 response.status(500).render("oops", {
                     message: "a problem logging you in",
-                    username: request.body.username,
                     title: login_title
                 });
             }

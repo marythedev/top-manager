@@ -2,54 +2,55 @@ const { checkAuthorization } = require("../middleware-functions.js");
 const db_acc = require("../controllers/account-controller.js");
 
 const express = require("express");
-
 const router = express.Router();
 
 //html titles for rendered files
 const account_title = "My Account";
 const delete_title = "Delete Account";
 
-router.get("/", checkAuthorization, (req, res) => {
-    res.render("account", {
-        user: req.session.user,
+router.get("/", checkAuthorization, (request, response) => {
+    response.render("account", {
+        user: request.session.user,
         title: account_title
     });
 });
-
-router.post("/", checkAuthorization, (req, res) => {
-    db_acc.updateAccount(req.body, req.session)
+router.post("/", checkAuthorization, (request, response) => {
+    db_acc.updateAccount(request.body, request.session)
         .then(() => {
-            res.redirect("/");
+            response.redirect("/");
         })
-        .catch((e) => {
-            if (e == 11000) {    //duplicate entry
-                res.render("account", {
-                    error: "Username is already taken.",
-                    user: req.session.user,
+        .catch((error) => {
+            //Client error format: {code: 400, message: "error message"}
+            if (error.code == 400) {
+                response.render("account", {
+                    error: error.message,
+                    user: request.session.user,
                     title: account_title
                 });
-            } else {
-                console.log(`${e}.`);
-                res.status(500).send("Problem encountered while updating account. Try again later or Contact Us.");
+            }
+            //Internal error format: "error message"
+            else {
+                response.status(500).render("oops", {
+                    message: "a problem updating account",
+                    title: account_title
+                });
             }
         })
-
 });
 
-router.get("/delete", checkAuthorization, (req, res) => {
-    res.render("delete", {
-        title: delete_title
-    });
+router.get("/delete", checkAuthorization, (request, response) => {
+    response.render("delete", { title: delete_title });
 });
-
-router.post("/delete", checkAuthorization, (req, res) => {
-    db_acc.deleteAccount(req.session.user.username)
+router.post("/delete", checkAuthorization, (request, response) => {
+    db_acc.deleteAccount(request.session.user.username)
         .then(() => {
-            res.redirect("/logout");
+            response.redirect("/logout");
         })
-        .catch((e) => {
-            console.log(`${e}.`);
-            res.status(500).send("Problem encountered while deleting account. Try again later or Contact Us.");
+        .catch(() => {
+            response.status(500).render("oops", {
+                message: "a problem deleting account",
+                title: delete_title
+            });
         })
 
 });

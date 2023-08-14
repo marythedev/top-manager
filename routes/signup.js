@@ -15,21 +15,17 @@ router.post("/", (request, response) => {
             response.redirect('/tasks');
         })
         .catch((error) => {
-            //Client error format: {code: 400, message: "error message"};
-            //Frontend displays error message for the user
+            //Client error format: {code: 400, message: "error message"}
             if (error.code == 400) {
                 response.render("signup", {
                     error: error.message,
-                    username: request.body.username,
                     title: signup_title
                 });
             }
-            //Any internal error format: "error message";
-            //Frontend displays an oops page
+            //Internal error format: "error message"
             else {
                 response.status(500).render("oops", {
                     message: "a problem creating account",
-                    username: request.body.username,
                     title: signup_title
                 });
             }
