@@ -1,30 +1,39 @@
 const db_acc = require("../controllers/account-controller.js");
 
 const express = require("express");
-
 const router = express.Router();
 
 const login_title = "Login";  //html title for rendered file
 
-router.get("/", (req, res) => {
-    res.render("login", { title: login_title });
+router.get("/", (request, response) => {
+    response.render("login", { title: login_title });
 });
-router.post("/", (req, res) => {
-    db_acc.login(req.body)
+router.post("/", (request, response) => {
+    db_acc.login(request.body)
         .then((user) => {
-            req.session.user = {
-                username: user.username
-            }
-            res.redirect('/tasks');
+            request.session.user = { username: user.username };
+            response.redirect('/tasks');
         })
-        .catch((e) => {
-            res.render("login", {
-                error: e,
-                username: req.body.username,
-                title: login_title
-            });
+        .catch((error) => {
+            //Client error format: {code: 400, message: "error message"};
+            //Frontend displays error message for the user
+            if (error.code == 400) {
+                response.render("login", {
+                    error: error.message,
+                    username: request.body.username,
+                    title: login_title
+                });
+            }
+            //Any internal error format: "error message";
+            //Frontend displays an oops page
+            else {
+                response.status(500).render("oops", {
+                    message: "a problem logging you in",
+                    username: request.body.username,
+                    title: login_title
+                });
+            }
         });
-
 });
 
 module.exports = router;

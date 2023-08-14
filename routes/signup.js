@@ -5,33 +5,34 @@ const router = express.Router();
 
 const signup_title = "Sign Up";  //html title for rendered file
 
-router.get("/", (req, res) => {
-    res.render("signup", { title: signup_title });
+router.get("/", (request, response) => {
+    response.render("signup", { title: signup_title });
 });
-router.post("/", (req, res) => {
-    db_acc.signup(req.body)
+router.post("/", (request, response) => {
+    db_acc.signup(request.body)
         .then((user) => {
-            req.session.user = {
-                username: user.username
-            }
-            res.redirect('/tasks');
+            request.session.user = { username: user.username };
+            response.redirect('/tasks');
         })
-        .catch((e) => {
-            if (e == 11000) {    //duplicate entry
-                res.render("signup", {
-                    error: "Username is already taken.",
-                    username: req.body.username,
-                    title: signup_title
-                });
-            } else {
-                console.log(`${e}.`);
-                res.status(500).render("oops", {
-                    message: "Oops, we've encountered a problem while creating account.",
-                    username: req.body.username,
+        .catch((error) => {
+            //Client error format: {code: 400, message: "error message"};
+            //Frontend displays error message for the user
+            if (error.code == 400) {
+                response.render("signup", {
+                    error: error.message,
+                    username: request.body.username,
                     title: signup_title
                 });
             }
-           
+            //Any internal error format: "error message";
+            //Frontend displays an oops page
+            else {
+                response.status(500).render("oops", {
+                    message: "a problem creating account",
+                    username: request.body.username,
+                    title: signup_title
+                });
+            }
         })
 });
 

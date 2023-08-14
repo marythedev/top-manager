@@ -9,57 +9,55 @@ const userSchema = require('../model/User');
 const usersModel = mongoose.model(process.env.USER_COLLECTION, userSchema);
 
 module.exports.signup = (user) => {
-    return new Promise((res, rej) => {
-        if (user.password == "" || user.password.match(/^ *$/) !== null
+
+    return new Promise((resolve, reject) => {
+        if (user.password !== user.confirm_password)
+            reject({ code: 400, message: "Passwords should match." });
+        else if (user.password == "" || user.password.match(/^ *$/) !== null
             || user.confirm_password == "" || user.confirm_password.match(/^ *$/) !== null)
-            rej("Password cannot be empty.");
-        else if (user.password !== user.confirm_password)
-            rej("Passwords should match.");
+            reject({ code: 400, message: "Password cannot be empty." });
         else {
             bcrypt.hash(user.password, 8)
                 .then((hash) => {
                     user.password = hash;
                     const newUser = new usersModel(user);
-                    newUser.save()
-                        .then(() => {
-                            res(newUser);
-                        })
-                        .catch((e) => {
-                            if (e.code == 11000)    //duplicate entry
-                                rej(11000);
-                            else
-                                rej(`Problems creating user: ${e}`);
-                        });
+                    return newUser.save();
                 })
-                .catch(() => {
-                    rej("Application encountered a problem processing signup data. Try again later.");
+                .then((newUser) => {
+                    resolve(newUser);
+                })
+                .catch((error) => {
+                    if (error.code == 11000)    //duplicate entry
+                        reject({ code: 400, message: "Username already exists." });
+                    else
+                        reject(error);
                 });
         }
-
     });
+
 }
 
 module.exports.login = (login) => {
-    return new Promise((res, rej) => {
 
+    return new Promise((resolve, reject) => {
         usersModel.findOne({ username: login.username }).exec()
             .then((user) => {
-                bcrypt.compare(login.password, user.password)
-                    .then((result) => {
-                        if (result)
-                            res(user);
-                        else
-                            rej(`Incorrect login or password.`);
-                    })
-                    .catch(() => {
-                        rej("Application encountered a problem processing login data. Try again later.");
-                    })
+                if (user)
+                    return bcrypt.compare(login.password, user.password);
+                else
+                    reject({ code: 400, message: `Couldn't find user ${login.username}.` });
             })
-            .catch(() => {
-                rej(`No such user ${login.username}`);
+            .then((passwordMatches) => {
+                if (passwordMatches)
+                    resolve(user);
+                else
+                    reject({ code: 400, message: "Incorrect login or password." });
+            })
+            .catch((error) => {
+                reject(error);
             });
-
     });
+
 }
 
 module.exports.updateAccount = (update, session) => {

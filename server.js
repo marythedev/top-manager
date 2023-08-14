@@ -1,5 +1,4 @@
 const db = require("./controllers/db-connection-controller.js");
-const { checkAuthorization } = require("./middleware-functions.js");
 
 const loginRoute = require("./routes/login.js");
 const signupRoute = require("./routes/signup.js");
