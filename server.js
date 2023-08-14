@@ -32,8 +32,8 @@ app.use(sessions({
     duration: 24 * 60 * 60 * 1000,
     activeDuration: 1000 * 60 * 5
 }));
-app.use((req, res, next) => {
-    res.locals.session = req.session;
+app.use((request, response, next) => {
+    response.locals.session = request.session;
     next();
 });
 
@@ -60,15 +60,14 @@ db.connect()
             console.log(`App is listening on port ${PORT} :)`);
         });
     })
-    .catch((e) => {
-        console.log("App failed to start. " + e);
-        db.close();
+    .catch((error) => {
+        console.log("App failed to start. " + error);
     });
 
 
 //available routes
-app.get("/", (req, res) => {
-    res.render("home", { title: "Home" });
+app.get("/", (request, response) => {
+    response.render("home", { title: "Home" });
 });
 
 app.use("/login", loginRoute);
@@ -80,10 +79,10 @@ app.use("/task", taskRoute);
 app.use("/projects", projectsRoute);
 app.use("/project", projectRoute);
 
-app.get("/logout", (req, res) => {
-    req.session.reset();
-    res.redirect('/');
+app.get("/logout", (request, response) => {
+    request.session.reset();
+    response.redirect('/');
 });
-app.get("/*", (req, res) => {
-    res.status(404).render("page404", { title: "Not Found" });
+app.get("/*", (request, response) => {
+    response.status(404).render("page404", { title: "Not Found" });
 });
