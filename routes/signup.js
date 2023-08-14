@@ -25,7 +25,11 @@ router.post("/", (req, res) => {
                 });
             } else {
                 console.log(`${e}.`);
-                res.status(500).send("Problem encountered while creating account. Try again later or Contact Us.");
+                res.status(500).render("oops", {
+                    message: "Oops, we've encountered a problem while creating account.",
+                    username: req.body.username,
+                    title: signup_title
+                });
             }
            
         })

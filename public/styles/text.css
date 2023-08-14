@@ -84,7 +84,8 @@ nav h1 {
 }
 
 #login .tiny-text a,
-#signup .tiny-text a {
+#signup .tiny-text a,
+#oops a {
     text-decoration: underline;
     text-underline-offset: 3px;
 }
@@ -98,7 +99,12 @@ nav h1 {
     margin-bottom: 4px;
 }
 
+#oops .mid-text {
+    margin-top: 8px;
+}
+
 #page404 .big-text,
+#oops .big-text,
 #no-projects .big-text,
 #no-tasks .big-text{
     margin-top: 84px;
