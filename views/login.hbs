@@ -6,7 +6,7 @@
 
     <div class="card">
         <h2 class="big-text">Welcome back!</h2>
-        <form name="login" method="post" action="/login">
+        <form name="login" method="post" action="/login" onsubmit="noMultipleSubmit(this)">
             <div class="form-label-input-div">
                 <p class="label">Username</p>
                 <input type="text" class="input-field mid-text" name="username" autocomplete="off" required>

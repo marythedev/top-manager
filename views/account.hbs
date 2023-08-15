@@ -4,7 +4,7 @@
     {{/if}}
 
     <div class="card">
-        <form name="update-account" method="post" action="/account">
+        <form name="update-account" method="post" action="/account" onsubmit="noMultipleSubmit(this)">
             <input type="hidden" name="username" value='{{user.username}}'>
 
             <img id="avatar" src="/assets/avatar.png" height="115px" alt="Avatar">

@@ -96,13 +96,11 @@ module.exports.deleteTask = (username, task_id) => {
             })
             .then(() => { resolve(); })
             .catch((error) => {
-                console.log(error);
                 reject(error);
             });
 
     });
 }
-
 
 
 

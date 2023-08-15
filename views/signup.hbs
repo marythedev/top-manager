@@ -6,7 +6,7 @@
 
     <div class="card">
         <h2 class="big-text">Join Us!</h2>
-        <form name="signup" method="post" action="/signup">
+        <form name="signup" method="post" action="/signup" onsubmit="noMultipleSubmit(this)">
             <div class="form-label-input-div">
                 <p class="label">Username</p>
                 <input type="text" class="input-field mid-text" name="username" autocomplete="off" required>
