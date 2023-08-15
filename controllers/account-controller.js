@@ -22,6 +22,10 @@ module.exports.signup = (user) => {
     return new Promise((resolve, reject) => {
         if (user.password !== user.confirm_password)
             reject({ code: 400, message: "Passwords should match." });
+        else if (user.password.length < 8)
+            reject({ code: 400, message: "Password should have at least 8 characters." });
+        else if (/[a-zA-Z]/g.test(user.password) == false)
+            reject({ code: 400, message: "Password should contain at least one letter." });
         else if (user.password == "" || user.password.match(/^ *$/) !== null
             || user.confirm_password == "" || user.confirm_password.match(/^ *$/) !== null)
             reject({ code: 400, message: "Password cannot be empty." });
