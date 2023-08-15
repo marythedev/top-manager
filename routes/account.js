@@ -45,14 +45,12 @@ router.post("/delete", checkAuthorization, (request, response) => {
     db_acc.deleteAccount(request.session.user.username)
         .then(() => {
             response.redirect("/logout");
-        })
-        .catch(() => {
+        }).catch(() => {
             response.status(500).render("oops", {
                 message: "a problem deleting account",
                 title: delete_title
             });
         })
-
 });
 
 module.exports = router;

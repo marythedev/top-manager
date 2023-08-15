@@ -29,13 +29,15 @@ const project_title = "Project";  //html title for rendered file
 //         })
 
 // });
-router.get("/delete/:_id", checkAuthorization, (req, res) => {
-    db_prj.deleteProject(req.session.user.username, req.params._id)
+router.get("/delete/:_id", checkAuthorization, (request, response) => {
+    db_prj.deleteProject(request.session.user.username, request.params._id)
         .then(() => {
-            res.redirect("/projects");
-        }).catch((e) => {
-            console.log(`${e}.`);
-            res.status(500).send("Problem encountered while deleting project. Try again later or Contact Us.");
+            response.redirect("/projects");
+        }).catch(() => {
+            response.status(500).render("oops", {
+                message: "a problem deleting project",
+                title: "Delete Project"
+            });
         });
 });
 

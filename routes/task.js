@@ -49,13 +49,15 @@ const task_title = "Task";  //html title for rendered file
 //         })
 
 // });
-router.get("/delete/:_id", checkAuthorization, (req, res) => {
-    db_task.deleteTask(req.session.user.username, req.params._id)
+router.get("/delete/:_id", checkAuthorization, (request, response) => {
+    db_task.deleteTask(request.session.user.username, request.params._id)
         .then(() => {
-            res.redirect("/tasks");
-        }).catch((e) => {
-            console.log(`${e}.`);
-            res.status(500).send("Problem encountered while deleting task. Try again later or Contact Us.");
+            response.redirect("/tasks");
+        }).catch(() => {
+            response.status(500).render("oops", {
+                message: "a problem deleting task",
+                title: "Delete Task"
+            });
         });
 });
 

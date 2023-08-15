@@ -8,77 +8,79 @@ const router = express.Router();
 //html titles for rendered files
 const tasks_title = "Tasks";
 
-const renderNoTasks = (res, message, username, projects, title) => {
-    res.render("tasks", {
-        message: message,
-        username: username,
-        projects: projects,
-        title: title
+const renderTasks = (response, tasks, username, projects, title) => {
+    if (tasks.length == 0)
+        response.render("tasks", {
+            message: "You have no tasks yet!",
+            username: username,
+            projects: projects,
+            title: title
+        });
+    else
+        response.render("tasks", {
+            tasks: tasks,
+            username: username,
+            projects: projects,
+            title: title
+        });
+}
+
+const renderOopsPage = (response) => {
+    response.status(500).render("oops", {
+        message: "a problem retrieving tasks",
+        title: tasks_title
     });
 }
 
-const renderTasks = (res, tasks, username, projects, title) => {
-    res.render("tasks", {
-        tasks: tasks,
-        username: username,
-        projects: projects,
-        title: title
-    });
-}
+router.get("/", checkAuthorization, (request, response) => {
 
-router.get("/", checkAuthorization, (req, res) => {
-
-    db_prj.getAllProjects(req.session.user.username)
+    db_prj.getAllProjects(request.session.user.username)
         .then((projects) => {
-            //possible priority values: "High", "Medium", "Low"
-            if (req.query.priority != undefined) {
-                db_task.getTasksByPriority(req.session.user.username, projects, req.query.priority)
-                    .then((tasks) => {
-                        if (tasks.length == 0)
-                            renderNoTasks(res, "You have no tasks yet!", req.session.user.username, projects, tasks_title);
-                        else
-                            renderTasks(res, tasks, req.session.user.username, projects, tasks_title)
-                    })
-                    .catch(() => {
-                        renderNoTasks(res, "Problem retrieving task.", req.session.user.username, projects, tasks_title);
-                    });
-            } else if (req.query.project != undefined) {
-                db_task.getTasksByProject(req.session.user.username, req.query.project)
-                    .then((tasks) => {
-                        if (tasks.length == 0)
-                            renderNoTasks(res, "You have no tasks yet!", req.session.user.username, projects, tasks_title);
-                        else
-                            renderTasks(res, tasks, req.session.user.username, projects, tasks_title)
-                    })
-                    .catch(() => {
-                        renderNoTasks(res, "Problem retrieving tasks.", req.session.user.username, projects, tasks_title);
-                    });
-            } else {
-                db_task.getAllTasks(req.session.user.username)
-                    .then((tasks) => {
-                        if (tasks.length == 0)
-                            renderNoTasks(res, "You have no tasks yet!", req.session.user.username, projects, tasks_title);
-                        else
-                            renderTasks(res, tasks, req.session.user.username, projects, tasks_title);
-                    })
-                    .catch(() => {
-                        renderNoTasks(res, "Problem retrieving tasks.", req.session.user.username, projects, tasks_title);
-                    });
-            }
-        }).catch((e) => {
-            console.log(`${e}.`);
-            res.status(500).send("Problem encountered while retrieving project data. Try again later or Contact Us.");
+            // if (request.query.priority != undefined) {   //possible priority values: "High", "Medium", "Low"
+            //     db_task.getTasksByPriority(request.session.user.username, projects, request.query.priority)
+            //         .then((tasks) => {
+            //             renderTasks(
+            //                 response, tasks,
+            //                 request.session.user.username,
+            //                 projects, tasks_title
+            //             );
+            //         }).catch(() => { renderOopsPage(response) });
+            // }
+            // else if (request.query.project != undefined) {
+            //     db_task.getTasksByProject(request.session.user.username, request.query.project)
+            //         .then((tasks) => {
+            //             renderTasks(
+            //                 response, tasks,
+            //                 request.session.user.username,
+            //                 projects, tasks_title
+            //             );
+            //         }).catch(() => { renderOopsPage(response) });
+            // }
+            // else {
+            db_task.getAllTasks(request.session.user.username)
+                .then((tasks) => {
+                    renderTasks(
+                        response, tasks,
+                        request.session.user.username,
+                        projects, tasks_title
+                    );
+                }).catch(() => { renderOopsPage(response) });
+            // }
+        })
+        .catch(() => {
+            renderOopsPage(response);
         })
 
 });
-router.post("/", checkAuthorization, (req, res) => {
-    db_task.addTask(req.body)
+router.post("/", checkAuthorization, (request, response) => {
+    db_task.addTask(request.body)
         .then(() => {
-            res.redirect("/tasks")
-        })
-        .catch((e) => {
-            console.log(`${e}.`);
-            res.status(500).send("Problem encountered while adding task. Try again later or Contact Us.");
+            response.redirect("/tasks")
+        }).catch(() => {
+            response.status(500).render("oops", {
+                message: "a problem adding task",
+                title: "Add Task"
+            });
         });
 })
 
