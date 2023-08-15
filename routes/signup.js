@@ -1,3 +1,4 @@
+const { checkNeedForLogin } = require("../middleware-functions.js");
 const db_acc = require("../controllers/account-controller.js");
 
 const express = require("express");
@@ -5,10 +6,10 @@ const router = express.Router();
 
 const signup_title = "Sign Up";  //html title for rendered file
 
-router.get("/", (request, response) => {
+router.get("/", checkNeedForLogin, (request, response) => {
     response.render("signup", { title: signup_title });
 });
-router.post("/", (request, response) => {
+router.post("/", checkNeedForLogin, (request, response) => {
     db_acc.signup(request.body)
         .then((user) => {
             request.session.user = { username: user.username };
