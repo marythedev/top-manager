@@ -13,9 +13,8 @@ const processInput = (project) => {
     }
 }
 
-const updateClosestDueDate = (closestDueDate, task) => {
+const updClosestDueDate = (closestDueDate, task) => {
     if (closestDueDate.date) {
-
         if (closestDueDate.date > task.dueDate) {
             closestDueDate.date = task.dueDate;
             closestDueDate.taskId = task._id;
@@ -29,117 +28,125 @@ const updateClosestDueDate = (closestDueDate, task) => {
 }
 
 module.exports.addTasktoProject = (task, project_id) => {
-    return new Promise((res, rej) => {
+
+    return new Promise((resolve, reject) => {
         projectsModel.findOne({ _id: project_id })
             .then((project) => {
-
                 if (project) {
-                    //add task id to project's tasks array
-                    project.tasks.push({
-                        taskId: task._id
-                    });
+                    //add task id to project's task id array
+                    project.taskIds.push({ taskId: task._id });
 
-                    //update project's closestDueDate if necessary
-                    project.closestDueDate = updateClosestDueDate(project.closestDueDate, task);
+                    //update project's closestDueDate taking into account the new task's due date
+                    project.closestDueDate = updClosestDueDate(project.closestDueDate, task);
 
-                    project.save()
-                        .then(() => { res(); });
+                    return project.save();
                 } else
-                    rej("project-controller (addTasktoProject): Project Not Found");
-
+                    reject("Project Not Found");
             })
-            .catch((e) => { rej(`project-controller (addTasktoProject): ${e}`); });
+            .then(() => {
+                resolve();
+            })
+            .catch((error) => {
+                reject(error);
+            });
     });
+
 }
 
 module.exports.deleteTaskFromProject = (task_id, project_id) => {
-    return new Promise((res, rej) => {
+
+    return new Promise((resolve, reject) => {
         projectsModel.findOne({ _id: project_id })
             .then((project) => {
-
                 if (project) {
                     //remove task from project
                     let index = 0;
-                    for (const task of project.tasks) {
-                        if (task.taskId == task_id)
-                            project.tasks.splice(index, 1);
+                    for (const taskIdObj of project.taskIds) {
+                        if (taskIdObj.taskId == task_id)
+                            project.taskIds.splice(index, 1);
                         index++;
                     }
 
-                    const updatePromises = [];
                     //update project's closestDueDate if it was the due date of the deleted task
+                    const updPromises = [];
                     if (project.closestDueDate.taskId.localeCompare(task_id) == 0) {
                         project.closestDueDate = {};
-
-                        for (const task of project.tasks) {
-                            const promise = db_task.getTaskById(task.taskId)
+                        for (const taskIdObj of project.taskIds) {
+                            const promise = db_task.getTaskById(taskIdObj.taskId)
                                 .then((task) => {
-                                    project.closestDueDate = updateClosestDueDate(project.closestDueDate, task);
-                                }).catch((e) => { rej(`project-controller (deleteTaskFromProject): ${e}`); });
-                            updatePromises.push(promise);
+                                    project.closestDueDate = updClosestDueDate(project.closestDueDate, task);
+                                });
+                            updPromises.push(promise);
                         }
                     }
-                    Promise.all(updatePromises)
+
+                    Promise.all(updPromises)
                         .then(() => {
-                            project.save()
-                                .then(() => { res(); });
+                            return project.save();
                         })
+                        .then(() => { resolve(); })
+                        .catch((error) => { reject(error); });
 
                 } else
-                    rej("project-controller (deleteTaskFromProject): Project Not Found");
-
+                    reject("Project Not Found");
             })
-            .catch((e) => { rej(`project-controller (deleteTaskFromProject): ${e}`); });
+            .catch((error) => {
+                reject(error)
+            });
     });
+
 }
 
 
 //functions used by routes
 module.exports.getAllProjects = (username) => {
-    return new Promise((res, rej) => {
+    return new Promise((resolve, reject) => {
         projectsModel.find({ owner: username }).lean()
-            .then((projects) => { res(projects); })
-            .catch((e) => { rej(`project-controller (getAllProjects): ${e}`); });
+            .then((projects) => { resolve(projects); })
+            .catch((error) => { reject(error); });
     });
 }
 
 module.exports.addProject = (project) => {
-    return new Promise((res, rej) => {
+    return new Promise((resolve, reject) => {
 
         processInput(project);      //process received data to store in db
 
         const newProject = new projectsModel(project);
         newProject.save()
-            .then(() => { res(); })
-            .catch((e) => { rej(`project-controller (addProject): ${e}`); });
+            .then(() => { resolve(); })
+            .catch((error) => { reject(error); });
 
     });
 }
 
 module.exports.deleteProject = (username, project_id) => {
-    return new Promise((res, rej) => {
 
-        //session username will make sure that external user won't delete project
+    return new Promise((resolve, reject) => {
+
         //project can be deleted by /project/delete/:id route
+        //session username will make sure that external user won't delete project
         projectsModel.findOne({ owner: username, _id: project_id })
             .then((project) => {
-
                 if (project) {
-                    //unassign all project tasks from that project
-                    for (const task of project.tasks) {
-                        db_task.unassignTaskfromProject(task.taskId)
-                            .then(() => { })
-                            .catch((e) => { rej(`project-controller (deleteProject): ${e}`); });
-                    }
-
-                    projectsModel.deleteOne({ _id: project_id }).exec()
-                        .then(() => { res(); });
+                    const unassignPromises = [];
+                    for (const taskIdObj of project.taskIds)
+                        unassignPromises.push(db_task.unassignTaskfromProject(taskIdObj.taskId));
+                    return Promise.all(unassignPromises);
                 } else
-                    rej("project-controller (deleteProject): Project Not Found");
-
+                    reject("Project Not Found");
             })
-            .catch((e) => { rej(`project-controller (deleteProject): ${e}`); });
+            .then(() => {
+                return projectsModel.deleteOne({ _id: project_id }).exec();
+            })
+            .then(() => {
+                resolve();
+            })
+            .catch((error) => {
+                reject(error);
+            });
     });
+
 }
 
 

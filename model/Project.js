@@ -8,7 +8,7 @@ const projectSchema = new Schema({
         date: String,
         taskId: String
     },
-    tasks: [{
+    taskIds: [{
         taskId: String
     }],
 });

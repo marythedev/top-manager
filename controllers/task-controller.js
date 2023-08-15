@@ -14,97 +14,91 @@ const processInput = (task) => {
 }
 
 module.exports.getTaskById = (_id) => {
-    return new Promise((res, rej) => {
+    return new Promise((resolve, reject) => {
         tasksModel.findOne({ _id: _id })
-            .then((task) => { res(task); })
-            .catch((e) => { rej(`task-controller (getTaskById): ${e}`); });
+            .then((task) => { resolve(task); })
+            .catch((error) => { reject(error); });
     });
 }
 
 module.exports.unassignTaskfromProject = (task_id) => {
-    return new Promise((res, rej) => {
+    return new Promise((resolve, reject) => {
         tasksModel.findOne({ _id: task_id })
             .then((task) => {
-
                 if (task) {
                     task.project = undefined;
-                    task.save()
-                        .then(() => { res(); });
+                    return task.save();
                 } else
-                    rej("task-controller (unassignTaskfromProject): Task Not Found");
-
-
-            }).catch((e) => { rej(`task-controller (unassignTaskfromProject): ${e}`); });
+                    reject("Task Not Found");
+            })
+            .then(() => { resolve(); })
+            .catch((error) => { reject(error); });
     });
 }
 
 const deleteTaskFromDb = (_id) => {
-    return new Promise((res, rej) => {
+    return new Promise((resolve, reject) => {
         tasksModel.deleteOne({ _id: _id }).exec()
-            .then(() => { res(); })
-            .catch((e) => { rej(`task-controller (deleteTaskFromDb): ${e}`); });
+            .then(() => { resolve(); })
+            .catch((error) => { reject(error); });
     });
 }
 
 //functions used by routes
 module.exports.getAllTasks = (username) => {
-    return new Promise((res, rej) => {
+    return new Promise((resolve, reject) => {
         tasksModel.find({ owner: username }).lean()
-            .then((tasks) => { res(tasks); })
-            .catch((e) => { rej(`task-controller (getAllTasks): ${e}`); });
+            .then((tasks) => { resolve(tasks); })
+            .catch((error) => { reject(error); });
     });
 }
 
 module.exports.addTask = (task) => {
-    return new Promise((res, rej) => {
+    return new Promise((resolve, reject) => {
 
         processInput(task);      //process received data to store in db
 
         const newTask = new tasksModel(task);
         newTask.save()
             .then(() => {
-                if (task.project) {
-                    db_prj.addTasktoProject(newTask, newTask.project)
-                        .then(() => { res(); })
-                        .catch((e) => { rej(`task-controller (addTask): ${e}`); });
-                } else
-                    res();
+                if (task.project)
+                    return db_prj.addTasktoProject(newTask, newTask.project);
+                else
+                    resolve();
             })
-            .catch((e) => { rej(`task-controller (addTask): ${e}`); });
+            .then(() => {
+                resolve();
+            })
+            .catch((error) => {
+                reject(error);
+            });
 
     });
 }
 
 module.exports.deleteTask = (username, task_id) => {
-    return new Promise((res, rej) => {
+    return new Promise((resolve, reject) => {
 
-        //session username will make sure that external user won't delete task
         //task can be deleted by /task/delete/:id route
+        //session username will make sure that external user won't delete task
         tasksModel.findOne({ owner: username, _id: task_id })
             .then((task) => {
-
                 if (task) {
                     //remove task from project if it was assigned to one
-                    if (task.project) {
-                        db_prj.deleteTaskFromProject(task_id, task.project)
-                            .then(() => {
-                                deleteTaskFromDb(task_id)
-                                    .then(() => { res(); })
-                                    .catch((e) => { rej(`task-controller (deleteTask): ${e}`); });
-                            })
-                            .catch((e) => { rej(`task-controller (deleteTask): ${e}`); });
-                    }
-
-                    //if task wasn't assigned to a project, just delete it
-                    else {
-                        deleteTaskFromDb(task_id)
-                            .then(() => { res(); })
-                            .catch((e) => { rej(`task-controller (deleteTask): ${e}`); });
-                    }
+                    if (task.project)
+                        return db_prj.deleteTaskFromProject(task_id, task.project)
                 } else
-                    rej("task-controller (deleteTask): Task Not Found");
+                    reject("Task Not Found");
 
-            }).catch((e) => { rej(`task-controller (deleteTask): ${e}`); });
+            })
+            .then(() => {
+                return deleteTaskFromDb(task_id);
+            })
+            .then(() => { resolve(); })
+            .catch((error) => {
+                console.log(error);
+                reject(error);
+            });
 
     });
 }
