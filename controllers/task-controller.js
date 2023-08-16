@@ -28,8 +28,10 @@ module.exports.unassignTaskfromProject = (task_id) => {
                 if (task) {
                     task.project = undefined;
                     return task.save();
-                } else
+                } else {
                     reject("Task Not Found");
+                    return;
+                }
             })
             .then(() => { resolve(); })
             .catch((error) => { reject(error); });
@@ -63,8 +65,10 @@ module.exports.addTask = (task) => {
             .then(() => {
                 if (task.project)
                     return db_prj.addTasktoProject(newTask, newTask.project);
-                else
+                else {
                     resolve();
+                    return;
+                }
             })
             .then(() => {
                 resolve();
@@ -87,9 +91,10 @@ module.exports.deleteTask = (username, task_id) => {
                     //remove task from project if it was assigned to one
                     if (task.project)
                         return db_prj.deleteTaskFromProject(task_id, task.project)
-                } else
+                } else {
                     reject("Task Not Found");
-
+                    return;
+                }
             })
             .then(() => {
                 return deleteTaskFromDb(task_id);

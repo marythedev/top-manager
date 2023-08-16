@@ -40,8 +40,10 @@ module.exports.addTasktoProject = (task, project_id) => {
                     project.closestDueDate = updClosestDueDate(project.closestDueDate, task);
 
                     return project.save();
-                } else
+                } else {
                     reject("Project Not Found");
+                    return;
+                }
             })
             .then(() => {
                 resolve();
@@ -133,8 +135,10 @@ module.exports.deleteProject = (username, project_id) => {
                     for (const taskIdObj of project.taskIds)
                         unassignPromises.push(db_task.unassignTaskfromProject(taskIdObj.taskId));
                     return Promise.all(unassignPromises);
-                } else
+                } else {
                     reject("Project Not Found");
+                    return;
+                }
             })
             .then(() => {
                 return projectsModel.deleteOne({ _id: project_id }).exec();
