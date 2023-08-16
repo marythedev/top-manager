@@ -26,8 +26,7 @@ module.exports.signup = (user) => {
             reject({ code: 400, message: "Password should have at least 8 characters." });
         else if (/[a-zA-Z]/g.test(user.password) == false)
             reject({ code: 400, message: "Password should contain at least one letter." });
-        else if (user.password == "" || user.password.match(/^ *$/) !== null
-            || user.confirm_password == "" || user.confirm_password.match(/^ *$/) !== null)
+        else if (user.password == "" || user.password.match(/^ *$/) !== null)
             reject({ code: 400, message: "Password cannot be empty." });
         else {
             bcrypt.hash(user.password, 8)
@@ -83,20 +82,76 @@ module.exports.updateAccount = (update, session) => {
 
         processInput(update);      //process received data to store in db
 
+        //validation
+        if (update.password || update.new_password || update.confirm_new_password) {
+            if (update.password && update.new_password && update.confirm_new_password) {
+                if (update.new_password !== update.confirm_new_password) {
+                    reject({ code: 400, message: "New passwords should match." });
+                    return;
+                }
+                else if (update.new_password.length < 8) {
+                    reject({ code: 400, message: "New password should have at least 8 characters." });
+                    return;
+                }
+                else if (/[a-zA-Z]/g.test(update.new_password) == false) {
+                    reject({ code: 400, message: "New password should contain at least one letter." });
+                    return;
+                }
+                else if (update.new_password == "" || update.new_password.match(/^ *$/) !== null) {
+                    reject({ code: 400, message: "New password cannot be empty." });
+                    return;
+                }
+            } else if (!update.password) {
+                reject({ code: 400, message: "Enter your current password to change your password." });
+                return;
+            }
+            else if (!update.new_password) {
+                reject({ code: 400, message: "Enter your new password to change your password." });
+                return;
+            }
+            else if (!update.confirm_new_password) {
+                reject({ code: 400, message: "Confirm your new password to change your password." });
+                return;
+            }
+        }
+
+        //update user
         usersModel.updateOne(
-            { username: update.username },
-            { $set: { "username": update.new_username } }
+            { username: session.user.username },
+            { $set: { "username": update.username } }
         ).then(() => {
-            session.user.username = update.new_username;
-            if (update.password || update.new_password || update.confirm_new_password)
-                reject({
-                    code: 400,
-                    message: "Your username was changed! Backend for password change is not implemented yet, try again later."
-                });
+            session.user.username = update.username;
+
+            if (update.password)
+                return usersModel.findOne({ username: session.user.username }).exec();
+            else {
+                resolve();
+                return;
+            }
+        }).then((user) => {
+            if (user)
+                return bcrypt.compare(update.password, user.password);
+            else {
+                reject({ code: 400, message: "User Not Found" });
+                return;
+            }
+        }).then((passwordMatches) => {
+            if (passwordMatches)
+                return bcrypt.hash(update.new_password, 8);
+            else {
+                reject({ code: 400, message: "Incorrect current password." });
+                return;
+            }
+        }).then((hash) => {
+            return usersModel.updateOne(
+                { username: session.user.username },
+                { $set: { "password": hash } }
+            )
+        }).then(() => {
             resolve();
         }).catch((error) => {
             if (error.code == 11000)    //duplicate entry
-                reject({ code: 400, message: "Username already exists." });
+                reject({ code: 400, message: "Username is not available." });
             else
                 reject(error);
         });

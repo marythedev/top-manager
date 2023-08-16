@@ -5,14 +5,13 @@
 
     <div class="card">
         <form name="update-account" method="post" action="/account" onsubmit="noMultipleSubmit(this)">
-            <input type="hidden" name="username" value='{{user.username}}'>
 
             <img id="avatar" src="/assets/avatar.png" height="115px" alt="Avatar">
 
             <div class="form-label-input-div flex row space-between">
                 <div>
                     <p class="label">Username</p>
-                    <input type="text" name="new_username" class="input-field mid-text" placeholder="New Username"
+                    <input type="text" name="username" class="input-field mid-text" placeholder="New Username"
                         autocomplete="off" value='{{user.username}}' required>
                 </div>
                 <div>
