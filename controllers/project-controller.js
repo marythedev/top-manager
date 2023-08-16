@@ -27,6 +27,25 @@ const updClosestDueDate = (closestDueDate, task) => {
     return closestDueDate;
 }
 
+module.exports.updateClosestDueDate = (project_id, task) => {
+    return new Promise((resolve, reject) => {
+        projectsModel.findOne({ _id: project_id })
+        .then((project) => {
+            if(project) {
+                project.closestDueDate = updClosestDueDate(project.closestDueDate, task);
+                return project.save();
+            } else
+                reject("Project Not Found");
+        })
+        .then(() => {
+            resolve();
+        })
+        .catch((error) => {
+            reject(error);
+        });
+    });
+}
+
 module.exports.addTasktoProject = (task, project_id) => {
 
     return new Promise((resolve, reject) => {

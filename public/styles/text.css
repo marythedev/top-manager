@@ -67,7 +67,8 @@ nav h1 {
 
 #login .big-text,
 #signup .big-text,
-.add-popup .big-text {
+.add-popup .big-text,
+.update-popup .big-text {
     margin: 36px 0;
     margin: var(--gutter) 0;
 }

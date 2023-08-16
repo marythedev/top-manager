@@ -69,7 +69,7 @@ router.get("/", checkAuthorization, (request, response) => {
         })
         .catch(() => {
             renderOopsPage(response);
-        })
+        });
 
 });
 router.post("/", checkAuthorization, (request, response) => {
@@ -83,5 +83,32 @@ router.post("/", checkAuthorization, (request, response) => {
             });
         });
 })
+
+router.post("/update", checkAuthorization, (request, response) => {
+    db_task.updateTask(request.body)
+        .then(() => {
+            response.redirect("/tasks");
+        })
+        .catch((error) => {
+            console.log(error)
+            response.status(500).render("oops", {
+                message: "a problem updating task",
+                title: "Update Task"
+            });
+        })
+
+});
+
+router.get("/delete/:_id", checkAuthorization, (request, response) => {
+    db_task.deleteTask(request.session.user.username, request.params._id)
+        .then(() => {
+            response.redirect("/tasks");
+        }).catch(() => {
+            response.status(500).render("oops", {
+                message: "a problem deleting task",
+                title: "Delete Task"
+            });
+        });
+});
 
 module.exports = router;

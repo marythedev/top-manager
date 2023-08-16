@@ -56,8 +56,9 @@ nav li#username {
 
 
 
-/*Add Task/Project Popup*/
-.add-popup {
+/*Add/Update Task/Project Popup*/
+.add-popup,
+.update-popup {
     position: absolute;
     z-index: 1;
 

@@ -5,7 +5,6 @@ const signupRoute = require("./routes/signup.js");
 const contactRoute = require("./routes/contact.js");
 const accountRoute = require("./routes/account.js");
 const tasksRoute = require("./routes/tasks.js");
-const taskRoute = require("./routes/task.js");
 const projectsRoute = require("./routes/projects.js");
 const projectRoute = require("./routes/project.js");
 
@@ -46,6 +45,16 @@ app.engine("hbs", hbs.engine({
                 if (project._id == _id)
                     return project.name;
             }
+        },
+        projectSelected: (taskProject_id, project_id) => {
+            if (taskProject_id == project_id)
+                return true;
+            return false;
+        },
+        prioritySelected: (taskPriority, priority) => {
+            if (taskPriority == priority)
+                return true;
+            return false;
         }
     }
 }));
@@ -75,7 +84,6 @@ app.use("/signup", signupRoute);
 app.use("/contact", contactRoute);
 app.use("/account", accountRoute);
 app.use("/tasks", tasksRoute);
-app.use("/task", taskRoute);
 app.use("/projects", projectsRoute);
 app.use("/project", projectRoute);
 

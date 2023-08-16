@@ -10,3 +10,24 @@ for (const checkbox of checkboxes) {
         }
     });
 }
+
+
+
+const openUpdPopups = document.getElementsByClassName('open-update-popup');
+const closeUpdPopups = document.getElementsByClassName('close-update-popup');
+
+for (const openUpdPopup of openUpdPopups) {
+    const updPopup = document.getElementById(openUpdPopup.getAttribute('data-id'));
+    openUpdPopup.addEventListener('click', () => {
+        updPopup.classList.remove('no-display');
+        updPopup.classList.add('flex');
+    });
+}
+
+for (const closeUpdPopup of closeUpdPopups) {
+    const updPopup = document.getElementById(closeUpdPopup.getAttribute('data-id'));
+    closeUpdPopup.addEventListener('click', () => {
+        updPopup.classList.remove('flex');
+        updPopup.classList.add('no-display');
+    });
+}

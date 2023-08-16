@@ -13,14 +13,6 @@ const processInput = (task) => {
     }
 }
 
-module.exports.getTaskById = (_id) => {
-    return new Promise((resolve, reject) => {
-        tasksModel.findOne({ _id: _id })
-            .then((task) => { resolve(task); })
-            .catch((error) => { reject(error); });
-    });
-}
-
 module.exports.unassignTaskfromProject = (task_id) => {
     return new Promise((resolve, reject) => {
         tasksModel.findOne({ _id: task_id })
@@ -47,6 +39,14 @@ const deleteTaskFromDb = (_id) => {
 }
 
 //functions used by routes
+module.exports.getTaskById = (_id) => {
+    return new Promise((resolve, reject) => {
+        tasksModel.findOne({ _id: _id }).lean()
+            .then((task) => { resolve(task); })
+            .catch((error) => { reject(error); });
+    });
+}
+
 module.exports.getAllTasks = (username) => {
     return new Promise((resolve, reject) => {
         tasksModel.find({ owner: username }).lean()
@@ -69,6 +69,55 @@ module.exports.addTask = (task) => {
                     resolve();
                     return;
                 }
+            })
+            .then(() => {
+                resolve();
+            })
+            .catch((error) => {
+                reject(error);
+            });
+
+    });
+}
+
+module.exports.updateTask = (update) => {
+    return new Promise((resolve, reject) => {
+
+        processInput(update);      //process received data to store in db
+
+        tasksModel.findOne({ _id: update._id })
+            .then((task) => {
+                if (task) {
+                    if (task.project != update.project) {
+                        if (update.project) {
+                            db_prj.addTasktoProject(update, update.project)
+                                .then(() => {
+                                    if (task.project)
+                                        return db_prj.deleteTaskFromProject(task._id, task.project);
+                                })
+                                .catch((error) => {
+                                    reject(error);
+                                    return;
+                                });
+                        } else {
+                            db_prj.deleteTaskFromProject(task._id, task.project)
+                                .catch((error) => {
+                                    reject(error);
+                                    return;
+                                });
+                        }
+                    } else {
+                        if (task.project && task.dueDate != update.dueDate) {
+                            db_prj.updateClosestDueDate(update.project, update)
+                                .catch((error) => {
+                                    reject(error);
+                                    return;
+                                });
+                        }
+                    }
+                    return tasksModel.updateOne({ _id: update._id }, { $set: update });
+                } else
+                    reject("Task Not Found");
             })
             .then(() => {
                 resolve();
@@ -132,23 +181,5 @@ module.exports.deleteTask = (username, task_id) => {
 //             .catch(() => {
 //                 rej("No results.");
 //             });
-//     });
-// }
-
-
-// module.exports.updateTask = (update) => {
-//     return new Promise((res, rej) => {
-
-//         processInput(update);      //process received data to store in db
-
-//         tasksModel.updateOne({ owner: update.owner, _id: update._id },
-//             { $set: update })
-//             .then(() => {
-//                 res("Task updated.");
-//             })
-//             .catch(() => {
-//                 rej("Application encountered a problem updating task. Try again later.");
-//             });
-
 //     });
 // }
