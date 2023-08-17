@@ -23,7 +23,7 @@
 #oops>img,
 #no-projects>img,
 #no-tasks>img,
-#home img {
+#home-img {
     margin: 36px;
     margin: var(--gutter);
 
