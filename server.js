@@ -1,13 +1,11 @@
 const db = require("./controllers/db-connection-controller.js");
-const { checkAuthorization } = require("./middleware-functions.js");
 
 const loginRoute = require("./routes/login.js");
-const registerRoute = require("./routes/register.js");
+const signupRoute = require("./routes/signup.js");
+const contactRoute = require("./routes/contact.js");
 const accountRoute = require("./routes/account.js");
 const tasksRoute = require("./routes/tasks.js");
-const taskRoute = require("./routes/task.js");
 const projectsRoute = require("./routes/projects.js");
-const projectRoute = require("./routes/project.js");
 
 const hbs = require('express-handlebars');
 const sessions = require('client-sessions');
@@ -32,19 +30,30 @@ app.use(sessions({
     duration: 24 * 60 * 60 * 1000,
     activeDuration: 1000 * 60 * 5
 }));
-app.use((req, res, next) => {
-    res.locals.session = req.session;
+app.use((request, response, next) => {
+    response.locals.session = request.session;
     next();
 });
 
 app.engine("hbs", hbs.engine({
     extname: "hbs",
-    defaultLayout: 'main-layout',
+    defaultLayout: 'main',
     helpers: {
-        eq: (arg1, arg2, options) => {
-            if (arg1 == arg2)
-                return options.fn(this);
-            return options.fn(this);
+        getProjectName: (projects, _id) => {
+            for (const project of projects) {
+                if (project._id == _id)
+                    return project.name;
+            }
+        },
+        projectSelected: (taskProject_id, project_id) => {
+            if (taskProject_id == project_id)
+                return true;
+            return false;
+        },
+        prioritySelected: (taskPriority, priority) => {
+            if (taskPriority == priority)
+                return true;
+            return false;
         }
     }
 }));
@@ -59,32 +68,27 @@ db.connect()
             console.log(`App is listening on port ${PORT} :)`);
         });
     })
-    .catch((e) => {
-        console.log("App failed to start. " + e);
-        db.close();
+    .catch((error) => {
+        console.log("App failed to start. " + error);
     });
 
 
 //available routes
-app.get("/", (req, res) => {
-    res.render("home", { title: "Home" });
-});
-app.get("/about", (req, res) => {
-    res.render("about", { title: "About" });
+app.get("/", (request, response) => {
+    response.render("home", { title: "Home" });
 });
 
 app.use("/login", loginRoute);
-app.use("/register", registerRoute);
+app.use("/signup", signupRoute);
+app.use("/contact", contactRoute);
 app.use("/account", accountRoute);
 app.use("/tasks", tasksRoute);
-app.use("/task", taskRoute);
 app.use("/projects", projectsRoute);
-app.use("/project", projectRoute);
 
-app.get("/logout", (req, res) => {
-    req.session.reset();
-    res.redirect('/');
+app.get("/logout", (request, response) => {
+    request.session.reset();
+    response.redirect('/');
 });
-app.get("/*", (req, res) => {
-    res.status(404).send("<h1>404 Page Not Found :(</h1>");
+app.get("/*", (request, response) => {
+    response.status(404).render("page404", { title: "Not Found" });
 });

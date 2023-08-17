@@ -4,13 +4,13 @@ const db_acc = require("../controllers/account-controller.js");
 const express = require("express");
 const router = express.Router();
 
-const login_title = "Login";  //html title for rendered file
+const signup_title = "Sign Up";  //html title for rendered file
 
 router.get("/", checkNeedForLogin, (request, response) => {
-    response.render("login", { title: login_title });
+    response.render("signup", { title: signup_title });
 });
 router.post("/", checkNeedForLogin, (request, response) => {
-    db_acc.login(request.body)
+    db_acc.signup(request.body)
         .then((user) => {
             request.session.user = { username: user.username };
             response.redirect('/tasks');
@@ -18,19 +18,19 @@ router.post("/", checkNeedForLogin, (request, response) => {
         .catch((error) => {
             //Client error format: {code: 400, message: "error message"}
             if (error.code == 400) {
-                response.render("login", {
+                response.render("signup", {
                     error: error.message,
-                    title: login_title
+                    title: signup_title
                 });
             }
             //Internal error format: "error message"
             else {
                 response.status(500).render("oops", {
-                    message: "a problem logging you in",
-                    title: login_title
+                    message: "a problem creating account",
+                    title: signup_title
                 });
             }
-        });
+        })
 });
 
 module.exports = router;

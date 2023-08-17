@@ -5,4 +5,11 @@ const checkAuthorization = (req, res, next) => {
         next();
 }
 
-module.exports = { checkAuthorization };
+const checkNeedForLogin = (req, res, next) => {
+    if (req.session.user)
+        res.redirect("/");
+    else
+        next();
+}
+
+module.exports = { checkAuthorization, checkNeedForLogin };

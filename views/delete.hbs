@@ -1,17 +1,19 @@
-<h2>Account Details</h2>
-<hr style="margin-top: 5px;">
+<div id="delete-account" class="flex column align-center justify-center">
+    <form name="delete-account" method="post" action="/account/delete" onsubmit="noMultipleSubmit(this)">
 
-{{#if error}}
-<div class="alert alert-danger"> <strong> {{error}} </strong> </div>
-{{/if}}
+        <div class="flex row align-end space-between">
+            <h4 class="big-text">Please read this carefully!</h4>
+            <img src="/assets/cat-drops-cup.png" height="180px" alt="Delete confirmation illustration">
+        </div>
 
-<form name="delete" method="post" action="/account/delete">
+        <p class="mid-text grey">When you confirm that you want to delete your account, your account, tasks and
+            projects will be deleted. This action IS NOT REVERSIBLE.</p>
 
-    <h4>Please confim that you want to delete your account.</h4>
-    <h4>Your account, tasks and projects will be deleted.</h4>
-    <h4>This action <strong>is not reversible</strong>!</h4>
-
-    <div class="form-row col-md-12 text-right" style="padding-left: 0;">
-        <button type="submit" class="btn btn-primary btn-danger">Delete Account</button>
-    </div>
-</form>
+        <div class="flex row space-between primary-secondary-buttons">
+            <button class="mid-text" id="delete-button" type="submit" >Delete</button>
+            <a href="/account">
+                <button class="mid-text" type="button" id="primary">Keep my account</button>
+            </a>
+        </div>
+    </form>
+</div>

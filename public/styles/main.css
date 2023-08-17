@@ -1,0 +1,91 @@
+/*General Setting*/
+
+/* 
+Variables that are defined here are used withing all css files;
+For browsers that don't support variables - widths, margins, heights, etc 
+are hardcoded (usually on the line above)
+*/
+:root {
+    --grey: #9C9C9C;
+
+    --base-unit: 4px;
+    --icon-width: 20px;
+    --delete-page-width: 425px;
+
+    --home-page-card-width: calc(var(--base-unit) * 60); /* 240px */
+    --card-width: calc(var(--base-unit) * 80); /* 320px */
+    --large-card-width: calc(var(--card-width) * 2);    /* 640px */
+
+    --gutter: calc(var(--base-unit) * 9); /* 36px */
+    --input-height: calc(var(--base-unit) * 9); /* 36px */
+
+    /* card width - side margins */
+    --button-width: calc(var(--card-width) - var(--gutter) * 2); /* 248px */
+    --large-button-width: calc(var(--large-card-width) - var(--gutter) * 2); /* 592px */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: transparent;
+    color: #000;
+    font-family: 'Lato', sans-serif;
+    text-decoration: none;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.no-display {
+    display: none;
+}
+
+.block-display {
+    display: block;
+}
+
+
+
+/*Flexbox classes*/
+.flex {
+    display: flex;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.space-around {
+    justify-content: space-around;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.align-end {
+    align-items: flex-end;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}

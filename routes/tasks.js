@@ -7,87 +7,116 @@ const router = express.Router();
 
 //html titles for rendered files
 const tasks_title = "Tasks";
-const addTask_title = "Add Task";
 
-const displayTasks = (tasks, res) => {
+const renderTasks = (response, tasks, username, projects, title) => {
     if (tasks.length == 0)
-        res.render("tasks", {
-            message: "No results",
-            title: tasks_title
+        response.render("tasks", {
+            message: "You have no tasks yet!",
+            username: username,
+            projects: projects,
+            title: title
         });
     else
-        res.render("tasks", {
+        response.render("tasks", {
             tasks: tasks,
-            title: tasks_title
+            username: username,
+            projects: projects,
+            title: title
         });
 }
 
-router.get("/", checkAuthorization, (req, res) => {
+const renderOopsPage = (response) => {
+    response.status(500).render("oops", {
+        message: "a problem retrieving tasks",
+        title: tasks_title
+    });
+}
 
-    //possible priority values: "High", "Medium", "Low"
-    if (req.query.priority != undefined) {
-        db_task.getTasksByPriority(req.session.user.username, req.query.priority)
-            .then((tasks) => displayTasks(tasks, res))
-            .catch(() => {
-                res.render("tasks", {
-                    message: "Problem retrieving task.",
-                    title: tasks_title
-                });
-            });
-    } else if (req.query.project != undefined) {
-        db_task.getTasksByProject(req.session.user.username, req.query.project)
-            .then((tasks) => displayTasks(tasks, res))
-            .catch(() => {
-                res.render("tasks", {
-                    message: "Problem retrieving tasks.",
-                    title: tasks_title
-                });
-            });
-    } else {
-        db_task.getAllTasks(req.session.user.username)
-            .then((tasks) => displayTasks(tasks, res))
-            .catch((e) => {
-                console.log(e);
-                res.render("tasks", {
-                    message: "Problem retrieving tasks.",
-                    title: tasks_title
-                });
-            });
-    }
+router.get("/", checkAuthorization, (request, response) => {
 
-});
-router.get("/add", checkAuthorization, (req, res) => {
-    db_prj.getAllProjects(req.session.user.username)
+    db_prj.getAllProjects(request.session.user.username)
         .then((projects) => {
-            res.render("addTask", {
-                projects: projects,
-                username: req.session.user.username,
-                title: addTask_title
-            });
+            // if (request.query.priority != undefined) {   //possible priority values: "High", "Medium", "Low"
+            //     db_task.getTasksByPriority(request.session.user.username, projects, request.query.priority)
+            //         .then((tasks) => {
+            //             renderTasks(
+            //                 response, tasks,
+            //                 request.session.user.username,
+            //                 projects, tasks_title
+            //             );
+            //         }).catch(() => { renderOopsPage(response) });
+            // }
+            // else if (request.query.project != undefined) {
+            //     db_task.getTasksByProject(request.session.user.username, request.query.project)
+            //         .then((tasks) => {
+            //             renderTasks(
+            //                 response, tasks,
+            //                 request.session.user.username,
+            //                 projects, tasks_title
+            //             );
+            //         }).catch(() => { renderOopsPage(response) });
+            // }
+            // else {
+            db_task.getAllTasks(request.session.user.username)
+                .then((tasks) => {
+                    renderTasks(
+                        response, tasks,
+                        request.session.user.username,
+                        projects, tasks_title
+                    );
+                }).catch(() => { renderOopsPage(response) });
+            // }
         })
         .catch(() => {
-            res.status(500).send("Problem encountered while retrieving project data. Try again later.");
-        })
+            renderOopsPage(response);
+        });
+
 });
-router.post("/add", checkAuthorization, (req, res) => {
-    db_task.addTask(req.body)
+router.post("/", checkAuthorization, (request, response) => {
+    db_task.addTask(request.body)
         .then(() => {
-            res.redirect("/tasks")
-        })
-        .catch((e) => {
-            db_prj.getAllProjects(req.session.user.username)
-                .then((projects) => {
-                    res.render("addTask", {
-                        error: e,
-                        projects: projects,
-                        username: req.session.user.username,
-                        title: addTask_title
-                    });
-                })
-                .catch(() => {
-                    res.status(500).send("Problem encountered while retrieving project data. Try again later.");
-                })
+            if (request.query.source == "tasks")
+                response.redirect("/tasks");
+            else if (request.query.source == "projects")
+                response.redirect(`/projects/${request.query.id}`);
+        }).catch(() => {
+            response.status(500).render("oops", {
+                message: "a problem adding task",
+                title: "Add Task"
+            });
         });
 })
+
+router.post("/update", checkAuthorization, (request, response) => {
+    db_task.updateTask(request.body)
+        .then(() => {
+            if (request.query.source == "tasks")
+                response.redirect("/tasks");
+            else if (request.query.source == "projects")
+                response.redirect(`/projects/${request.query.id}`);
+        })
+        .catch(() => {
+            response.status(500).render("oops", {
+                message: "a problem updating task",
+                title: "Update Task"
+            });
+        })
+
+});
+
+router.get("/delete/:_id", checkAuthorization, (request, response) => {
+    db_task.deleteTask(request.session.user.username, request.params._id)
+        .then(() => {
+            if (request.query.source == "tasks")
+                response.redirect("/tasks");
+            else if (request.query.source == "projects")
+                response.redirect(`/projects/${request.query.id}`);
+        }).catch(() => {
+            response.status(500).render("oops", {
+                message: "a problem deleting task",
+                title: "Delete Task"
+            });
+        });
+});
 
 module.exports = router;

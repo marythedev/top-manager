@@ -2,57 +2,55 @@ const { checkAuthorization } = require("../middleware-functions.js");
 const db_acc = require("../controllers/account-controller.js");
 
 const express = require("express");
-
 const router = express.Router();
 
 //html titles for rendered files
-const account_title = "Account"; 
+const account_title = "My Account";
 const delete_title = "Delete Account";
 
-router.get("/", checkAuthorization, (req, res) => {
-    res.render("account", {
-        user: req.session.user,
+router.get("/", checkAuthorization, (request, response) => {
+    response.render("account", {
+        user: request.session.user,
         title: account_title
     });
 });
-
-router.post("/", checkAuthorization, (req, res) => {
-    db_acc.updateAccount(req.body, req.session)
+router.post("/", checkAuthorization, (request, response) => {
+    db_acc.updateAccount(request.body, request.session)
         .then(() => {
-            res.redirect("/");
+            response.redirect("/");
         })
-        .catch((e) => {
-            res.render("account", {
-                error: e,
-                user: req.session.user,
-                title: account_title
-            });
+        .catch((error) => {
+            //Client error format: {code: 400, message: "error message"}
+            if (error.code == 400) {
+                response.render("account", {
+                    error: error.message,
+                    user: request.session.user,
+                    title: account_title
+                });
+            }
+            //Internal error format: "error message"
+            else {
+                response.status(500).render("oops", {
+                    message: "a problem updating account",
+                    title: account_title
+                });
+            }
         })
-
 });
 
-router.get("/history", checkAuthorization, (req, res) => {
-    res.render("history", { title: "Login History" });
+router.get("/delete", checkAuthorization, (request, response) => {
+    response.render("delete", { title: delete_title });
 });
-
-router.get("/delete", checkAuthorization, (req, res) => {
-    res.render("delete", {
-        title: delete_title
-    });
-});
-
-router.post("/delete", checkAuthorization, (req, res) => {
-    db_acc.deleteAccount(req.session.user.username)
+router.post("/delete", checkAuthorization, (request, response) => {
+    db_acc.deleteAccount(request.session.user.username)
         .then(() => {
-            res.redirect("/logout");
-        })
-        .catch((e) => {
-            res.render("delete", {
-                error: e,
+            response.redirect("/logout");
+        }).catch(() => {
+            response.status(500).render("oops", {
+                message: "a problem deleting account",
                 title: delete_title
             });
         })
-
 });
 
 module.exports = router;

@@ -1,42 +1,183 @@
-<div class="row">
-    <div class="col-md-12">
-        <h2>Tasks
-            <a href="/tasks/add" class="btn btn-success pull-right">Add New Task</a>
-        </h2>
-        <hr />
+<!--Add Task Popup-->
+<div class="column align-center add-popup no-display">
+    <div class="nav-height"></div>
 
-        {{#if message}}
-        <div scope="row" class="col-md-12 text-center">
-            <strong>{{message}}</strong>
-        </div>
-        {{else}}
-        
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Task №</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Priority</th>
-                        <th scope="col">Project</th>
-                        <th scope="col">Due</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each tasks}}
-                    <tr>
-                        <th scope="row">{{taskNumber}}</th>
-                        <td><a href="/task/{{taskNumber}}">{{name}}</a></td>
-                        <td><a href="/tasks?priority={{priority}}">{{priority}}</a></td>
-                        <td><a href="/tasks?project={{project}}">{{project}}</a></td>
-                        <td>{{dueDate}}</td>
-                        <td><a href="/task/delete/{{taskNumber}}" class="btn btn-danger">Remove</a></td>
-                    </tr>
+    <div class="card">
+        <h2 class="big-text">New Task</h2>
+        <form method="post" name="add-task" action="/tasks?source=tasks" onsubmit="noMultipleSubmit(this)">
+            <input name="owner" type="hidden" value="{{ username }}" />
+
+            <div class="form-label-input-div">
+                <p class="label">Name</p>
+                <input type="text" name="name" class="input-field mid-text" autocomplete="off" required>
+            </div>
+            <div class="form-label-input-div">
+                <p class="label">Due Date</p>
+                <input type="date" name="dueDate" class="input-field mid-text" required>
+            </div>
+            <div class="form-label-input-div">
+                <p class="label">Project</p>
+
+                <select name="project" class="input-field mid-text">
+                    <option value="">No project</option>
+                    {{#if projects}}
+                    {{#each projects}}
+                    <option value="{{_id}}">{{name}}</option>
                     {{/each}}
-                </tbody>
-            </table>
-        </div>
-        {{/if}}
+                    {{/if}}
+                </select>
+
+            </div>
+            <div class="form-label-input-div">
+                <p class="label">Priority</p>
+                <div id="priority" class="flex row space-around align-center">
+                    <div class="flex row checkbox">
+                        <input type="checkbox" name="priority" value="Low">
+                        <p class="label">Low</p>
+                    </div>
+                    <div class="flex row checkbox">
+                        <input type="checkbox" name="priority" value="Medium">
+                        <p class="label">Medium</p>
+                    </div>
+                    <div class="flex row checkbox">
+                        <input type="checkbox" name="priority" value="High">
+                        <p class="label">High</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="primary-secondary-buttons center flex space-between align-center">
+                <button class="mid-text" id="primary">Add Task</button>
+                <img src="/icons/cancel.svg" id="close-add-popup" class="cursor-pointer icon" alt="Cancel icon">
+            </div>
+
+        </form>
     </div>
 </div>
+
+{{#each tasks}}
+<!--Update Task Popup-->
+<div class="column align-center update-popup no-display" id="{{_id}}">
+    <div class="nav-height"></div>
+
+    <div class="card">
+        <h2 class="big-text">Update Task</h2>
+        <form method="post" name="update-task" action="/tasks/update?source=tasks"
+            onsubmit="noMultipleSubmit(this)">
+            <input name="_id" type="hidden" value="{{_id}}" />
+
+            <div class="form-label-input-div">
+                <p class="label">Name</p>
+                <input type="text" name="name" class="input-field mid-text" autocomplete="off" value="{{name}}"
+                    required>
+            </div>
+            <div class="form-label-input-div">
+                <p class="label">Due Date</p>
+                <input type="date" name="dueDate" class="input-field mid-text" value="{{dueDate}}" required>
+            </div>
+            <div class="form-label-input-div">
+                <p class="label">Project</p>
+
+                <select name="project" class="input-field mid-text">
+                    <option value="">No project</option>
+                    {{#if ../projects}}
+                    {{#each ../projects}}
+                    {{#if (projectSelected ../project _id)}}
+                    <option value="{{_id}}" selected>{{name}}</option>
+                    {{else}}
+                    <option value="{{_id}}">{{name}}</option>
+                    {{/if}}
+                    {{/each}}
+                    {{/if}}
+                </select>
+
+            </div>
+            <div class="form-label-input-div">
+                <p class="label">Priority</p>
+                <div id="priority" class="flex row space-around align-center">
+                    <div class="flex row checkbox">
+                        {{#if (prioritySelected priority "Low")}}
+                        <input type="checkbox" name="priority" value="Low" checked>
+                        {{else}}
+                        <input type="checkbox" name="priority" value="Low">
+                        {{/if}}
+                        <p class="label">Low</p>
+                    </div>
+                    <div class="flex row checkbox">
+                        {{#if (prioritySelected priority "Medium")}}
+                        <input type="checkbox" name="priority" value="Medium" checked>
+                        {{else}}
+                        <input type="checkbox" name="priority" value="Medium">
+                        {{/if}}
+                        <p class="label">Medium</p>
+                    </div>
+                    <div class="flex row checkbox">
+                        {{#if (prioritySelected priority "High")}}
+                        <input type="checkbox" name="priority" value="High" checked>
+                        {{else}}
+                        <input type="checkbox" name="priority" value="High">
+                        {{/if}}
+                        <p class="label">High</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="primary-secondary-buttons center flex space-between align-center">
+                <button class="mid-text" id="primary">Update Task</button>
+                <img src="/icons/cancel.svg" class="close-update-popup" class="cursor-pointer icon" alt="Cancel icon"
+                    data-id="{{_id}}">
+            </div>
+
+        </form>
+    </div>
+</div>
+{{/each}}
+
+<!--No Tasks Message-->
+{{#if message}}
+<div id="no-tasks" class="flex column align-center">
+    <h1 class="big-text">{{message}}</h1>
+    <img src="/assets/guy-with-guitar.png" alt="No Tasks Illustration">
+    <p class="tiny-text">Try adding one</p>
+    <a class="flex justify-center align-center open-add-popup cursor-pointer">
+        <img src="/icons/add-black.svg" class="icon" alt="Add task icon">
+    </a>
+</div>
+{{else}}
+<!--Tasks-->
+<div class="flex column">
+    <div class="header-row flex row space-between align-center">
+        <div class="flex row align-center">
+            <h2 class="big-text">Tasks</h2>
+            {{!-- <img src="/icons/sort.svg" class="icon" alt="Sort tasks icon"> --}}
+        </div>
+        <a class="flex justify-center align-center open-add-popup cursor-pointer purple">
+            <img src="/icons/add-white.svg" class="icon" alt="Add task icon">
+        </a>
+    </div>
+    <div class="flex row wrap" id="cards">
+
+        {{#each tasks}}
+        <div class="card cursor-pointer open-update-popup" data-id="{{_id}}">
+            <div class="flex row space-between">
+                <h3 class="mid-text">{{name}}</h3>
+                {{#if priority}}
+                <p class="small-text">{{priority}} Priority</p>
+                {{/if}}
+            </div>
+            <p class="small-text">{{dueDate}}</p>
+            <div class="flex row space-between">
+                <p class="small-text">{{getProjectName ../projects project}}</p>
+                <a href="/tasks/delete/{{_id}}?source=tasks"
+                    onclick="noMultipleRedirect(this); event.stopPropagation();">
+                    <img src="/icons/delete.svg" class="delete-icon" alt="Delete task icon">
+                </a>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+{{/if}}
+
+<script src="/scripts/projects-tasks.js"></script>
+<script src="/scripts/tasks.js"></script>

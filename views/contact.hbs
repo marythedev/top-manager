@@ -1,0 +1,28 @@
+<div id="contact" class="flex column align-center">
+
+    {{#if error}}
+    <div class="flex align-center error">{{error}}</div>
+    {{/if}}
+
+    <div class="card">
+        <h2 class="big-text">Contact Us</h2>
+        <p class="tiny-text">Share your questions and ideas.</p>
+        <form name="contact" method="post" action="/contact" onsubmit="noMultipleSubmit(this)">
+            <div class="form-label-input-div">
+                <p class="label">Fullname</p>
+                <input type="text" class="input-field mid-text" name="name" autocomplete="off" required>
+            </div>
+            <div class="form-label-input-div">
+                <p class="label">Email</p>
+                <input type="email" class="input-field mid-text" name="email" required>
+            </div>
+            <div class="form-label-input-div">
+                <p class="label">Message</p>
+                <textarea type="text" class="input-field mid-text" name="message" required></textarea>
+            </div>
+            
+            <button class="mid-text" type="submit">Get in touch</button>
+        </form>
+    </div>
+
+</div>

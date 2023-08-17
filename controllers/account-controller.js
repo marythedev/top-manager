@@ -8,106 +8,185 @@ const bcrypt = require('bcryptjs');
 const userSchema = require('../model/User');
 const usersModel = mongoose.model(process.env.USER_COLLECTION, userSchema);
 
-module.exports.register = (user) => {
-    return new Promise((res, rej) => {
-        if (user.password == "" || user.password.match(/^ *$/) !== null
-            || user.confirm_password == "" || user.confirm_password.match(/^ *$/) !== null)
-            rej("Password cannot be empty.");
-        else if (user.password !== user.confirm_password)
-            rej("Passwords should match.");
+//functions used within controllers
+const processInput = (account) => {
+    for (const input in account) {
+        if (account[input] == "")
+            account[input] = null;
+    }
+}
+
+//functions used by routes
+module.exports.signup = (user) => {
+
+    return new Promise((resolve, reject) => {
+        if (user.password !== user.confirm_password)
+            reject({ code: 400, message: "Passwords should match." });
+        else if (user.password.length < 8)
+            reject({ code: 400, message: "Password should have at least 8 characters." });
+        else if (/[a-zA-Z]/g.test(user.password) == false)
+            reject({ code: 400, message: "Password should contain at least one letter." });
+        else if (user.password == "" || user.password.match(/^ *$/) !== null)
+            reject({ code: 400, message: "Password cannot be empty." });
         else {
             bcrypt.hash(user.password, 8)
                 .then((hash) => {
                     user.password = hash;
                     const newUser = new usersModel(user);
-                    newUser.save()
-                        .then(() => {
-                            res("User created.");
-                        })
-                        .catch((e) => {
-                            if (e.code == 11000)    //duplicate entry
-                                rej("Username is already taken.");
-                            else
-                                rej(`Problems creating user: ${e}`);
-                        });
+                    return newUser.save();
                 })
-                .catch(() => {
-                    rej("Application encountered a problem processing registration data. Try again later.");
+                .then((newUser) => {
+                    resolve(newUser);
+                })
+                .catch((error) => {
+                    if (error.code == 11000)    //duplicate entry
+                        reject({ code: 400, message: "Username already exists." });
+                    else
+                        reject(error);
                 });
         }
-
     });
+
 }
 
 module.exports.login = (login) => {
-    return new Promise((res, rej) => {
 
+    return new Promise((resolve, reject) => {
         usersModel.findOne({ username: login.username }).exec()
             .then((user) => {
-                bcrypt.compare(login.password, user.password)
-                    .then((result) => {
-                        if (result) {
-                            user.history.push({
-                                dateTime: (new Date()).toString()
-                            });
-                            user.save()
-                                .then(() => {
-                                    res(user);
-                                })
-                                .catch((e) => {
-                                    rej(`Error updating user history in the database. ${e}`);
-                                });
-                        }
-                        else
-                            rej(`Incorrect login or password.`);
-                    })
-                    .catch(() => {
-                        rej("Application encountered a problem processing login data. Try again later.");
-                    })
+                if (user) {
+                    bcrypt.compare(login.password, user.password)
+                        .then((passwordMatches) => {
+                            if (passwordMatches)
+                                resolve(user);
+                            else
+                                reject({ code: 400, message: "Incorrect login or password." });
+                        })
+                        .catch((error) => {
+                            reject(error);
+                        });
+                }
+                else
+                    reject({ code: 400, message: `Couldn't find user ${login.username}.` });
             })
-            .catch(() => {
-                rej(`No such user ${login.username}`);
+            .catch((error) => {
+                reject(error);
             });
-
     });
+
 }
 
 module.exports.updateAccount = (update, session) => {
-    return new Promise((res, rej) => {
 
-        usersModel.updateOne({ username: update.username },
-            { $set: { "username": update.new_username } })
-            .then(() => {
-                session.user.username = update.new_username;
-                res("User updated.");
-            })
-            .catch((e) => {
-                rej("Application encountered a problem updating user. Try again later." + e);
-            });
+    return new Promise((resolve, reject) => {
 
+        processInput(update);      //process received data to store in db
+
+        //validation
+        if (update.password || update.new_password || update.confirm_new_password) {
+            if (update.password && update.new_password && update.confirm_new_password) {
+                if (update.new_password !== update.confirm_new_password) {
+                    reject({ code: 400, message: "New passwords should match." });
+                    return;
+                }
+                else if (update.new_password.length < 8) {
+                    reject({ code: 400, message: "New password should have at least 8 characters." });
+                    return;
+                }
+                else if (/[a-zA-Z]/g.test(update.new_password) == false) {
+                    reject({ code: 400, message: "New password should contain at least one letter." });
+                    return;
+                }
+                else if (update.new_password == "" || update.new_password.match(/^ *$/) !== null) {
+                    reject({ code: 400, message: "New password cannot be empty." });
+                    return;
+                }
+            } else if (!update.password) {
+                reject({ code: 400, message: "Enter your current password to change your password." });
+                return;
+            }
+            else if (!update.new_password) {
+                reject({ code: 400, message: "Enter your new password to change your password." });
+                return;
+            }
+            else if (!update.confirm_new_password) {
+                reject({ code: 400, message: "Confirm your new password to change your password." });
+                return;
+            }
+        }
+
+        //update user
+        usersModel.updateOne(
+            { username: session.user.username },
+            { $set: { "username": update.username } }
+        ).then(() => {
+            session.user.username = update.username;
+
+            if (update.password)
+                return usersModel.findOne({ username: session.user.username }).exec();
+            else {
+                resolve();
+                return;
+            }
+        }).then((user) => {
+            if (user)
+                return bcrypt.compare(update.password, user.password);
+            else {
+                reject({ code: 400, message: "User Not Found" });
+                return;
+            }
+        }).then((passwordMatches) => {
+            if (passwordMatches)
+                return bcrypt.hash(update.new_password, 8);
+            else {
+                reject({ code: 400, message: "Incorrect current password." });
+                return;
+            }
+        }).then((hash) => {
+            return usersModel.updateOne(
+                { username: session.user.username },
+                { $set: { "password": hash } }
+            )
+        }).then(() => {
+            resolve();
+        }).catch((error) => {
+            if (error.code == 11000)    //duplicate entry
+                reject({ code: 400, message: "Username is not available." });
+            else
+                reject(error);
+        });
     });
+
 }
 
 module.exports.deleteAccount = (username) => {
-    return new Promise((res, rej) => {
+
+    return new Promise((resolve, reject) => {
         db_task.getAllTasks(username)
             .then((tasks) => {
+                const deleteTaskpromises = [];
                 for (const task of tasks)
-                    db_task.deleteTask(username, task.taskNumber);
-            }).catch(() => { rej("Application encountered a problem deleting tasks. Try again later."); });
-
-        db_prj.getAllProjects(username)
-            .then((projects) => {
-                for (const project of projects)
-                    db_prj.deleteProject(username, project.prjNumber);
-            }).catch(() => { rej("Application encountered a problem deleting projects. Try again later."); });
-
-        usersModel.deleteOne({ username: username }).exec()
-            .then(() => {
-                res("User deleted.");
+                    deleteTaskpromises.push(db_task.deleteTask(username, task._id));
+                return Promise.all(deleteTaskpromises);
             })
-            .catch(() => {
-                rej("Application encountered a problem deleting user. Try again later.");
+            .then(() => {
+                return db_prj.getAllProjects(username);
+            })
+            .then((projects) => {
+                const deleteProjectpromises = [];
+                for (const project of projects)
+                    deleteProjectpromises.push(db_prj.deleteProject(username, project._id));
+                return Promise.all(deleteProjectpromises);
+            })
+            .then(() => {
+                return usersModel.deleteOne({ username: username }).exec();
+            })
+            .then(() => {
+                resolve();
+            })
+            .catch((error) => {
+                reject(error);
             });
     });
+
 }

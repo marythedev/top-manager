@@ -1,36 +1,65 @@
-<div class="row">
-    <div class="col-md-12">
-        <h2>Projects
-            <a href="/projects/add" class="btn btn-success pull-right">Add New Project</a>
-        </h2>
-        <hr>
+<!--Add Project Popup-->
+<div class="column align-center add-popup no-display">
 
-        {{#if message}}
-        <div scope="row" class="col-md-12 text-center">
-            <strong>{{message}}</strong>
-        </div>
-        {{else}}
+    <div class="nav-height"></div>
 
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Project №</th>
-                        <th scope="col">Project Name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each projects}}
-                    <tr>
-                        <th scope="row"><a href="/tasks?project={{prjNumber}}">{{prjNumber}}</a></th>
-                        <td><a href="/project/{{prjNumber}}">{{name}}</a></td>
-                        <td><a href="/project/delete/{{prjNumber}}" class="btn btn-danger">Remove</a></td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-        </div>
-        {{/if}}
+    <div class="card">
+        <h2 class="big-text">New Project</h2>
+        <form method="post" name="add-project" action="/projects" onsubmit="noMultipleSubmit(this)">
+            <input name="owner" type="hidden" value="{{ username }}" />
 
+            <div class="form-label-input-div">
+                <p class="label">Name</p>
+                <input type="text" name="name" class="input-field mid-text" autocomplete="off" required>
+            </div>
+
+            <div class="primary-secondary-buttons center flex space-between align-center">
+                <button class="mid-text" id="primary">Add project</button>
+                <img src="/icons/cancel.svg" id="close-add-popup" class="cursor-pointer icon" alt="Cancel icon">
+            </div>
+
+        </form>
     </div>
 </div>
+
+<!--No Projects Message-->
+{{#if message}}
+<div id="no-projects" class="flex column align-center">
+    <h1 class="big-text">{{message}}</h1>
+    <img src="/assets/guy-with-guitar.png" alt="No projects illustration">
+    <p class="tiny-text">Try adding one</p>
+    <a class="flex justify-center align-center open-add-popup cursor-pointer">
+        <img src="/icons/add-black.svg" class="icon" alt="Add project icon">
+    </a>
+</div>
+{{else}}
+<!--Projects-->
+<div class="flex column">
+    <div class="header-row flex row space-between align-center">
+        <div class="flex row align-center">
+            <h2 class="big-text">Projects</h2>
+            {{!-- <img src="/icons/sort.svg" class="icon" alt="Sort projects icon"> --}}
+        </div>
+        <a class="flex justify-center align-center open-add-popup cursor-pointer purple">
+            <img src="/icons/add-white.svg" class="icon" alt="Add project icon">
+        </a>
+    </div>
+    <div class="flex row wrap" id="cards">
+        {{#each projects}}
+        <div class="card cursor-pointer open-project-page" data-id="{{_id}}">
+            <div class="flex row space-between">
+                <h3 class="mid-text">{{name}}</h3>
+                <a href="/projects/delete/{{_id}}" onclick="noMultipleRedirect(this);  event.stopPropagation();">
+                    <img src="/icons/delete.svg" class="delete-icon" alt="Delete project icon"></a>
+            </div>
+            {{#if closestDueDate.date}}
+            <p class="small-text">Closest due date: {{closestDueDate.date}}</p>
+            {{/if}}
+        </div>
+        {{/each}}
+    </div>
+</div>
+{{/if}}
+
+<script src="/scripts/projects-tasks.js"></script>
+<script src="/scripts/projects.js"></script>

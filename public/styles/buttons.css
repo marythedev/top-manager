@@ -1,0 +1,110 @@
+/*General Button */
+button {
+    cursor: pointer;
+
+    border: none;
+    border-radius: 10px;
+
+    margin: 36px;
+    margin: var(--gutter);
+    margin-top: 24px;
+
+    width: 248px;
+    width: var(--button-width);
+
+    height: 36px;
+    height: var(--input-height);
+
+    color: #FFF;
+}
+
+
+
+/* Colors */
+.open-add-popup {
+    background-color: #FFB61D;
+}
+
+button,
+.open-add-popup.purple {
+    background-color: #A128EC;
+}
+
+#delete-button {
+    background-color: rgba(236, 40, 40, 0.30);
+}
+
+#delete-button:hover {
+    background-color: #EC2828;
+}
+
+
+
+/* Custom Button Settings For Different Pages */
+
+/*there's text underneath the login/signup button*/
+#login button,
+#signup button {
+    margin-bottom: 4px;
+}
+
+/*account card is a large one*/
+#account button {
+    width: 592px;
+    width: var(--large-button-width);
+}
+
+/*rounded button to add tasks/projects*/
+.open-add-popup {
+    width: 44px;
+    width: calc(var(--icon-width) * 2 + var(--base-unit));
+
+    height: 44px;
+    height: calc(var(--icon-width) * 2 + var(--base-unit));
+
+    border-radius: 100%;
+    margin: 12px;
+}
+
+/*2 buttons take the width of one button*/
+.primary-secondary-buttons {
+    margin: 36px;
+    margin: var(--gutter);
+}
+
+.primary-secondary-buttons #primary {
+    margin: 0;
+    width: 192px;
+    width: calc(var(--button-width) - var(--gutter) - var(--icon-width));
+}
+
+#account .primary-secondary-buttons,
+#delete-account .primary-secondary-buttons {
+    margin: 0;
+}
+
+#account .primary-secondary-buttons #primary {
+    margin-top: 24px;
+    margin-right: 36px;
+    margin-right: var(--gutter);
+
+    width: 394px;
+    width: calc(var(--large-button-width) / 3 * 2);
+}
+
+#account .primary-secondary-buttons #delete-button {
+    width: 161px;
+    width: calc(var(--large-button-width) / 3 - var(--gutter));
+}
+
+#delete-account .primary-secondary-buttons #primary {
+    margin-top: 24px;
+    width: 283px;
+    width: calc(var(--delete-page-width) / 3 * 2);
+}
+
+#delete-account .primary-secondary-buttons #delete-button {
+    margin-left: 0;
+    width: 105px;
+    width: calc(var(--delete-page-width) / 3 * 2 - var(--gutter));
+}

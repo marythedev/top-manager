@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 require('dotenv').config();     //for environment variables
 
+const db_task = require("../controllers/task-controller.js");
 const projectSchema = require('../model/Project');
 const projectsModel = mongoose.model(process.env.PROJECT_COLLECTION, projectSchema);
 
+//functions used within controllers
 const processInput = (project) => {
     for (const input in project) {
         if (project[input] == "")
@@ -11,77 +13,206 @@ const processInput = (project) => {
     }
 }
 
-module.exports.getAllProjects = (username) => {
-    return new Promise((res, rej) => {
-        projectsModel.find({ owner: username }).lean()
-            .then((projects) => {
-                res(projects);
+const updClosestDueDate = (closestDueDate, task) => {
+    if (closestDueDate.date) {
+        if (closestDueDate.date > task.dueDate) {
+            closestDueDate.date = task.dueDate;
+            closestDueDate.taskId = task._id;
+        }
+    }
+    else {
+        closestDueDate.date = task.dueDate;
+        closestDueDate.taskId = task._id;
+    }
+    return closestDueDate;
+}
+
+module.exports.updateClosestDueDate = (project_id, task) => {
+    return new Promise((resolve, reject) => {
+        projectsModel.findOne({ _id: project_id })
+            .then((project) => {
+                if (project) {
+                    project.closestDueDate = updClosestDueDate(project.closestDueDate, task);
+                    return project.save();
+                } else
+                    reject("Project Not Found");
             })
-            .catch(() => {
-                rej("No results returned.");
+            .then(() => {
+                resolve();
+            })
+            .catch((error) => {
+                reject(error);
             });
     });
 }
 
-module.exports.getProjectByNum = (username, prjNumber) => {
-    return new Promise((res, rej) => {
+module.exports.addTasktoProject = (task, project_id) => {
 
-        projectsModel.findOne({ owner: username, prjNumber: prjNumber }).lean().exec()
+    return new Promise((resolve, reject) => {
+        projectsModel.findOne({ _id: project_id })
             .then((project) => {
-                res(project);
-            })
-            .catch(() => {
-                rej(`Project №${prjNumber} was not found.`);
-            });
+                if (project) {
+                    //add task id to project's task id array
+                    project.taskIds.push({ taskId: task._id });
 
+                    //update project's closestDueDate taking into account the new task's due date
+                    project.closestDueDate = updClosestDueDate(project.closestDueDate, task);
+
+                    return project.save();
+                } else {
+                    reject("Project Not Found");
+                    return;
+                }
+            })
+            .then(() => {
+                resolve();
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
+
+}
+
+module.exports.deleteTaskFromProject = (task_id, project_id) => {
+
+    return new Promise((resolve, reject) => {
+        projectsModel.findOne({ _id: project_id })
+            .then((project) => {
+                if (project) {
+                    //remove task from project
+                    let index = 0;
+                    for (const taskIdObj of project.taskIds) {
+                        if (taskIdObj.taskId == task_id)
+                            project.taskIds.splice(index, 1);
+                        index++;
+                    }
+
+                    //update project's closestDueDate if it was the due date of the deleted task
+                    const updPromises = [];
+                    if (project.closestDueDate.taskId.localeCompare(task_id) == 0) {
+                        project.closestDueDate = {};
+                        for (const taskIdObj of project.taskIds) {
+                            const promise = db_task.getTaskById(taskIdObj.taskId)
+                                .then((task) => {
+                                    project.closestDueDate = updClosestDueDate(project.closestDueDate, task);
+                                });
+                            updPromises.push(promise);
+                        }
+                    }
+
+                    Promise.all(updPromises)
+                        .then(() => {
+                            return project.save();
+                        })
+                        .then(() => { resolve(); })
+                        .catch((error) => { reject(error); });
+
+                } else
+                    reject("Project Not Found");
+            })
+            .catch((error) => {
+                reject(error)
+            });
+    });
+
+}
+
+
+//functions used by routes
+module.exports.getProjectById = (username, project_id) => {
+    return new Promise((resolve, reject) => {
+
+        //project can be accessed by /project/:id route
+        //session username will make sure that external user won't access someones project
+        projectsModel.findOne({ owner: username, _id: project_id }).lean()
+            .then((project) => {
+                if (project) {
+                    //get all tasks assigned to project
+                    const getTasksPromises = [];
+                    for (const taskIdObj of project.taskIds)
+                        getTasksPromises.push(db_task.getTaskById(taskIdObj.taskId));
+                    Promise.all(getTasksPromises)
+                        .then((tasks) => {
+                            project.tasks = tasks;
+                            resolve(project);
+                        }).catch((error) => {
+                            reject(error);
+                        });
+                }
+                else
+                    reject("Project Not Found");
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
+}
+
+module.exports.getAllProjects = (username) => {
+    return new Promise((resolve, reject) => {
+        projectsModel.find({ owner: username }).lean()
+            .then((projects) => { resolve(projects); })
+            .catch((error) => { reject(error); });
     });
 }
 
 module.exports.addProject = (project) => {
-    return new Promise((res, rej) => {
+    return new Promise((resolve, reject) => {
 
         processInput(project);      //process received data to store in db
 
         const newProject = new projectsModel(project);
         newProject.save()
-            .then(() => {
-                res("Project created.");
-            })
-            .catch((e) => {
-                if (e.code == 11000)    //duplicate entry
-                    rej("Project № should be unique.");
-                else
-                    rej(`Problems creating Project: ${e}`);
-            });
+            .then(() => { resolve(); })
+            .catch((error) => { reject(error); });
 
     });
 }
 
 module.exports.updateProject = (update) => {
-    return new Promise((res, rej) => {
+    return new Promise((resolve, reject) => {
 
         processInput(update);      //process received data to store in db
 
-        projectsModel.updateOne({ owner: update.owner, prjNumber: update.prjNumber },
-            { $set: update })
+        projectsModel.updateOne({ _id: update._id }, { $set: { "name": update.name } })
             .then(() => {
-                res("Project updated.")
+                resolve();
             })
-            .catch(() => {
-                rej("Application encountered a problem updating project. Try again later.");
+            .catch((error) => {
+                reject(error);
             });
 
     });
 }
 
-module.exports.deleteProject = (username, prjNumber) => {
-    return new Promise((res, rej) => {
-        projectsModel.deleteOne({ owner: username, prjNumber: prjNumber }).exec()
-            .then(() => {
-                res("Project deleted.");
+module.exports.deleteProject = (username, project_id) => {
+
+    return new Promise((resolve, reject) => {
+
+        //project can be deleted by /project/delete/:id route
+        //session username will make sure that external user won't delete project
+        projectsModel.findOne({ owner: username, _id: project_id })
+            .then((project) => {
+                if (project) {
+                    const unassignPromises = [];
+                    for (const taskIdObj of project.taskIds)
+                        unassignPromises.push(db_task.unassignTaskfromProject(taskIdObj.taskId));
+                    return Promise.all(unassignPromises);
+                } else {
+                    reject("Project Not Found");
+                    return;
+                }
             })
-            .catch(() => {
-                rej("Application encountered a problem deleting project. Try again later.");
+            .then(() => {
+                return projectsModel.deleteOne({ _id: project_id }).exec();
+            })
+            .then(() => {
+                resolve();
+            })
+            .catch((error) => {
+                reject(error);
             });
     });
+
 }

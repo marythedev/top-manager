@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{{ title }}</title>
+
+    <link rel="icon" href="/icons/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/icons/favicon.ico" type="image/x-icon" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/text.css">
+    <link rel="stylesheet" href="/styles/card.css">
+    <link rel="stylesheet" href="/styles/images.css">
+    <link rel="stylesheet" href="/styles/form.css">
+    <link rel="stylesheet" href="/styles/buttons.css">
+    <link rel="stylesheet" href="/styles/mixed.css">
+    <link rel="stylesheet" href="/styles/animations.css">
+</head>
+
+<body>
+    <nav class="flex space-between align-center">
+        <div>
+            {{#if session.user}}
+            <ul class="flex space-between">
+                <li><a href="/projects">Projects</a></li>
+                <li><a href="/tasks">Tasks</a></li>
+            </ul>
+            {{else}}
+            <ul class="flex space-between">
+                <li><a href="/contact">Contact Us</a></li> <!--Implement this route-->
+            </ul>
+            {{/if}}
+
+        </div>
+        <a href="/">
+            <div class="flex space-between align-center">
+                <img src="/assets/logo.png" height="70px" alt="Logo">
+                <h1>TopManager</h1>
+            </div>
+        </a>
+        <div>
+
+            {{#if session.user}}
+            <div class="dropdown" tabindex="0">
+                <ul class="flex space-between align-center cursor-pointer">
+                    <li id="username">{{session.user.username}}</li>
+                    <img src="/assets/avatar.png" height="50px" alt="Avatar">
+                </ul>
+                <ul class="card cursor-pointer no-display">
+                    <li id="account" class="grow-on-hover">My Account</li>
+                    <li>
+                        <hr class="hr">
+                    </li>
+                    <li id="contact" class="grow-on-hover">Contact Us</li> <!--Implement this route-->
+                    <li>
+                        <hr class="hr">
+                    </li>
+                    <li id="logout" class="grow-on-hover">Logout</li>
+                </ul>
+                </ul>
+            </div>
+            {{else}}
+            <ul class="flex space-between align-center">
+                <a href="/login">
+                    <li id="login-button">Login</li>
+                </a>
+                <li><a href="/signup">Sign Up</a></li> <!--Update this route-->
+            </ul>
+
+            {{/if}}
+
+
+        </div>
+    </nav>
+
+    {{{body}}}
+
+    <script src="/scripts/main.js"></script>
+
+</body>
+
+</html>

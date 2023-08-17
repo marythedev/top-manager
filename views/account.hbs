@@ -1,26 +1,42 @@
-<h2>Account Details</h2>
-<hr style="margin-top: 5px;">
+<div id="account" class="flex column align-center">
+    {{#if error}}
+    <div class="flex align-center error"> {{error}}</div>
+    {{/if}}
 
-{{#if error}}
-<div class="alert alert-danger"> <strong> {{error}} </strong> </div>
-{{/if}}
+    <div class="card">
+        <form name="update-account" method="post" action="/account" onsubmit="noMultipleSubmit(this)">
 
-<form name="update" method="post" action="/account">
+            <img id="avatar" src="/assets/avatar.png" height="115px" alt="Avatar">
 
-    <div class="form-row">
-        <div class="form-group col-md-12" style="padding-left: 0;">
-            <input type="text" class="form-control" id="new_username" name="new_username" placeholder="New Username"
-                value='{{user.username}}' required>
-        </div>
+            <div class="form-label-input-div flex row space-between">
+                <div>
+                    <p class="label">Username</p>
+                    <input type="text" name="username" class="input-field mid-text" placeholder="New Username"
+                        autocomplete="off" value='{{user.username}}' required>
+                </div>
+                <div>
+                    <p class="label">Current Password</p>
+                    <input type="password" name="password" class="input-field mid-text" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="form-label-input-div flex row space-between">
+                <div>
+                    <p class="label">New Password</p>
+                    <input type="password" name="new_password" class="input-field mid-text" autocomplete="off">
+                </div>
+                <div>
+                    <p class="label">Confirm New Password</p>
+                    <input type="password" name="confirm_new_password" class="input-field mid-text" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="flex row space-between primary-secondary-buttons">
+                <a href="/account/delete">
+                    <button id="delete-button" class="mid-text" type="button">Delete account</button>
+                </a>
+                <button class="mid-text" type="submit" id="primary">Update my account</button>
+            </div>
+        </form>
     </div>
-
-    <input type="hidden" class="form-control" id="username" name="username" placeholder="Username"
-                value='{{user.username}}' >
-
-    <hr class="col-md-12">
-
-    <div class="form-row col-md-12 text-right" style="padding-left: 0;">
-        <button type="submit" class="btn btn-primary btn-success">Update Account</button>
-        <a href="/account/delete" class="btn btn-primary btn-danger">Delete Account</a>
-    </div>
-</form>
+</div>

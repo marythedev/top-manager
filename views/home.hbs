@@ -1,27 +1,59 @@
-<div class="column col-md-3">
-    <h2>Coming Soon</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam accumsan libero a sem venenatis pharetra.</p>
+<div id="home">
+    <div class="flex column align-center">
+        <h1 class="main-header center">Start managing your tasks and projects.</h1>
+
+        <div id="carousel" class="flex row justify-center align-center">
+            <img src="/icons/previous.svg" id="previous-icon" alt="Previous icon">
+            <div>
+                <img src="/assets/view-account.jpg" class="active carousel-img" alt="View Account">
+                <img src="/assets/view-projects.jpg" class="carousel-img" alt="View Projects">
+                <img src="/assets/add-new-projects.jpg" class="carousel-img" alt="Add New Projects">
+                <img src="/assets/view-tasks.jpg" class="carousel-img" alt="View Tasks">
+                <img src="/assets/add-new-tasks.jpg" class="carousel-img" alt="Add New Tasks">
+            </div>
+            <img src="/icons/next.svg" id="next-icon" alt="Next icon">
+        </div>
+
+        <div class="carousel-dots flex row">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+
+    </div>
+
+    <div class="flex column align-center">
+        <h1 class="big-text center">Coming Soon</h1>
+
+        <!--hardcoded for now - should be loaded from db-->
+        <div class="card">
+            <h2 class="mid-text">Contact Form</h2>
+            <p class="small-text">Send us emails from the contact form of this website!</p>
+        </div>
+
+        <div class="card">
+            <h2 class="mid-text">Forgot Password</h2>
+            <p class="small-text">Forgot password? No problem we'll send you recovery email!</p>
+        </div>
+
+        <div class="card">
+            <h2 class="mid-text">Upload Your Avatar</h2>
+            <p class="small-text">No more general avatars, upload your own one!</p>
+        </div>
+
+        <div class="card">
+            <h2 class="mid-text">Mobile Re-design</h2>
+            <p class="small-text">Welcome TopManager web-application on your phone!</p>
+        </div>
+
+        <p class="tiny-text center">Have a suggestion?
+            <br>
+            <a href="/contact" class="tiny-text">Contact Us</a>
+        </p>
+
+    </div>
 </div>
-<div class="column col-md-9">
-    <h2>Welcome</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam accumsan libero a sem venenatis pharetra. Nulla
-        facilisi. In semper blandit arcu. Nullam vitae sem convallis, vehicula nisi eu, hendrerit justo. Pellentesque
-        libero neque, interdum nec diam bibendum, tristique pellentesque felis. Sed vel adipiscing lacus. Maecenas porta
-        dolor a turpis aliquet, eget posuere nisi fringilla. Aenean ac turpis tristique, feugiat mi sodales, laoreet
-        neque. Donec tristique nec quam sit amet sagittis. Mauris elementum ullamcorper risus at luctus.</p>
-    <p>Cras dui dui, suscipit ac massa et, fermentum lacinia lacus. Aliquam erat volutpat. Phasellus non tellus quis
-        quam eleifend laoreet. Etiam luctus augue nec lectus consequat euismod. Nulla tristique augue a urna eleifend
-        rutrum eget quis turpis. Curabitur consectetur aliquet lobortis. Donec id felis leo. Etiam ullamcorper augue
-        justo, vitae tincidunt ipsum gravida vitae. Donec orci justo, vehicula rutrum mattis et, ornare ullamcorper mi.
-        Mauris eget diam est. </p>
-    <p>Ut non diam varius ante dictum blandit nec in tortor. Pellentesque sodales vel elit eget cursus. In condimentum
-        consequat mauris vel bibendum. Curabitur feugiat nibh in sodales condimentum. In sit amet hendrerit massa, sed
-        porta ipsum. Praesent consectetur consectetur sem, at aliquam ante posuere ac. Sed sit amet quam egestas eros
-        lobortis varius. Aenean eleifend nec turpis eget faucibus. Duis pretium consequat velit, quis eleifend leo
-        laoreet non. Quisque sit amet lobortis urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-        posuere cubilia Curae; In nisi nibh, convallis eu metus et, adipiscing laoreet quam.</p>
-    <p>Duis egestas cursus diam, ut volutpat tortor mattis tempor. In et imperdiet turpis. Proin aliquet, lectus
-        ultrices fringilla lobortis, purus risus imperdiet neque, eget consectetur ligula quam non arcu. Curabitur vitae
-        posuere elit, in faucibus felis. </p>
-</div>
+
+<script src="/scripts/home.js"></script>
