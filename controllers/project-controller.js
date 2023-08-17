@@ -30,19 +30,19 @@ const updClosestDueDate = (closestDueDate, task) => {
 module.exports.updateClosestDueDate = (project_id, task) => {
     return new Promise((resolve, reject) => {
         projectsModel.findOne({ _id: project_id })
-        .then((project) => {
-            if(project) {
-                project.closestDueDate = updClosestDueDate(project.closestDueDate, task);
-                return project.save();
-            } else
-                reject("Project Not Found");
-        })
-        .then(() => {
-            resolve();
-        })
-        .catch((error) => {
-            reject(error);
-        });
+            .then((project) => {
+                if (project) {
+                    project.closestDueDate = updClosestDueDate(project.closestDueDate, task);
+                    return project.save();
+                } else
+                    reject("Project Not Found");
+            })
+            .then(() => {
+                resolve();
+            })
+            .catch((error) => {
+                reject(error);
+            });
     });
 }
 
@@ -120,6 +120,35 @@ module.exports.deleteTaskFromProject = (task_id, project_id) => {
 
 
 //functions used by routes
+module.exports.getProjectById = (username, project_id) => {
+    return new Promise((resolve, reject) => {
+
+        //project can be accessed by /project/:id route
+        //session username will make sure that external user won't access someones project
+        projectsModel.findOne({ owner: username, _id: project_id }).lean()
+            .then((project) => {
+                if (project) {
+                    //get all tasks assigned to project
+                    const getTasksPromises = [];
+                    for (const taskIdObj of project.taskIds)
+                        getTasksPromises.push(db_task.getTaskById(taskIdObj.taskId));
+                    Promise.all(getTasksPromises)
+                        .then((tasks) => {
+                            project.tasks = tasks;
+                            resolve(project);
+                        }).catch((error) => {
+                            reject(error);
+                        });
+                }
+                else
+                    reject("Project Not Found");
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
+}
+
 module.exports.getAllProjects = (username) => {
     return new Promise((resolve, reject) => {
         projectsModel.find({ owner: username }).lean()

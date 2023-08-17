@@ -75,7 +75,10 @@ router.get("/", checkAuthorization, (request, response) => {
 router.post("/", checkAuthorization, (request, response) => {
     db_task.addTask(request.body)
         .then(() => {
-            response.redirect("/tasks")
+            if (request.query.source == "tasks")
+                response.redirect("/tasks");
+            else if (request.query.source == "projects")
+                response.redirect(`/projects/${request.query.id}`);
         }).catch(() => {
             response.status(500).render("oops", {
                 message: "a problem adding task",
@@ -87,10 +90,12 @@ router.post("/", checkAuthorization, (request, response) => {
 router.post("/update", checkAuthorization, (request, response) => {
     db_task.updateTask(request.body)
         .then(() => {
-            response.redirect("/tasks");
+            if (request.query.source == "tasks")
+                response.redirect("/tasks");
+            else if (request.query.source == "projects")
+                response.redirect(`/projects/${request.query.id}`);
         })
-        .catch((error) => {
-            console.log(error)
+        .catch(() => {
             response.status(500).render("oops", {
                 message: "a problem updating task",
                 title: "Update Task"
@@ -102,7 +107,10 @@ router.post("/update", checkAuthorization, (request, response) => {
 router.get("/delete/:_id", checkAuthorization, (request, response) => {
     db_task.deleteTask(request.session.user.username, request.params._id)
         .then(() => {
-            response.redirect("/tasks");
+            if (request.query.source == "tasks")
+                response.redirect("/tasks");
+            else if (request.query.source == "projects")
+                response.redirect(`/projects/${request.query.id}`);
         }).catch(() => {
             response.status(500).render("oops", {
                 message: "a problem deleting task",

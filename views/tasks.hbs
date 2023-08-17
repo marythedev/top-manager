@@ -4,7 +4,7 @@
 
     <div class="card">
         <h2 class="big-text">New Task</h2>
-        <form method="post" name="add-task" action="/tasks" onsubmit="noMultipleSubmit(this)">
+        <form method="post" name="add-task" action="/tasks?source=tasks" onsubmit="noMultipleSubmit(this)">
             <input name="owner" type="hidden" value="{{ username }}" />
 
             <div class="form-label-input-div">
@@ -62,7 +62,8 @@
 
     <div class="card">
         <h2 class="big-text">Update Task</h2>
-        <form method="post" name="update-task" action="/tasks/update" onsubmit="noMultipleSubmit(this)">
+        <form method="post" name="update-task" action="/tasks/update?source=tasks"
+            onsubmit="noMultipleSubmit(this)">
             <input name="_id" type="hidden" value="{{_id}}" />
 
             <div class="form-label-input-div">
@@ -136,7 +137,7 @@
 {{#if message}}
 <div id="no-tasks" class="flex column align-center">
     <h1 class="big-text">{{message}}</h1>
-    <img src="/assets/guy-with-guitar.png">
+    <img src="/assets/guy-with-guitar.png" alt="No Tasks Illustration">
     <p class="tiny-text">Try adding one</p>
     <a class="flex justify-center align-center open-add-popup cursor-pointer">
         <img src="/icons/add-black.svg" class="icon" alt="Add task icon">
@@ -157,27 +158,25 @@
     <div class="flex row wrap" id="cards">
 
         {{#each tasks}}
-        <a class="cursor-pointer open-update-popup" data-id="{{_id}}">
-            <div class="card">
-                <div class="flex row space-between">
-                    <h3 class="mid-text">{{name}}</h3>
-                    {{#if priority}}
-                    <p class="small-text">{{priority}} Priority</p>
-                    {{/if}}
-                </div>
-                <p class="small-text">{{dueDate}}</p>
-                <div class="flex row space-between">
-                    <p class="small-text">{{getProjectName ../projects project}}</p>
-                    <a href="/tasks/delete/{{_id}}" onclick="noMultipleRedirect(this)"><img src="/icons/delete.svg"
-                            class="delete-icon" alt="Delete task icon"></a>
-                </div>
+        <div class="card cursor-pointer open-update-popup" data-id="{{_id}}">
+            <div class="flex row space-between">
+                <h3 class="mid-text">{{name}}</h3>
+                {{#if priority}}
+                <p class="small-text">{{priority}} Priority</p>
+                {{/if}}
             </div>
-        </a>
+            <p class="small-text">{{dueDate}}</p>
+            <div class="flex row space-between">
+                <p class="small-text">{{getProjectName ../projects project}}</p>
+                <a href="/tasks/delete/{{_id}}?source=tasks"
+                    onclick="noMultipleRedirect(this); event.stopPropagation();">
+                    <img src="/icons/delete.svg" class="delete-icon" alt="Delete task icon">
+                </a>
+            </div>
+        </div>
         {{/each}}
     </div>
 </div>
-
-<!---->
 {{/if}}
 
 <script src="/scripts/projects-tasks.js"></script>

@@ -6,19 +6,7 @@ const router = express.Router();
 
 const project_title = "Project";  //html title for rendered file
 
-// router.get('/:prjNumber', checkAuthorization, (req, res) => {
-//     db_prj.getProjectByNum(req.session.user.username, req.params.prjNumber)
-//         .then((project) => {
-//             if (project != undefined)
-//                 res.render("project", { project: project, title: project_title });
-//             else
-//                 res.status(404).send("Project Not Found");
-//         }, (rej) => { throw rej; })
-//         .catch((reason) => {
-//             console.log(reason);
-//             res.status(404).send("Project Not Found");
-//         });
-// })
+
 // router.post("/update", checkAuthorization, (req, res) => {
 //     db_prj.updateProject(req.body)
 //         .then(() => { 

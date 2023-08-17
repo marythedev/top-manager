@@ -42,4 +42,21 @@ router.post("/", checkAuthorization, (request, response) => {
         });
 });
 
+router.get('/:_id', checkAuthorization, (request, response) => {
+    db_prj.getProjectById(request.session.user.username, request.params._id)
+        .then((project) => {
+            response.render("project", {
+                project: project,
+                username: request.session.user.username,
+                title: project.name
+            });
+        })
+        .catch(() => {
+            response.status(500).render("oops", {
+                message: "a problem retrieving project",
+                title: "Project"
+            });
+        });
+})
+
 module.exports = router;
