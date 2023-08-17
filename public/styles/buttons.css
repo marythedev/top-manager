@@ -26,21 +26,38 @@ button {
 }
 
 button,
-.open-add-popup.purple {
+.open-add-popup.purple{
     background-color: #A128EC;
 }
 
 #delete-button {
-    background-color: rgba(236, 40, 40, 0.30);
+    color: #EC2828;
+    border: 1px solid #EC2828;
+    background-color: transparent;
 }
 
 #delete-button:hover {
+    color: white;
+    border: none;
     background-color: #EC2828;
 }
 
 
 
 /* Custom Button Settings For Different Pages */
+
+/*main homepage button*/
+button#start-with-topmanager {
+    color: #A128EC;
+    border: 1px solid #A128EC;
+    background-color: transparent;
+}
+
+button#start-with-topmanager:hover {
+    color: white;
+    border: none;
+    background-color: #A128EC;
+}
 
 /*there's text underneath the login/signup button*/
 #login button,
