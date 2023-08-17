@@ -33,29 +33,6 @@ nav li#username {
 
 
 
-/*Image Carousel Dots*/
-.carousel-dots {
-    margin: 8px;
-    gap: 4px;
-}
-
-.carousel-dots .dot {
-    width: 8px;
-    height: 8px;
-
-    border: 1px solid #9C9C9C;
-    border: 1px solid var(--grey);
-
-    border-radius: 100%;
-    background-color: #fff;
-}
-
-.carousel-dots .active {
-    background-color: #717171;
-}
-
-
-
 /*Add/Update Task/Project Popup*/
 .add-popup,
 .update-popup {

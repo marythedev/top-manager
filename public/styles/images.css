@@ -7,19 +7,6 @@
     height: var(--icon-width);
 }
 
-#previous-icon,
-#next-icon {
-    z-index: 1;
-}
-
-#previous-icon {
-    margin-right: -5%;
-}
-
-#next-icon {
-    margin-left: -5%;
-}
-
 .delete-icon {
     width: 16px;
 }
@@ -32,22 +19,11 @@
 }
 
 /*Images*/
-.carousel-img {
-    display: none;
-    object-fit: contain;
-
-    height: auto;
-    max-height: 65vh;
-}
-
-#carousel .active {
-    display: block;
-}
-
 #page404>img,
 #oops>img,
 #no-projects>img,
-#no-tasks>img {
+#no-tasks>img,
+#home img {
     margin: 36px;
     margin: var(--gutter);
 
