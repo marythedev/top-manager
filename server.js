@@ -6,7 +6,6 @@ const contactRoute = require("./routes/contact.js");
 const accountRoute = require("./routes/account.js");
 const tasksRoute = require("./routes/tasks.js");
 const projectsRoute = require("./routes/projects.js");
-const projectRoute = require("./routes/project.js");
 
 const hbs = require('express-handlebars');
 const sessions = require('client-sessions');
@@ -85,7 +84,6 @@ app.use("/contact", contactRoute);
 app.use("/account", accountRoute);
 app.use("/tasks", tasksRoute);
 app.use("/projects", projectsRoute);
-app.use("/project", projectRoute);
 
 app.get("/logout", (request, response) => {
     request.session.reset();

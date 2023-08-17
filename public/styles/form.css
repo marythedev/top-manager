@@ -46,6 +46,17 @@ textarea.input-field {
     border: 1px solid #000;
 }
 
+#project-name.input-field {
+    font-size: 20px;
+    font-weight: 700;
+    
+    border: none;
+    padding-right: 35px;
+}
+
+#project-name.input-field:focus {
+    border: 1px solid #000;
+}
 
 
 /*Label + Input Div*/

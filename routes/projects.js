@@ -45,11 +45,31 @@ router.post("/", checkAuthorization, (request, response) => {
 router.get('/:_id', checkAuthorization, (request, response) => {
     db_prj.getProjectById(request.session.user.username, request.params._id)
         .then((project) => {
-            response.render("project", {
-                project: project,
-                username: request.session.user.username,
-                title: project.name
-            });
+            db_prj.getAllProjects(request.session.user.username)
+                .then((projects) => {
+                    if (project.taskIds.length == 0) {
+                        response.render("project", {
+                            project: project,
+                            projects: projects,
+                            message: "This project has no tasks yet!",
+                            username: request.session.user.username,
+                            title: project.name
+                        });
+                    } else {
+                        response.render("project", {
+                            project: project,
+                            projects: projects,
+                            username: request.session.user.username,
+                            title: project.name
+                        });
+                    }
+                })
+                .catch(() => {
+                    response.status(500).render("oops", {
+                        message: "a problem retrieving project",
+                        title: "Project"
+                    });
+                });
         })
         .catch(() => {
             response.status(500).render("oops", {
@@ -58,5 +78,31 @@ router.get('/:_id', checkAuthorization, (request, response) => {
             });
         });
 })
+
+router.post("/update", checkAuthorization, (request, response) => {
+    db_prj.updateProject(request.body)
+        .then(() => {
+            response.redirect(`/projects/${request.query.id}`);
+        })
+        .catch(() => {
+            response.status(500).render("oops", {
+                message: "a problem updating project",
+                title: "Update Project"
+            });
+        })
+
+});
+
+router.get("/delete/:_id", checkAuthorization, (request, response) => {
+    db_prj.deleteProject(request.session.user.username, request.params._id)
+        .then(() => {
+            response.redirect("/projects");
+        }).catch(() => {
+            response.status(500).render("oops", {
+                message: "a problem deleting project",
+                title: "Delete Project"
+            });
+        });
+});
 
 module.exports = router;

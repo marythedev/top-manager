@@ -170,6 +170,22 @@ module.exports.addProject = (project) => {
     });
 }
 
+module.exports.updateProject = (update) => {
+    return new Promise((resolve, reject) => {
+
+        processInput(update);      //process received data to store in db
+
+        projectsModel.updateOne({ _id: update._id }, { $set: { "name": update.name } })
+            .then(() => {
+                resolve();
+            })
+            .catch((error) => {
+                reject(error);
+            });
+
+    });
+}
+
 module.exports.deleteProject = (username, project_id) => {
 
     return new Promise((resolve, reject) => {
@@ -200,24 +216,3 @@ module.exports.deleteProject = (username, project_id) => {
     });
 
 }
-
-
-
-
-
-// module.exports.updateProject = (update) => {
-//     return new Promise((res, rej) => {
-
-//         processInput(update);      //process received data to store in db
-
-//         projectsModel.updateOne({ owner: update.owner, _id: update._id },
-//             { $set: update })
-//             .then(() => {
-//                 res("Project updated.")
-//             })
-//             .catch(() => {
-//                 rej("Application encountered a problem updating project. Try again later.");
-//             });
-
-//     });
-// }

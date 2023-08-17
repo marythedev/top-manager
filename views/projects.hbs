@@ -38,7 +38,7 @@
     <div class="header-row flex row space-between align-center">
         <div class="flex row align-center">
             <h2 class="big-text">Projects</h2>
-            <img src="/icons/sort.svg" class="icon" alt="Sort projects icon">
+            {{!-- <img src="/icons/sort.svg" class="icon" alt="Sort projects icon"> --}}
         </div>
         <a class="flex justify-center align-center open-add-popup cursor-pointer purple">
             <img src="/icons/add-white.svg" class="icon" alt="Add project icon">
@@ -49,7 +49,7 @@
         <div class="card cursor-pointer open-project-page" data-id="{{_id}}">
             <div class="flex row space-between">
                 <h3 class="mid-text">{{name}}</h3>
-                <a href="/project/delete/{{_id}}" onclick="noMultipleRedirect(this);  event.stopPropagation();">
+                <a href="/projects/delete/{{_id}}" onclick="noMultipleRedirect(this);  event.stopPropagation();">
                     <img src="/icons/delete.svg" class="delete-icon" alt="Delete project icon"></a>
             </div>
             {{#if closestDueDate.date}}

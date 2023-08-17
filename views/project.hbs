@@ -111,28 +111,33 @@
 </div>
 {{/each}}
 
-<!--No Tasks Message-->
-{{#if message}}
-<div id="no-tasks" class="flex column align-center">
-    <h1 class="big-text">{{message}}</h1>
-    <img src="/assets/guy-with-guitar.png" alt="No Tasks Illustration">
-    <p class="tiny-text">Try adding one</p>
-    <a class="flex justify-center align-center open-add-popup cursor-pointer">
-        <img src="/icons/add-black.svg" class="icon" alt="Add task icon">
-    </a>
-</div>
-{{else}}
-<!--Project's Tasks-->
 <div class="flex column">
     <div class="header-row flex row space-between align-center">
         <div class="flex row align-center">
-            <h2 class="big-text">{{project.name}}</h2>
-            <img src="/icons/sort.svg" class="icon" alt="Sort tasks icon">
+            <form method="post" name="update-project" id="update-project" action="/projects/update?id={{project._id}}">
+                <div class="flex row align-center">
+                    <input name="_id" type="hidden" value="{{project._id}}" />
+                    <input name="name" type="text" id="project-name" class="input-field" autocomplete="off"
+                        value="{{project.name}}">
+                    <input type="image" class="icon checkmark-icon cursor-pointer no-display"
+                        src="/icons/checkmark.svg">
+                </div>
+            </form>
+            {{!-- <img src="/icons/sort.svg" class="icon" alt="Sort tasks icon"> --}}
         </div>
         <a class="flex justify-center align-center open-add-popup cursor-pointer purple">
             <img src="/icons/add-white.svg" class="icon" alt="Add task icon">
         </a>
     </div>
+
+    <!--No Tasks Message-->
+    {{#if message}}
+    <div id="no-tasks" class="flex column align-center">
+        <h1 class="big-text">{{message}}</h1>
+        <img src="/assets/guy-with-guitar.png" alt="No Tasks Illustration">
+    </div>
+    {{else}}
+    <!--Project's Tasks-->
     <div class="flex row wrap" id="cards">
 
         {{#each project.tasks}}
@@ -154,8 +159,10 @@
         </div>
         {{/each}}
     </div>
+    {{/if}}
+
 </div>
-{{/if}}
 
 <script src="/scripts/projects-tasks.js"></script>
 <script src="/scripts/tasks.js"></script>
+<script src="/scripts/project.js"></script>

@@ -24,7 +24,12 @@
     width: 16px;
 }
 
+.checkmark-icon {
+    margin: -30px;
 
+    height: 36px;
+    height: var(--input-height);
+}
 
 /*Images*/
 .carousel-img {
