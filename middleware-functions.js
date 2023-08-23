@@ -1,13 +1,13 @@
-const checkAuthorization = (req, res, next) => {
-    if (!req.session.user)
-        res.redirect("/login");
+const checkAuthorization = (request, response, next) => {
+    if (!request.session.user)
+        response.redirect("/login");
     else
         next();
 }
 
-const checkNeedForLogin = (req, res, next) => {
-    if (req.session.user)
-        res.redirect("/");
+const checkNeedForLogin = (request, response, next) => {
+    if (request.session.user)
+        response.redirect("/");
     else
         next();
 }

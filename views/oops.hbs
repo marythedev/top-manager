@@ -1,5 +1,9 @@
 <div id="oops" class="flex column align-center">
     <h1 class="big-text">Oops, we've encountered {{message}}.</h1>
+    {{#if contactError}}
+    <p class="mid-text grey">Try again later.</p>
+    {{else}}
     <p class="mid-text grey">Try again later or <a href="/contact" class="grey">Contact Us</a>.</p>
+    {{/if}}
     <img src="/assets/oops.png" alt="Oops illustration">
 </div>

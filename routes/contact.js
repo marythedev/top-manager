@@ -11,19 +11,19 @@ router.get("/", (request, response) => {
 
 router.post('/', async (request, response) => {
     const emailAPI = request.app.get('emailAPI');
-    const sendEmail = spawn('python', [emailAPI]);
+    const emailMessage = `${request.body.message}\nReply to ${request.body.email}(${request.body.name})`;
 
-    sendEmail.stdout.on('data', (data) => {
-        console.log(`${data}`);
-    });
-
-    sendEmail.stderr.on('data', (data) => {
-        console.error(`${data}`);
-    });
-
-    response.render("contact", {
-        error: "Backend for contact form is not implemented yet! Try again later.",
-        title: contact_title
+    const sendEmail = spawn('python', [emailAPI, emailMessage]);
+    sendEmail.on('close', (code) => {
+        if (code == 0)
+            response.redirect('/tasks');
+        else {
+            response.status(500).render("oops", {
+                message: "a problem sending email",
+                contactError: true,
+                title: contact_title
+            });
+        }
     });
 });
 
