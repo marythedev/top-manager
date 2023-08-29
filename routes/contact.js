@@ -15,15 +15,15 @@ router.post('/', async (request, response) => {
 
     const sendEmail = spawn('python', [emailAPI, emailMessage]);
     sendEmail.on('close', (code) => {
-        if (code == 0)
-            response.redirect('/tasks');
-        else {
+        if (code)
             response.status(500).render("oops", {
                 message: "a problem sending email",
                 contactError: true,
                 title: contact_title
             });
-        }
+        else {
+            response.redirect('/tasks');
+        };
     });
 });
 
