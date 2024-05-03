@@ -14,5 +14,5 @@ jobs:
         uses: strumwolf/delete-deployment-environment@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          environment: Preview
+          environment: Production
           onlyRemoveDeployments: true
