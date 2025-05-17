@@ -1,0 +1,93 @@
+<div id="landing-page">
+  <div class="take-action">
+    <img src="assets/landing-page-desktop.jpeg" alt="background" class="bg" />
+    <div>
+      <h1>Start managing your tasks and projects.</h1>
+      <a href="/signup">
+        <button class="action-button">Start with TopManager</button>
+      </a>
+    </div>
+  </div>
+
+  <!-- Overview -->
+  <div class="overview">
+    <div class="overview-text fade-in-up">
+      <h1>TopManager</h1>
+      <h2>Simple and effective task & project management.</h2>
+      <p>
+        TopManager helps you stay on top of tasks and deadlines with a clean,
+        intuitive interface. Create projects, add tasks, set priorities — and
+        track it all in one place.
+      </p>
+    </div>
+
+    <div class="features fade-in-up">
+      <h2>What you can do</h2>
+      <br />
+      <ul>
+        <li><span>📝</span><strong>Create Tasks:</strong>
+          Quick task creation with deadlines & priority levels.</li>
+        <li><span>📁</span><strong>Manage Projects:</strong>
+          Organize tasks under focused project boards.</li>
+        <li><span>📬</span><strong>Request Features:</strong>
+          Got an idea?
+          <a href="/contact">Feel free to tell us</a>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="section-divider" />
+
+  <!-- Testimonials -->
+  <div class="testimonials">
+    <h2>What our users say</h2>
+    <div class="testimonial-carousel">
+      <button class="carousel-arrow left">&#10094;</button>
+      <div class="carousel-track">
+        <div class="testimonial-card">
+          "I love how easy it is to track my tasks. Highly recommend!"
+          <span>— Sasha</span>
+        </div>
+        <div class="testimonial-card">
+          "TopManager has transformed how we manage projects. It's minimalistic
+          and powerful!"
+          <span>— Denis</span>
+        </div>
+        <div class="testimonial-card">
+          "TopManager has made my life so much easier. I can't imagine working
+          without it!"
+          <span>— Zehra</span>
+        </div>
+      </div>
+      <button class="carousel-arrow right">&#10095;</button>
+    </div>
+  </div>
+
+  <hr class="section-divider" />
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Developed by Maria Dmytrenko</p>
+    <p>© 2022–<span id="current-year"></span></p>
+    <p><a href="/contact">Contact us</a></p>
+  </footer>
+</div>
+
+<script>
+  // Carousel logic const track = document.querySelector('.carousel-track');
+  const cards = document.querySelectorAll('.testimonial-card'); const leftArrow
+  = document.querySelector('.carousel-arrow.left'); const rightArrow =
+  document.querySelector('.carousel-arrow.right'); let index = 0; function
+  updateCarousel() { track.style.transform = `translateX(-${index * 100}%)`; }
+  leftArrow.addEventListener('click', () => { index = (index - 1 + cards.length)
+  % cards.length; updateCarousel(); }); rightArrow.addEventListener('click', ()
+  => { index = (index + 1) % cards.length; updateCarousel(); });
+  document.getElementById('current-year').textContent = new
+  Date().getFullYear(); // Feature animation on scroll const featureItems =
+  document.querySelectorAll('.features li'); function revealFeatures() { const
+  scrollY = window.scrollY + window.innerHeight; featureItems.forEach((item, i)
+  => { if (item.offsetTop < scrollY - 50) { setTimeout(() =>
+  item.classList.add('visible'), i * 150); } }); }
+  window.addEventListener('scroll', revealFeatures);
+  window.addEventListener('load', revealFeatures);
+</script>

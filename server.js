@@ -75,7 +75,11 @@ db.connect()
 
 //available routes
 app.get("/", (request, response) => {
-    response.render("home", { title: "Home" });
+    if (request.session.user) {
+        response.redirect("/tasks");
+    } else {
+        response.render("landing-page", { title: "TopManager" });
+    }
 });
 
 app.use("/login", loginRoute);
