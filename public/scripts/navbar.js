@@ -8,24 +8,26 @@ const account = document.getElementById("account");
 const contact = document.getElementById("contact");
 const logout = document.getElementById("logout");
 
-dropdown.addEventListener("focus", () => {
-    dropdownContent.classList.remove("no-display");
-    dropdownContent.classList.add("block-display");
-});
-dropdown.addEventListener("blur", () => {
-    dropdownContent.classList.remove("block-display");
-    dropdownContent.classList.add("no-display");
-});
+try {
+    dropdown.addEventListener("focus", () => {
+        dropdownContent.classList.remove("no-display");
+        dropdownContent.classList.add("block-display");
+    });
+    dropdown.addEventListener("blur", () => {
+        dropdownContent.classList.remove("block-display");
+        dropdownContent.classList.add("no-display");
+    });
 
-account.addEventListener("click", () => {
-    window.location.href = "/account";
-});
-contact.addEventListener("click", () => {
-    window.location.href = "/contact";
-});
-logout.addEventListener("click", () => {
-    window.location.href = "/logout";
-});
+    account.addEventListener("click", () => {
+        window.location.href = "/account";
+    });
+    contact.addEventListener("click", () => {
+        window.location.href = "/contact";
+    });
+    logout.addEventListener("click", () => {
+        window.location.href = "/logout";
+    });
+} catch { /* dropdown do not exist on mobile view DOM */ }
 
 
 
@@ -41,10 +43,6 @@ function openMenu() {
 
 function closeMenu() {
     mobileMenu.style.animation = "mobile-menu-close 500ms forwards ease";
-
-    setTimeout(() => {
-        mobileMenu.style.display = 'none';
-    }, 500);
 }
 
 try {
