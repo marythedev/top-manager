@@ -1,10 +1,37 @@
+.card,
+.error {
+    margin-top: var(--gutter);
+    width: var(--card-width);
+}
+
 .card {
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
     border-radius: 15px;
     background-color: white;
     text-align: center;
-    width: var(--card-width);
-    margin-top: var(--gutter);
+}
+
+.error {
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(255, 165, 165);
+    font-weight: 700;
+    font-size: 14px;
+    color: black;
+    padding: 0 24px;
+    height: 48px;
+    animation: fadeIn 500ms ease both;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 #account .card,
@@ -27,18 +54,6 @@
     text-align: left;
 }
 
-.error {
-    border: none;
-    border-radius: 10px;
-    background-color: var(--light-orange);
-    font-weight: 700;
-    font-size: 14px;
-    color: black;
-    padding: 0 24px;
-    height: 48px;
-}
-
-
 /* ===========================
    Popups
 =========================== */
@@ -46,7 +61,7 @@
 .update-popup {
     position: absolute;
     margin-top: -100px;
-    z-index: 1;
+    z-index: 10;
     width: 100%;
     height: calc(100% + 100px);
     background-color: rgba(0, 0, 0, 0.7);
