@@ -4,8 +4,6 @@
    Variables
 =========================== */
 :root {
-    --black: #000;
-    --white: #FFF;
     --purple: #A128EC;
     --light-purple: rgba(161, 40, 236, 0.50);
     --red: #EC2828;
@@ -14,27 +12,16 @@
     --grey: #9C9C9C;
     --divider-grey: #C1C1C1;
     --dark-grey: #363636;
-    --background-darkener: rgba(0, 0, 0, 0.3);
 
     --base-unit: 4px;
     --icon-width: 20px;
+    --gutter: 36px;
+    --input-height: 36px;
+    --card-width: 320px;
+    --large-card-width: 640px;
     --delete-page-width: 425px;
-
-    --card-width: calc(var(--base-unit) * 80);
-    /* 320px */
-    --large-card-width: calc(var(--card-width) * 2);
-    /* 640px */
-
-    --gutter: calc(var(--base-unit) * 9);
-    /* 36px */
-    --input-height: calc(var(--base-unit) * 9);
-    /* 36px */
-
-    --button-width: calc(var(--card-width) - var(--gutter) * 2);
-    /* 248px */
-    --large-button-width: calc(var(--large-card-width) - var(--gutter) * 2);
-    /* 592px */
 }
+
 
 /* ===========================
    Global Styles
@@ -44,7 +31,7 @@
     padding: 0;
     box-sizing: border-box;
     background-color: transparent;
-    color: var(--black);
+    color: black;
     font-family: 'Lato', sans-serif;
     text-decoration: none;
     word-break: break-word;
@@ -55,6 +42,7 @@ body {
     height: 100%;
     box-sizing: border-box;
 }
+
 
 /* ===========================
    Utility Classes
@@ -70,6 +58,7 @@ body {
 .block-display {
     display: block;
 }
+
 
 /* ===========================
    Flexbox Utilities
@@ -141,7 +130,7 @@ body {
 }
 
 .label {
-    color: var(--black);
+    color: black;
     font-size: 14px;
     margin-bottom: 4px;
 }
@@ -192,214 +181,6 @@ body {
     margin-top: 24px;
 }
 
-/* ===========================
-   Form Input Settings
-=========================== */
-select {
-    appearance: none;
-    background: url("/icons/arrow-down.svg") no-repeat;
-    background-size: 13px 13px;
-    background-position: calc(100% - 15px) center;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-    opacity: 0.5;
-}
-
-.checkbox .label {
-    margin: 0;
-    padding-left: 2px;
-}
-
-.checkbox input[type="checkbox"] {
-    accent-color: white;
-}
-
-.input-field,
-#priority {
-    width: calc(var(--card-width) - var(--gutter) * 2);
-    height: var(--input-height);
-}
-
-textarea.input-field {
-    height: calc(var(--input-height) * 2);
-    padding-top: var(--base-unit);
-}
-
-.input-field {
-    padding: 0 12px;
-    border-radius: 10px;
-    border: 1px solid var(--black);
-}
-
-#project-name.input-field {
-    font-size: 20px;
-    font-weight: 700;
-    border: none;
-    padding-right: 35px;
-}
-
-#project-name.input-field:focus {
-    border: 1px solid var(--black);
-}
-
-.form-label-input-div {
-    text-align: left;
-    margin: 24px var(--gutter);
-}
-
-/* Account page has 2 inputs per row */
-#account .form-label-input-div .input-field {
-    width: calc((var(--large-card-width) - var(--gutter) * 3) / 2);
-}
-
-/* ===========================
-   Cards
-=========================== */
-.card {
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
-    border-radius: 15px;
-    background-color: white;
-    text-align: center;
-    width: var(--card-width);
-    margin-top: var(--gutter);
-}
-
-#account .card,
-#account .error {
-    width: var(--large-card-width);
-}
-
-#account .card {
-    padding-top: var(--gutter);
-}
-
-#cards {
-    margin: var(--gutter);
-    gap: 24px;
-}
-
-#cards .card {
-    margin: 0;
-    padding: 24px;
-    text-align: left;
-}
-
-.error {
-    border: none;
-    border-radius: 10px;
-    background-color: var(--light-orange);
-    font-weight: 700;
-    font-size: 14px;
-    color: var(--black);
-    padding: 0 24px;
-    height: 48px;
-}
-
-/* ===========================
-   Popups
-=========================== */
-.add-popup,
-.update-popup {
-    position: absolute;
-    margin-top: -100px;
-    z-index: 1;
-    width: 100%;
-    height: calc(100% + 100px);
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-/* ===========================
-   Buttons
-=========================== */
-button {
-    cursor: pointer;
-    border: none;
-    border-radius: 10px;
-    margin: var(--gutter);
-    margin-top: 24px;
-    width: var(--button-width);
-    height: var(--input-height);
-    color: var(--white);
-    background-color: var(--purple);
-}
-
-button#start-with-topmanager {
-    color: var(--purple);
-    border: 1px solid var(--purple);
-    background-color: transparent;
-}
-
-button#start-with-topmanager:hover {
-    color: white;
-    background-color: var(--purple);
-}
-
-#delete-button {
-    color: var(--red);
-    border: 1px solid var(--red);
-    background-color: transparent;
-}
-
-#delete-button:hover {
-    color: white;
-    background-color: var(--red);
-}
-
-#login-button,
-#signup-button {
-    margin-bottom: 4px;
-}
-
-#account button {
-    width: var(--large-button-width);
-}
-
-.open-add-popup {
-    width: calc(var(--icon-width) * 2 + var(--base-unit));
-    height: calc(var(--icon-width) * 2 + var(--base-unit));
-    border-radius: 100%;
-    margin: 12px;
-    background-color: var(--orange);
-}
-
-.open-add-popup.purple {
-    background-color: var(--purple);
-}
-
-.primary-secondary-buttons {
-    margin: var(--gutter);
-}
-
-.primary-secondary-buttons #primary {
-    margin: 0;
-    width: calc(var(--button-width) - var(--gutter) - var(--icon-width));
-}
-
-#account .primary-secondary-buttons,
-#delete-account .primary-secondary-buttons {
-    margin: 0;
-}
-
-#account .primary-secondary-buttons #primary {
-    margin-top: 24px;
-    margin-right: var(--gutter);
-    width: calc(var(--large-button-width) / 3 * 2);
-}
-
-#account .primary-secondary-buttons #delete-button {
-    width: calc(var(--large-button-width) / 3 - var(--gutter));
-}
-
-#delete-account .primary-secondary-buttons #primary {
-    margin-top: 24px;
-    width: calc(var(--delete-page-width) / 3 * 2);
-}
-
-#delete-account .primary-secondary-buttons #delete-button {
-    margin-left: 0;
-    width: calc(var(--delete-page-width) / 3 * 2 - var(--gutter));
-}
 
 /* ===========================
    Icons
@@ -418,6 +199,7 @@ button#start-with-topmanager:hover {
     height: var(--input-height);
 }
 
+
 /* ===========================
    Images
 =========================== */
@@ -429,8 +211,9 @@ button#start-with-topmanager:hover {
     width: var(--card-width);
 }
 
+
 /* ===========================
-   Animations
+   General Animations
 =========================== */
 .grow-on-hover {
     transition: all 0.2s ease-in-out;
@@ -443,45 +226,18 @@ button#start-with-topmanager:hover {
 }
 
 
-
-
-
-
-
-
-/* ===========================
-   Pages
-=========================== */
-img#background,
-#background-darkener {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    object-fit: cover;
+/* =============================
+   Projects / Tasks pages
+============================= */
+.header-row {
+    margin: var(--gutter) var(--gutter) 0 var(--gutter);
 }
 
-img#background {
-    z-index: -2;
-    width: 100%;
-    height: 100%;
-}
 
-#background-darkener {
-    z-index: -1;
-    background-color: var(--background-darkener);
-    width: 100vw;
-    height: 100vh;
-}
-
+/* =============================
+   Delete page
+============================= */
 #delete-account>* {
     width: var(--delete-page-width);
     margin-top: calc(var(--gutter) * 2);
-}
-
-/* ===========================
-   Header Row
-=========================== */
-.header-row {
-    margin: var(--gutter) var(--gutter) 0 var(--gutter);
 }

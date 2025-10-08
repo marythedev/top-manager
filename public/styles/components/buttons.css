@@ -1,0 +1,93 @@
+:root {
+    --button-width: 248px;
+    --large-button-width: 592px;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    margin: var(--gutter);
+    margin-top: 24px;
+    width: var(--button-width);
+    height: var(--input-height);
+    color: white;
+    background-color: var(--purple);
+}
+
+button#start-with-topmanager {
+    color: var(--purple);
+    border: 1px solid var(--purple);
+    background-color: transparent;
+}
+
+button#start-with-topmanager:hover {
+    color: white;
+    background-color: var(--purple);
+}
+
+#delete-button {
+    color: var(--red);
+    border: 1px solid var(--red);
+    background-color: transparent;
+}
+
+#delete-button:hover {
+    color: white;
+    background-color: var(--red);
+}
+
+#login-button,
+#signup-button {
+    margin-bottom: 4px;
+}
+
+#account button {
+    width: var(--large-button-width);
+}
+
+.open-add-popup {
+    width: calc(var(--icon-width) * 2 + var(--base-unit));
+    height: calc(var(--icon-width) * 2 + var(--base-unit));
+    border-radius: 100%;
+    margin: 12px;
+    background-color: var(--orange);
+}
+
+.open-add-popup.purple {
+    background-color: var(--purple);
+}
+
+.primary-secondary-buttons {
+    margin: var(--gutter);
+}
+
+.primary-secondary-buttons #primary {
+    margin: 0;
+    width: calc(var(--button-width) - var(--gutter) - var(--icon-width));
+}
+
+#account .primary-secondary-buttons,
+#delete-account .primary-secondary-buttons {
+    margin: 0;
+}
+
+#account .primary-secondary-buttons #primary {
+    margin-top: 24px;
+    margin-right: var(--gutter);
+    width: calc(var(--large-button-width) / 3 * 2);
+}
+
+#account .primary-secondary-buttons #delete-button {
+    width: calc(var(--large-button-width) / 3 - var(--gutter));
+}
+
+#delete-account .primary-secondary-buttons #primary {
+    margin-top: 24px;
+    width: calc(var(--delete-page-width) / 3 * 2);
+}
+
+#delete-account .primary-secondary-buttons #delete-button {
+    margin-left: 0;
+    width: calc(var(--delete-page-width) / 3 * 2 - var(--gutter));
+}

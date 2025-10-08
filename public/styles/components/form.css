@@ -1,0 +1,57 @@
+select {
+    appearance: none;
+    background: url("/icons/arrow-down.svg") no-repeat;
+    background-size: 13px 13px;
+    background-position: calc(100% - 15px) center;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.5;
+}
+
+.checkbox .label {
+    margin: 0;
+    padding-left: 2px;
+}
+
+.checkbox input[type="checkbox"] {
+    accent-color: white;
+}
+
+.input-field,
+#priority {
+    width: calc(var(--card-width) - var(--gutter) * 2);
+    height: var(--input-height);
+}
+
+textarea.input-field {
+    height: calc(var(--input-height) * 2);
+    padding-top: var(--base-unit);
+}
+
+.input-field {
+    padding: 0 12px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+#project-name.input-field {
+    font-size: 20px;
+    font-weight: 700;
+    border: none;
+    padding-right: 35px;
+}
+
+#project-name.input-field:focus {
+    border: 1px solid black;
+}
+
+.form-label-input-div {
+    text-align: left;
+    margin: 24px var(--gutter);
+}
+
+/* Account page has 2 inputs per row */
+#account .form-label-input-div .input-field {
+    width: calc((var(--large-card-width) - var(--gutter) * 3) / 2);
+}
