@@ -25,11 +25,11 @@
 }
 
 .error {
-    background-color: rgb(255, 165, 165);
+    background-color: var(--error-red);
 }
 
 .success {
-    background-color: rgb(167, 255, 142);
+    background-color: var(--success-green);
 }
 
 @keyframes fadeIn {

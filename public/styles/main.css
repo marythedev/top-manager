@@ -7,6 +7,8 @@
     --purple: #A128EC;
     --light-purple: rgba(161, 40, 236, 0.50);
     --red: #EC2828;
+    --error-red: rgb(255, 165, 165);
+    --success-green: rgb(167, 255, 142);
     --orange: #FFB61D;
     --light-orange: rgba(255, 182, 29, 0.65);
     --grey: #9C9C9C;
@@ -17,6 +19,8 @@
     --icon-width: 20px;
     --gutter: 36px;
     --input-height: 36px;
+    --button-width: 248px;
+    --large-button-width: 592px;
     --card-width: 320px;
     --large-card-width: 640px;
     --delete-page-width: 425px;
