@@ -1,4 +1,8 @@
 <div id="account" class="flex column align-center">
+    {{#if success}}
+    <div class="flex align-center success"> {{success}}</div>
+    {{/if}}
+
     {{#if error}}
     <div class="flex align-center error"> {{error}}</div>
     {{/if}}

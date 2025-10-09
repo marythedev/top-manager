@@ -112,7 +112,7 @@ module.exports.updateAccount = (update, session) => {
                 { $set: { "username": update.username } }
             ).then(() => {
                 session.user.username = update.username;
-                resolve();
+                resolve("Username was updated.");
             }).catch((error) => {
                 if (error.code == 11000)    //duplicate entry
                     reject({ code: 400, message: "Username is not available." });
@@ -158,7 +158,7 @@ module.exports.updateAccount = (update, session) => {
                         { $set: { "password": hash } }
                     )
                 }).then(() => {
-                    resolve();
+                    resolve("Password was updated.");
                 }).catch((error) => {
                     reject(error);
                 });

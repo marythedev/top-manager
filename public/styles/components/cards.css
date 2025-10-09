@@ -1,5 +1,6 @@
 .card,
-.error {
+.error,
+.success {
     margin-top: var(--gutter);
     width: var(--card-width);
 }
@@ -11,16 +12,24 @@
     text-align: center;
 }
 
-.error {
+.error,
+.success {
     border: none;
     border-radius: 10px;
-    background-color: rgb(255, 165, 165);
     font-weight: 700;
     font-size: 14px;
     color: black;
     padding: 0 24px;
     height: 48px;
     animation: fadeIn 500ms ease both;
+}
+
+.error {
+    background-color: rgb(255, 165, 165);
+}
+
+.success {
+    background-color: rgb(167, 255, 142);
 }
 
 @keyframes fadeIn {
@@ -35,7 +44,8 @@
 }
 
 #account .card,
-#account .error {
+#account .error,
+#account .success {
     width: var(--large-card-width);
 }
 

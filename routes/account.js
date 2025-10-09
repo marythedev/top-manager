@@ -16,8 +16,12 @@ router.get("/", checkAuthorization, (request, response) => {
 });
 router.post("/", checkAuthorization, (request, response) => {
     db_acc.updateAccount(request.body, request.session)
-        .then(() => {
-            response.redirect("/");
+        .then((message) => {
+            response.render("account", {
+                success: message,
+                user: request.session.user,
+                title: account_title
+            });
         })
         .catch((error) => {
             //Client error format: {code: 400, message: "error message"}
