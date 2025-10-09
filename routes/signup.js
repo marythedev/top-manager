@@ -25,6 +25,7 @@ router.post("/", checkNeedForLogin, (request, response) => {
             }
             //Internal error format: "error message"
             else {
+                console.log(error);
                 response.status(500).render("oops", {
                     message: "a problem creating account",
                     title: signup_title
