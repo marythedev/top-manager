@@ -161,26 +161,6 @@ body {
     color: #555;
 }
 
-.carousel-arrow {
-    background: none;
-    border: none;
-    font-size: 2rem;
-    color: #333;
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
-}
-
-.carousel-arrow.left {
-    left: -2rem;
-}
-
-.carousel-arrow.right {
-    right: -2rem;
-}
-
 .section-divider {
     border: none;
     height: 2px;
