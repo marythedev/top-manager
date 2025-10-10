@@ -1,10 +1,11 @@
 /*General Setting*/
 
 /* ===========================
-   Variables
+   Colors
 =========================== */
 :root {
     --purple: #A128EC;
+    --accent-yellow: #FFB61D;
     --light-purple: rgba(161, 40, 236, 0.50);
     --red: #EC2828;
     --error-red: rgb(255, 165, 165);
@@ -14,18 +15,7 @@
     --grey: #9C9C9C;
     --divider-grey: #C1C1C1;
     --dark-grey: #363636;
-
-    --base-unit: 4px;
-    --icon-width: 20px;
-    --gutter: 36px;
-    --input-height: 36px;
-    --button-width: 248px;
-    --large-button-width: 592px;
-    --card-width: 320px;
-    --large-card-width: 640px;
-    --delete-page-width: 425px;
 }
-
 
 /* ===========================
    Global Styles
@@ -38,7 +28,7 @@
     color: black;
     font-family: 'Lato', sans-serif;
     text-decoration: none;
-    word-break: break-word;
+    word-break: normal;
 }
 
 html,
@@ -148,16 +138,16 @@ body {
 #signup .big-text,
 .add-popup .big-text,
 .update-popup .big-text {
-    margin: var(--gutter) 0;
+    margin: 36px 0;
 }
 
 #contact .big-text {
-    margin: var(--gutter) 0 8px 0;
+    margin: 36px 0 8px 0;
 }
 
 #login .tiny-text,
 #signup .tiny-text {
-    margin-bottom: var(--gutter);
+    margin-bottom: 36px;
 }
 
 #login .tiny-text a,
@@ -191,8 +181,8 @@ body {
    Icons
 =========================== */
 .icon {
-    width: var(--icon-width);
-    height: var(--icon-width);
+    width: 20px;
+    height: 20px;
 }
 
 .delete-icon {
@@ -201,7 +191,7 @@ body {
 
 .checkmark-icon {
     margin: -30px;
-    height: var(--input-height);
+    height: 36px;
 }
 
 
@@ -212,8 +202,8 @@ body {
 #oops>img,
 #no-projects>img,
 #no-tasks>img {
-    margin: var(--gutter);
-    width: var(--card-width);
+    margin: 36px;
+    width: 320px;
 }
 
 
@@ -235,7 +225,7 @@ body {
    Projects / Tasks pages
 ============================= */
 .header-row {
-    margin: var(--gutter) var(--gutter) 0 var(--gutter);
+    margin: 36px 36px 0 36px;
 }
 
 
@@ -243,6 +233,6 @@ body {
    Delete page
 ============================= */
 #delete-account>* {
-    width: var(--delete-page-width);
-    margin-top: calc(var(--gutter) * 2);
+    width: 425px;
+    margin-top: 72px;
 }

@@ -1,8 +1,8 @@
 .card,
 .error,
 .success {
-    margin: var(--gutter) 0;
-    width: var(--card-width);
+    margin: 36px 0;
+    width: 320px;
 }
 
 .card {
@@ -46,15 +46,15 @@
 #account .card,
 #account .error,
 #account .success {
-    width: var(--large-card-width);
+    width: 640px;
 }
 
 #account .card {
-    padding-top: var(--gutter);
+    padding-top: 36px;
 }
 
 #cards {
-    margin: var(--gutter);
+    margin: 36px;
     gap: 24px;
 }
 

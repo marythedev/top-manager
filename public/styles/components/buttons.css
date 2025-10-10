@@ -2,50 +2,18 @@ button {
     cursor: pointer;
     border: none;
     border-radius: 10px;
-    margin: var(--gutter);
-    margin-top: 24px;
-    width: var(--button-width);
-    height: var(--input-height);
+    width: 248px;
+    height: 36px;
     color: white;
     background-color: var(--purple);
 }
 
-button#start-with-topmanager {
-    color: var(--purple);
-    border: 1px solid var(--purple);
-    background-color: transparent;
-}
 
-button#start-with-topmanager:hover {
-    color: white;
-    background-color: var(--purple);
-}
-
-#delete-button {
-    color: var(--red);
-    border: 1px solid var(--red);
-    background-color: transparent;
-}
-
-#delete-button:hover {
-    color: white;
-    background-color: var(--red);
-}
-
-#login-button,
-#signup-button {
-    margin-bottom: 4px;
-}
-
-#account button {
-    width: var(--large-button-width);
-}
-
+/* Tasks / Projects */
 .open-add-popup {
-    width: calc(var(--icon-width) * 2 + var(--base-unit));
-    height: calc(var(--icon-width) * 2 + var(--base-unit));
     border-radius: 100%;
     margin: 12px;
+    padding: 12px;
     background-color: var(--orange);
 }
 
@@ -53,36 +21,53 @@ button#start-with-topmanager:hover {
     background-color: var(--purple);
 }
 
-.primary-secondary-buttons {
-    margin: var(--gutter);
+.add-popup .button-row,
+.update-popup .button-row {
+    margin: 36px;
 }
 
-.primary-secondary-buttons #primary {
-    margin: 0;
-    width: calc(var(--button-width) - var(--gutter) - var(--icon-width));
+
+/* Account / Delete pages */
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    margin-top: 36px;
 }
 
-#account .primary-secondary-buttons,
-#delete-account .primary-secondary-buttons {
-    margin: 0;
+.btn-delete {
+    color: var(--red);
+    border: 1px solid var(--red);
+    background-color: transparent;
 }
 
-#account .primary-secondary-buttons #primary {
+.btn-delete:hover {
+    color: white;
+    background-color: var(--red);
+}
+
+#account .button-row {
+    margin: 36px;
+    margin-top: 48px;
+}
+
+#account .btn-primary {
+    width: 371px;
+}
+
+#account .btn-delete {
+    width: 161px;
+}
+
+#delete-account .button-row {
     margin-top: 24px;
-    margin-right: var(--gutter);
-    width: calc(var(--large-button-width) / 3 * 2);
 }
 
-#account .primary-secondary-buttons #delete-button {
-    width: calc(var(--large-button-width) / 3 - var(--gutter));
+#delete-account .btn-primary {
+    width: 283px;
 }
 
-#delete-account .primary-secondary-buttons #primary {
-    margin-top: 24px;
-    width: calc(var(--delete-page-width) / 3 * 2);
-}
-
-#delete-account .primary-secondary-buttons #delete-button {
-    margin-left: 0;
-    width: calc(var(--delete-page-width) / 3 * 2 - var(--gutter));
+#delete-account .btn-delete {
+    width: 247px;
 }

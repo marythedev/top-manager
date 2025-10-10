@@ -20,13 +20,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .input-field,
 #priority {
-    width: calc(var(--card-width) - var(--gutter) * 2);
-    height: var(--input-height);
+    width: 248px;
+    height: 36px;
 }
 
 textarea.input-field {
-    height: calc(var(--input-height) * 2);
-    padding-top: var(--base-unit);
+    height: 72px;
+    padding-top: 4px;
 }
 
 .input-field {
@@ -48,10 +48,10 @@ textarea.input-field {
 
 .form-label-input-div {
     text-align: left;
-    margin: 24px var(--gutter);
+    margin: 24px 36px;
 }
 
 /* Account page has 2 inputs per row */
 #account .form-label-input-div .input-field {
-    width: calc((var(--large-card-width) - var(--gutter) * 3) / 2);
+    width: 266px;
 }
