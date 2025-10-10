@@ -6,7 +6,7 @@
     <div class="card">
         <h2 class="big-text">New Project</h2>
         <form method="post" name="add-project" action="/projects" onsubmit="noMultipleSubmit(this)">
-            <input name="owner" type="hidden" value="{{ username }}" />
+            <input name="owner" type="hidden" value="{{ username }}">
 
             <div class="form-label-input-div">
                 <p class="label">Name</p>
@@ -17,7 +17,6 @@
                 <button class="btn btn-primary mid-text">Add project</button>
                 <img src="/icons/cancel.svg" id="close-add-popup" class="cursor-pointer icon" alt="Cancel icon">
             </div>
-
         </form>
     </div>
 </div>
@@ -33,6 +32,7 @@
     </a>
 </div>
 {{else}}
+
 <!--Projects-->
 <div class="flex column">
     <div class="header-row flex row space-between align-center">
@@ -50,7 +50,8 @@
             <div class="flex row space-between">
                 <h3 class="mid-text">{{name}}</h3>
                 <a href="/projects/delete/{{_id}}" onclick="noMultipleRedirect(this);  event.stopPropagation();">
-                    <img src="/icons/delete.svg" class="delete-icon" alt="Delete project icon"></a>
+                    <img src="/icons/delete.svg" class="delete-icon" alt="Delete project icon">
+                </a>
             </div>
             {{#if closestDueDate.date}}
             <p class="small-text">Closest due date: {{closestDueDate.date}}</p>

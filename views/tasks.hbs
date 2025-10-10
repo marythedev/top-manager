@@ -5,7 +5,7 @@
     <div class="card">
         <h2 class="big-text">New Task</h2>
         <form method="post" name="add-task" action="/tasks?source=tasks" onsubmit="noMultipleSubmit(this)">
-            <input name="owner" type="hidden" value="{{ username }}" />
+            <input name="owner" type="hidden" value="{{ username }}">
 
             <div class="form-label-input-div">
                 <p class="label">Name</p>
@@ -50,7 +50,6 @@
                 <button class="btn btn-primary mid-text">Add Task</button>
                 <img src="/icons/cancel.svg" id="close-add-popup" class="cursor-pointer icon" alt="Cancel icon">
             </div>
-
         </form>
     </div>
 </div>
@@ -62,14 +61,12 @@
 
     <div class="card">
         <h2 class="big-text">Update Task</h2>
-        <form method="post" name="update-task" action="/tasks/update?source=tasks"
-            onsubmit="noMultipleSubmit(this)">
-            <input name="_id" type="hidden" value="{{_id}}" />
+        <form method="post" name="update-task" action="/tasks/update?source=tasks" onsubmit="noMultipleSubmit(this)">
+            <input name="_id" type="hidden" value="{{_id}}">
 
             <div class="form-label-input-div">
                 <p class="label">Name</p>
-                <input type="text" name="name" class="input-field mid-text" autocomplete="off" value="{{name}}"
-                    required>
+                <input type="text" name="name" class="input-field mid-text" autocomplete="off" value="{{name}}" required>
             </div>
             <div class="form-label-input-div">
                 <p class="label">Due Date</p>
@@ -127,7 +124,6 @@
                 <img src="/icons/cancel.svg" class="close-update-popup" class="cursor-pointer icon" alt="Cancel icon"
                     data-id="{{_id}}">
             </div>
-
         </form>
     </div>
 </div>
@@ -144,6 +140,7 @@
     </a>
 </div>
 {{else}}
+
 <!--Tasks-->
 <div class="flex column">
     <div class="header-row flex row space-between align-center">
@@ -168,8 +165,7 @@
             <p class="small-text">{{dueDate}}</p>
             <div class="flex row space-between">
                 <p class="small-text">{{getProjectName ../projects project}}</p>
-                <a href="/tasks/delete/{{_id}}?source=tasks"
-                    onclick="noMultipleRedirect(this); event.stopPropagation();">
+                <a href="/tasks/delete/{{_id}}?source=tasks" onclick="noMultipleRedirect(this); event.stopPropagation();">
                     <img src="/icons/delete.svg" class="delete-icon" alt="Delete task icon">
                 </a>
             </div>

@@ -7,7 +7,7 @@
         <form method="post" name="add-task" action="/tasks?source=projects&id={{project._id}}"
             onsubmit="noMultipleSubmit(this)">
 
-            <input name="owner" type="hidden" value="{{ username }}" />
+            <input name="owner" type="hidden" value="{{ username }}">
 
             <div class="form-label-input-div">
                 <p class="label">Name</p>
@@ -56,7 +56,8 @@
         <h2 class="big-text">Update Task</h2>
         <form method="post" name="update-task" action="/tasks/update?source=projects&id={{../project._id}}"
             onsubmit="noMultipleSubmit(this)">
-            <input name="_id" type="hidden" value="{{_id}}" />
+
+            <input name="_id" type="hidden" value="{{_id}}">
 
             <div class="form-label-input-div">
                 <p class="label">Name</p>
@@ -116,7 +117,7 @@
         <div class="flex row align-center">
             <form method="post" name="update-project" id="update-project" action="/projects/update?id={{project._id}}">
                 <div class="flex row align-center">
-                    <input name="_id" type="hidden" value="{{project._id}}" />
+                    <input name="_id" type="hidden" value="{{project._id}}">
                     <input name="name" type="text" id="project-name" class="input-field" autocomplete="off"
                         value="{{project.name}}">
                     <input type="image" class="icon checkmark-icon cursor-pointer no-display"
@@ -136,6 +137,7 @@
         <h1 class="big-text">{{message}}</h1>
         <img src="/assets/guy-with-guitar.png" alt="No Tasks Illustration">
     </div>
+
     {{else}}
     <!--Project's Tasks-->
     <div class="flex row wrap" id="cards">
