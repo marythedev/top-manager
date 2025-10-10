@@ -1,7 +1,7 @@
 .card,
 .error,
 .success {
-    margin-top: var(--gutter);
+    margin: var(--gutter) 0;
     width: var(--card-width);
 }
 
@@ -69,10 +69,14 @@
 =========================== */
 .add-popup,
 .update-popup {
-    position: absolute;
-    margin-top: -100px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     z-index: 10;
     width: 100%;
-    height: calc(100% + 100px);
+    height: auto;
     background-color: rgba(0, 0, 0, 0.7);
+    overflow-y: auto;
 }
