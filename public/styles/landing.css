@@ -5,6 +5,7 @@ body {
 
 .take-action {
     height: calc(100vh - 100px);
+    min-height: fit-content;
     color: #fff;
     display: flex;
     align-items: start;
@@ -34,21 +35,23 @@ body {
 }
 
 .action-button {
+    margin-bottom: 60px;
     width: auto;
     height: auto;
     padding: 0.75rem 1.5rem;
     font-size: 1.2rem;
     color: black;
-    background: white;
+    background: linear-gradient(180deg, var(--purple) 0%, white 100%);
     border-radius: 8px;
     cursor: pointer;
     white-space: nowrap;
     transform: scale(1);
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.5s ease-in-out;
+    font-weight: 650;
 }
 
 .action-button:hover {
-    transform: scale(1.05);
+    transform: scale(0.95);
     transition: transform 0.3s ease-in-out;
 }
 
@@ -244,5 +247,15 @@ body {
 @media (max-width: 365px) {
     .take-action h1 {
         font-size: 1.8rem;
+    }
+}
+
+@media screen and (max-height: 665px) {
+    .take-action {
+        padding-top: 25px;
+    }
+
+    .bg {
+        min-height: 620px;
     }
 }
