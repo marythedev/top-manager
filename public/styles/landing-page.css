@@ -26,7 +26,7 @@ body {
 
 .take-action h1 {
     font-size: 3rem;
-    margin-top: 150px;
+    margin: 60px 36px 2rem 36px;
     margin-bottom: 3rem;
     animation: fadeInUp 1s ease;
     color: white;
@@ -36,7 +36,7 @@ body {
 .action-button {
     width: auto;
     height: auto;
-    padding: 0.5rem 1.5rem;
+    padding: 0.75rem 1.5rem;
     font-size: 1.2rem;
     color: black;
     background: white;
@@ -54,7 +54,7 @@ body {
 
 /* Overview */
 .overview {
-    padding: 3rem 3rem;
+    padding: 3rem;
     background-color: #fff;
     text-align: left;
     max-width: 900px;
@@ -86,7 +86,7 @@ body {
 
 .features {
     max-width: 800px;
-    margin: 3rem auto 0 auto;
+    margin-top: 3rem;
 }
 
 .features ul {
@@ -124,14 +124,17 @@ body {
 
 /* Testimonials */
 .testimonials {
-    padding: 2rem 2rem;
-    text-align: center;
+    margin: 0 auto;
+    padding: 3rem;
+    text-align: left;
+    max-width: 900px;
+
 }
 
 .testimonial-carousel {
     position: relative;
     max-width: 700px;
-    margin: 2rem auto;
+    margin: 2rem 0;
     overflow: hidden;
 }
 
@@ -187,7 +190,6 @@ body {
     opacity: 0.4;
 }
 
-
 /* Footer */
 .footer {
     color: #555;
@@ -220,4 +222,47 @@ body {
 
 .fade-in-up {
     animation: fadeInUp 1s ease;
+}
+
+@media screen and (min-height: 1000px) {
+
+    .take-action,
+    .bg {
+        height: calc(100vh - 300px);
+    }
+
+    .overview {
+        margin-top: -50px;
+    }
+
+}
+
+@media screen and (max-width: 700px) {
+
+    .take-action {
+        height: calc(100vh - 300px);
+    }
+
+    .action-button {
+        padding: 0.75rem 1rem;
+    }
+
+    .take-action h1 {
+        font-size: 2rem;
+    }
+
+    .overview-text h1 {
+        font-size: 2.3rem;
+    }
+
+    .overview-text h2 {
+        font-size: 1.2rem;
+    }
+
+}
+
+@media (max-width: 365px) {
+    .take-action h1 {
+        font-size: 1.8rem;
+    }
 }
