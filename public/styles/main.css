@@ -1,8 +1,4 @@
-/*General Setting*/
-
-/* ===========================
-   Colors
-=========================== */
+/* Colors */
 :root {
     --purple: #A128EC;
     --accent-yellow: #FFB61D;
@@ -17,14 +13,12 @@
     --dark-grey: #363636;
 }
 
-/* ===========================
-   Global Styles
-=========================== */
+
+/* General Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: transparent;
     color: black;
     font-family: 'Lato', sans-serif;
     text-decoration: none;
@@ -38,10 +32,14 @@ body {
     overflow-x: hidden;
 }
 
+/* Projects / Tasks page */
+.header-row {
+    margin: 36px;
+    margin-bottom: 0;
+}
 
-/* ===========================
-   Utility Classes
-=========================== */
+
+/* Utility Classes */
 .cursor-pointer {
     cursor: pointer;
 }
@@ -54,10 +52,6 @@ body {
     display: block;
 }
 
-
-/* ===========================
-   Flexbox Utilities
-=========================== */
 .flex {
     display: flex;
 }
@@ -95,121 +89,7 @@ body {
 }
 
 
-/* ===========================
-   Typography
-=========================== */
-.big-text {
-    font-size: 20px;
-}
-
-.mid-text {
-    font-size: 16px;
-}
-
-.small-text {
-    font-size: 14px;
-}
-
-.tiny-text {
-    font-size: 12px;
-}
-
-.center {
-    text-align: center;
-}
-
-.grey,
-.small-text,
-.tiny-text {
-    color: var(--grey);
-}
-
-.label {
-    color: black;
-    font-size: 14px;
-    margin-bottom: 4px;
-}
-
-#priority .label {
-    margin-left: 4px;
-}
-
-#login .big-text,
-#signup .big-text,
-.add-popup .big-text,
-.update-popup .big-text {
-    margin: 36px 0;
-}
-
-#contact .big-text {
-    margin: 36px 0 8px 0;
-}
-
-#login .tiny-text,
-#signup .tiny-text {
-    margin-bottom: 36px;
-}
-
-#login .tiny-text a,
-#signup .tiny-text a,
-#oops a {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-}
-
-#oops .mid-text {
-    margin-top: 8px;
-}
-
-#page404 .big-text,
-#oops .big-text,
-#no-projects .big-text,
-#no-tasks .big-text {
-    margin-top: 84px;
-}
-
-.header-row .big-text {
-    margin-right: 12px;
-}
-
-#delete-account .mid-text.grey {
-    margin-top: 24px;
-}
-
-
-/* ===========================
-   Icons
-=========================== */
-.icon {
-    width: 20px;
-    height: 20px;
-}
-
-.delete-icon {
-    width: 16px;
-}
-
-.checkmark-icon {
-    margin: -30px;
-    height: 36px;
-}
-
-
-/* ===========================
-   Images
-=========================== */
-#page404>img,
-#oops>img,
-#no-projects>img,
-#no-tasks>img {
-    margin: 36px;
-    width: 320px;
-}
-
-
-/* ===========================
-   General Animations
-=========================== */
+/* General Animations */
 .grow-on-hover {
     transition: all 0.2s ease-in-out;
     backface-visibility: hidden;
@@ -218,21 +98,4 @@ body {
 .grow-on-hover:hover {
     transform: scale(1.1);
     color: var(--dark-grey);
-}
-
-
-/* =============================
-   Projects / Tasks pages
-============================= */
-.header-row {
-    margin: 36px 36px 0 36px;
-}
-
-
-/* =============================
-   Delete page
-============================= */
-#delete-account>* {
-    width: 425px;
-    margin-top: 72px;
 }

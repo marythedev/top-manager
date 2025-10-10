@@ -1,0 +1,24 @@
+/* Icons */
+.icon {
+    width: 20px;
+    height: 20px;
+}
+
+.delete-icon {
+    width: 16px;
+}
+
+.checkmark-icon {
+    margin: -30px;
+    height: 36px;
+}
+
+
+/* Images */
+#page404>img,
+#oops>img,
+#no-projects>img,
+#no-tasks>img {
+    margin: 36px;
+    width: 320px;
+}

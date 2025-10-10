@@ -9,7 +9,7 @@ button {
 }
 
 
-/* Tasks / Projects */
+/* Open Popup Buttons */
 .open-add-popup {
     border-radius: 100%;
     margin: 12px;
@@ -21,21 +21,39 @@ button {
     background-color: var(--purple);
 }
 
-.add-popup .button-row,
-.update-popup .button-row {
-    margin: 36px;
-}
 
-
-/* Account / Delete pages */
+/* Button Row */
 .button-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 24px;
-    margin-top: 36px;
+    margin: 36px;
+    margin-top: 48px;
 }
 
+.add-popup .button-row,
+.update-popup .button-row {
+    margin: 36px;
+}
+
+#delete-account .button-row {
+    margin: 0;
+    margin-top: 24px;
+}
+
+
+/* Primary button */
+#account .btn-primary {
+    width: 371px;
+}
+
+#delete-account .btn-primary {
+    width: 283px;
+}
+
+
+/* Delete button */
 .btn-delete {
     color: var(--red);
     border: 1px solid var(--red);
@@ -47,25 +65,8 @@ button {
     background-color: var(--red);
 }
 
-#account .button-row {
-    margin: 36px;
-    margin-top: 48px;
-}
-
-#account .btn-primary {
-    width: 371px;
-}
-
 #account .btn-delete {
     width: 161px;
-}
-
-#delete-account .button-row {
-    margin-top: 24px;
-}
-
-#delete-account .btn-primary {
-    width: 283px;
 }
 
 #delete-account .btn-delete {

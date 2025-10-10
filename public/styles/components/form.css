@@ -1,21 +1,13 @@
-select {
-    appearance: none;
-    background: url("/icons/arrow-down.svg") no-repeat;
-    background-size: 13px 13px;
-    background-position: calc(100% - 15px) center;
+/* Input and labels */
+.form-label-input-div {
+    text-align: left;
+    margin: 24px 36px;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
-    opacity: 0.5;
-}
-
-.checkbox .label {
-    margin: 0;
-    padding-left: 2px;
-}
-
-.checkbox input[type="checkbox"] {
-    accent-color: white;
+.input-field {
+    padding: 0 12px;
+    border-radius: 10px;
+    border: 1px solid black;
 }
 
 .input-field,
@@ -27,14 +19,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 textarea.input-field {
     height: 72px;
     padding-top: 4px;
+    resize: vertical;
 }
 
-.input-field {
-    padding: 0 12px;
-    border-radius: 10px;
-    border: 1px solid black;
+#account .input-field {
+    /* Account page has 2 inputs per row */
+    width: 266px;
 }
 
+
+/* Project rename on project page */
 #project-name.input-field {
     font-size: 20px;
     font-weight: 700;
@@ -46,12 +40,33 @@ textarea.input-field {
     border: 1px solid black;
 }
 
-.form-label-input-div {
-    text-align: left;
-    margin: 24px 36px;
+
+/* Task form: Calendar icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.5;
 }
 
-/* Account page has 2 inputs per row */
-#account .form-label-input-div .input-field {
-    width: 266px;
+/* Task form: Dropdown icon */
+select {
+    appearance: none;
+    background: url("/icons/arrow-down.svg") no-repeat;
+    background-size: 13px 13px;
+    background-position: calc(100% - 15px) center;
+}
+
+/* Task form: Priority checkboxes */
+.checkbox .label {
+    margin: 0;
+    padding-left: 2px;
+}
+
+.checkbox input[type="checkbox"] {
+    accent-color: white;
+}
+
+
+/* Delete account page */
+#delete-account form {
+    width: 425px;
+    margin-top: 72px;
 }

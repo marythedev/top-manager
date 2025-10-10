@@ -78,7 +78,7 @@ app.get("/", (request, response) => {
     if (request.session.user) {
         response.redirect("/tasks");
     } else {
-        response.render("landing-page", { title: "TopManager" });
+        response.render("landing", { title: "TopManager" });
     }
 });
 
