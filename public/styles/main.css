@@ -38,10 +38,22 @@ body {
     margin-bottom: 0;
 }
 
+#no-tasks,
+#no-projects {
+    margin-bottom: 72px;
+}
+
 @media (max-width: 700px) {
     .header-row {
         gap: 12px;
         margin-top: 24px;
+    }
+}
+
+@media (max-width: 320px) {
+    .header-row {
+        margin: 24px;
+        margin-bottom: 0;
     }
 }
 

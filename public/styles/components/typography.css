@@ -20,7 +20,9 @@
 #oops .big-text,
 #no-projects .big-text,
 #no-tasks .big-text {
+    margin: 24px;
     margin-top: 84px;
+    text-align: center;
 }
 
 #delete-account .big-text {
@@ -43,6 +45,7 @@
 
 #oops .mid-text {
     margin-top: 8px;
+    text-align: center;
 }
 
 
@@ -66,4 +69,9 @@
 #oops a {
     text-decoration: underline;
     text-underline-offset: 3px;
+}
+
+#no-projects .tiny-text,
+#no-tasks .tiny-text {
+    text-align: center;
 }

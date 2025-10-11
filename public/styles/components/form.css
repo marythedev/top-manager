@@ -25,6 +25,17 @@
 #priority {
     width: 248px;
     height: 36px;
+    min-height: fit-content;
+}
+
+@media (max-width: 235px) {
+    #priority {
+        align-items: start;
+        flex-direction: column;
+        gap: 4px;
+        margin-top: 4px;
+        margin-bottom: 36px;
+    }
 }
 
 .input-field.disabled {
@@ -57,7 +68,11 @@ textarea.input-field {
 }
 
 
-/* Task form: Calendar icon */
+/* Task form: Date input */
+input[type="date"] {
+    text-align: left;
+}
+
 input[type="date"]::-webkit-calendar-picker-indicator {
     opacity: 0.5;
 }

@@ -20,5 +20,7 @@
 #no-projects>img,
 #no-tasks>img {
     margin: 36px;
-    width: 320px;
+    width: 94%;
+    min-width: 100px;
+    max-width: 320px;
 }

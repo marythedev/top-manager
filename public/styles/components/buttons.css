@@ -13,13 +13,17 @@ button {
 /* Open Popup Buttons */
 .open-add-popup {
     border-radius: 100%;
-    margin: 12px;
     padding: 12px;
+}
+
+.open-add-popup {
     background-color: var(--orange);
+    margin: 12px;
 }
 
 .open-add-popup.purple {
     background-color: var(--purple);
+    margin: 0;
 }
 
 

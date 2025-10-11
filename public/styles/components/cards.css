@@ -110,6 +110,10 @@
 
 @media (max-width: 320px) {
 
+    #cards {
+        margin: 24px;
+    }
+
     .card {
         padding: 36px 24px;
     }
