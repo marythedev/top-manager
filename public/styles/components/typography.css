@@ -33,6 +33,10 @@
     font-size: 16px;
 }
 
+#cards .mid-text {
+    margin-bottom: 8px;
+}
+
 #delete-account .mid-text.grey {
     margin-top: 24px;
 }

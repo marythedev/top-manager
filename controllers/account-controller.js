@@ -101,28 +101,8 @@ module.exports.updateAccount = (update, session) => {
 
         processInput(update);      //process received data to store in db
 
-        // username update
-        if (update.username !== session.user.username) {
-            const usernameStatus = usernameValidator(update.username);
-            if (!usernameStatus.valid)
-                return reject({ code: usernameStatus.code, message: usernameStatus.message });
-
-            usersModel.updateOne(
-                { username: session.user.username },
-                { $set: { "username": update.username } }
-            ).then(() => {
-                session.user.username = update.username;
-                resolve("Username was updated.");
-            }).catch((error) => {
-                if (error.code == 11000)    //duplicate entry
-                    reject({ code: 400, message: "Username is not available." });
-                else
-                    reject(error);
-            });
-        }
-
         // password update
-        else if (update.password || update.new_password || update.confirm_new_password) {
+        if (update.password || update.new_password || update.confirm_new_password) {
             if (!update.password)
                 return reject({ code: 400, message: "Enter your current password to change your password." });
             else if (!update.new_password)

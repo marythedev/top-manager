@@ -71,6 +71,15 @@
     text-align: left;
 }
 
+.priority-indicator {
+    opacity: 0.65;
+}
+
+.overdue {
+    color: red;
+    font-weight: 550;
+}
+
 
 /* Popup to add or update task or project */
 .add-popup,

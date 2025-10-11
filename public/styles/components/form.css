@@ -27,6 +27,11 @@
     height: 36px;
 }
 
+.input-field.disabled {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+} 
+
 textarea.input-field {
     height: 72px;
     padding-top: 4px;

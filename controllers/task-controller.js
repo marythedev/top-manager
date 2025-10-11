@@ -155,31 +155,3 @@ module.exports.deleteTask = (username, task_id) => {
 
     });
 }
-
-
-
-
-
-// module.exports.getTasksByPriority = (username, priority) => {
-//     return new Promise((res, rej) => {
-//         tasksModel.find({ owner: username, priority: priority }).lean().exec()
-//             .then((tasks) => {
-//                 res(tasks);
-//             })
-//             .catch(() => {
-//                 rej("No results.");
-//             });
-//     });
-// }
-
-// module.exports.getTasksByProject = (username, project) => {
-//     return new Promise((res, rej) => {
-//         tasksModel.find({ owner: username, project: project }).lean().exec()
-//             .then((tasks) => {
-//                 res(tasks);
-//             })
-//             .catch(() => {
-//                 rej("No results.");
-//             });
-//     });
-// }
