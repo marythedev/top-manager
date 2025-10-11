@@ -6,6 +6,7 @@ button {
     height: 36px;
     color: white;
     background-color: var(--purple);
+    min-height: fit-content;
 }
 
 
@@ -28,17 +29,20 @@ button {
     justify-content: space-between;
     align-items: center;
     gap: 24px;
-    margin: 36px;
     margin-top: 48px;
+}
+
+#signup .button-row,
+#login .button-row {
+    margin-bottom: 36px;
 }
 
 .add-popup .button-row,
 .update-popup .button-row {
-    margin: 36px;
+    margin: 0;
 }
 
 #delete-account .button-row {
-    margin: 0;
     margin-top: 24px;
 }
 
@@ -70,5 +74,49 @@ button {
 }
 
 #delete-account .btn-delete {
-    width: 247px;
+    width: 118px;
+}
+
+
+@media (max-width: 700px) {
+
+    button {
+        padding: 12px;
+    }
+
+    button,
+    .btn-primary,
+    .btn-delete {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #account .btn-primary,
+    #account .btn-delete {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #account .button-row {
+        margin-bottom: 0;
+    }
+
+    #account .button-row>a {
+        width: 100%;
+    }
+
+}
+
+@media (max-width: 475px) {
+
+    #delete-account .button-row>a {
+        width: 100%;
+    }
+
+    #delete-account .btn-primary,
+    #delete-account .btn-delete {
+        width: 100%;
+        max-width: 100%;
+    }
+
 }

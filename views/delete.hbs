@@ -1,7 +1,7 @@
 <div id="delete-account" class="flex column align-center justify-center">
     <form name="delete-account" method="post" action="/account/delete" onsubmit="noMultipleSubmit(this)">
 
-        <div class="flex row align-end space-between">
+        <div class="flex row align-end space-between wrap-reverse">
             <h4 class="big-text">Please read this carefully!</h4>
             <img src="/assets/cat-drops-cup.png" height="180px" alt="Delete confirmation illustration">
         </div>
@@ -9,7 +9,7 @@
         <p class="mid-text grey">When you confirm that you want to delete your account, your account, tasks and
             projects will be deleted. This action IS NOT REVERSIBLE.</p>
 
-        <div class="button-row">
+        <div class="button-row wrap-reverse">
             <button class="btn-delete mid-text" type="submit">Delete</button>
             <a href="/account">
                 <button class="btn-primary mid-text" type="button">Keep my account</button>

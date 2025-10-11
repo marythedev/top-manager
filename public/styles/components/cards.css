@@ -1,35 +1,35 @@
 /* Card */
 .card {
+    margin: 36px;
+    padding: 36px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
     border-radius: 15px;
     background-color: white;
     text-align: center;
 }
 
-#account .card {
-    padding-top: 36px;
-}
-
 .card,
 .success,
 .error {
-    margin: 0;
-    margin-top: 36px;
-    width: 320px;
+    width: 90%;
+    max-width: 320px;
 }
 
 #account .card,
 #account .error,
 #account .success {
-    width: 640px;
+    width: 90%;
+    max-width: 640px;
 }
 
 
 /* Success and error messages */
 .success,
 .error {
-    padding: 0 24px;
-    height: 48px;
+    margin-top: 36px;
+    padding: 12px 24px;
+    height: fit-content;
+    min-height: 48px;
     border: none;
     border-radius: 10px;
     font-weight: 700;
@@ -51,6 +51,7 @@
         opacity: 0;
         transform: translateY(-10px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);
@@ -84,4 +85,33 @@
     height: auto;
     background-color: rgba(0, 0, 0, 0.7);
     overflow-y: auto;
+}
+
+
+@media (max-width: 700px) {
+
+    #account .card,
+    #account .error,
+    #account .success {
+        width: 90%;
+        max-width: 320px;
+    }
+
+}
+
+@media (max-width: 320px) {
+
+    .card {
+        padding: 36px 24px;
+    }
+
+    .card,
+    .error,
+    .success,
+    #account .card,
+    #account .error,
+    #account .success {
+        width: 100%;
+    }
+
 }

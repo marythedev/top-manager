@@ -38,6 +38,13 @@ body {
     margin-bottom: 0;
 }
 
+@media (max-width: 700px) {
+    .header-row {
+        gap: 12px;
+        margin-top: 24px;
+    }
+}
+
 
 /* Utility Classes */
 .cursor-pointer {
@@ -50,6 +57,10 @@ body {
 
 .block-display {
     display: block;
+}
+
+.center {
+    text-align: center;
 }
 
 .flex {
@@ -73,7 +84,7 @@ body {
 }
 
 .align-end {
-    align-items: flex-end;
+    align-items: end;
 }
 
 .row {
@@ -88,6 +99,9 @@ body {
     flex-wrap: wrap;
 }
 
+.wrap-reverse {
+    flex-wrap: wrap-reverse;
+}
 
 /* General Animations */
 .grow-on-hover {

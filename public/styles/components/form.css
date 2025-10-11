@@ -1,7 +1,18 @@
 /* Input and labels */
 .form-label-input-div {
     text-align: left;
-    margin: 24px 36px;
+    margin: 24px 0;
+    gap: 24px;
+}
+
+.label {
+    color: black;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+#priority .label {
+    margin-left: 4px;
 }
 
 .input-field {
@@ -67,6 +78,30 @@ select {
 
 /* Delete account page */
 #delete-account form {
-    width: 425px;
-    margin-top: 72px;
+    width: 497px;
+    padding: 72px 36px;
+}
+
+
+@media (max-width: 700px) {
+
+    .form-label-input-div>div,
+    #account .input-field {
+        width: 100%;
+    }
+
+    #delete-account form {
+        width: 100%;
+        max-width: 497px;
+    }
+
+}
+
+@media (max-width: 350px) {
+
+    .input-field,
+    #priority {
+        width: 100%;
+    }
+
 }
