@@ -139,14 +139,13 @@
 
     {{else}}
     <!--Project's Tasks-->
-    <div class="flex row wrap" id="cards">
-
+    <div id="cards">
         {{#each project.tasks}}
         <div class="card cursor-pointer open-update-popup" data-id="{{_id}}">
             <div class="flex row space-between">
                 <h3 class="mid-text">{{name}}</h3>
                 {{#if priority}}
-                    <p class="small-text">{{priority}} Priority</p>
+                    <p class="small-text priority">{{priority}} Priority</p>
                 {{/if}}
             </div>
             <p class="small-text">{{dueDate}}</p>

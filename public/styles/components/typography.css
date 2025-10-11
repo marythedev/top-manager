@@ -54,9 +54,13 @@
     font-size: 14px;
 }
 
-.grey,
+#cards .small-text.priority {
+    text-align: right;
+}
+
 .small-text,
-.tiny-text {
+.tiny-text,
+.grey {
     color: var(--grey);
 }
 

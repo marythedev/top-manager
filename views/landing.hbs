@@ -75,11 +75,8 @@
   // Carousel logic
   const track = document.querySelector('.carousel-track');
   const cards = document.querySelectorAll('.testimonial-card');
-  const leftArrow = document.querySelector('.carousel-arrow.left');
-  const rightArrow = document.querySelector('.carousel-arrow.right');
   let index = 0;
   const totalCards = cards.length;
-  const swipeThreshold = 30;
   let autoSwipeInterval;
 
   function updateCarousel() {
@@ -97,74 +94,7 @@
     }, 5000);
   }
 
-  function restartAutoSwipe() {
-    clearInterval(autoSwipeInterval);
-    startAutoSwipe();
-  }
-
   startAutoSwipe();
-
-  // mobile swipe
-  let startX = 0;
-  let isDragging = false;
-
-  track.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-    isDragging = true;
-    clearInterval(autoSwipeInterval);
-  });
-
-  track.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-    let diffX = e.touches[0].clientX - startX;
-    if (Math.abs(diffX) > 10) {
-      e.preventDefault();
-    }
-  }, { passive: false });
-
-  track.addEventListener('touchend', (e) => {
-    if (!isDragging) return;
-    isDragging = false;
-    let endX = e.changedTouches[0].clientX;
-    let diffX = endX - startX;
-
-    if (Math.abs(diffX) > swipeThreshold) {
-      if (diffX > 0) {
-        index--;
-      } else {
-        index++;
-      }
-      updateCarousel();
-    }
-    startAutoSwipe();
-  });
-
-  //desktop swipe
-  let isMouseDragging = false;
-  let dragStartX = 0;
-
-  track.addEventListener('mousedown', e => {
-    isMouseDragging = true;
-    dragStartX = e.pageX;
-    clearInterval(autoSwipeInterval);
-  });
-
-  document.addEventListener('mouseup', e => {
-    if (isMouseDragging) {
-      isMouseDragging = false;
-      const dragEndX = e.pageX;
-      const dragDist = dragStartX - dragEndX;
-      if (dragDist > 50) {
-        index++;
-        updateCarousel();
-      } else if (dragDist < -50) {
-        index--;
-        updateCarousel();
-      }
-      startAutoSwipe();
-    }
-  });
-
 
   document.getElementById('current-year').textContent = new Date().getFullYear();
 

@@ -151,14 +151,13 @@
             <img src="/icons/add-white.svg" class="icon" alt="Add task icon">
         </a>
     </div>
-    <div class="flex row wrap" id="cards">
-
+    <div id="cards">
         {{#each tasks}}
         <div class="card cursor-pointer open-update-popup" data-id="{{_id}}">
             <div class="flex row space-between">
                 <h3 class="mid-text">{{name}}</h3>
                 {{#if priority}}
-                <p class="small-text">{{priority}} Priority</p>
+                <p class="small-text priority">{{priority}} Priority</p>
                 {{/if}}
             </div>
             <p class="small-text">{{dueDate}}</p>
