@@ -124,7 +124,6 @@
                         src="/icons/checkmark.svg">
                 </div>
             </form>
-            {{!-- <img src="/icons/sort.svg" class="icon" alt="Sort tasks icon"> --}}
         </div>
         <a class="flex justify-center align-center open-add-popup cursor-pointer purple">
             <img src="/icons/add-white.svg" class="icon" alt="Add task icon">
@@ -168,3 +167,13 @@
 <script src="/scripts/projects-tasks.js"></script>
 <script src="/scripts/tasks.js"></script>
 <script src="/scripts/project.js"></script>
+<script>
+    document.addEventListener('click', function(event) {
+        const projectNameInput = document.getElementById('project-name');
+        const checkmarkIcon = document.querySelector('.checkmark-icon');
+
+        if (projectNameInput && !projectNameInput.contains(event.target) && !checkmarkIcon.contains(event.target)) {
+            projectNameInput.value = "{{project.name}}";
+        }
+    });
+</script>
