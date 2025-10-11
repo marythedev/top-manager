@@ -69,8 +69,9 @@ textarea.input-field {
 
 
 /* Task form: Date input */
-input[type="date"] {
-    text-align: left;
+input {
+    text-align: left !important;
+    background-color: white;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
