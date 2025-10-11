@@ -59,6 +59,10 @@ body {
 
 
 /* Utility Classes */
+.purple {
+    color: var(--purple);
+}
+
 .cursor-pointer {
     cursor: pointer;
 }

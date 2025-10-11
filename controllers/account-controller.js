@@ -47,9 +47,15 @@ module.exports.signup = (user) => {
         else if (!passwordStatus.valid)
             return reject({ code: passwordStatus.code, message: passwordStatus.message });
         else if (user.password !== user.confirm_password)
-            reject({ code: 400, message: "Passwords should match." });
+            return reject({ code: 400, message: "Passwords should match." });
 
-        bcrypt.hash(user.password, 8)
+        usersModel.findOne({ username: user.username })
+            .collation({ locale: 'en', strength: 2 })
+            .then(existingUser => {
+                if (existingUser)
+                    return reject({ code: 400, message: "Username already exists." });
+                return bcrypt.hash(user.password, 8);
+            })
             .then((hash) => {
                 user.password = hash;
                 const newUser = new usersModel(user);
@@ -122,15 +128,13 @@ module.exports.updateAccount = (update, session) => {
                     if (user)
                         return bcrypt.compare(update.password, user.password);
                     else {
-                        reject({ code: 400, message: "User Not Found" });
-                        return;
+                        return reject({ code: 400, message: "User Not Found" });
                     }
                 }).then((passwordMatches) => {
                     if (passwordMatches)
                         return bcrypt.hash(update.new_password, 8);
                     else {
-                        reject({ code: 400, message: "Incorrect current password." });
-                        return;
+                        return reject({ code: 400, message: "Incorrect current password." });
                     }
                 }).then((hash) => {
                     return usersModel.updateOne(

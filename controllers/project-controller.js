@@ -60,8 +60,7 @@ module.exports.addTasktoProject = (task, project_id) => {
 
                     return project.save();
                 } else {
-                    reject("Project Not Found");
-                    return;
+                    return reject("Project Not Found");
                 }
             })
             .then(() => {
@@ -200,8 +199,7 @@ module.exports.deleteProject = (username, project_id) => {
                         unassignPromises.push(db_task.unassignTaskfromProject(taskIdObj.taskId));
                     return Promise.all(unassignPromises);
                 } else {
-                    reject("Project Not Found");
-                    return;
+                    return reject("Project Not Found");
                 }
             })
             .then(() => {

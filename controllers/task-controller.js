@@ -21,8 +21,7 @@ module.exports.unassignTaskfromProject = (task_id) => {
                     task.project = undefined;
                     return task.save();
                 } else {
-                    reject("Task Not Found");
-                    return;
+                    return reject("Task Not Found");
                 }
             })
             .then(() => { resolve(); })

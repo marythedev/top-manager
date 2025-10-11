@@ -51,7 +51,7 @@ body {
 }
 
 .action-button:hover {
-    transform: scale(0.95);
+    transform: scale(1.1);
     transition: transform 0.3s ease-in-out;
 }
 
@@ -184,6 +184,7 @@ body {
 .footer a {
     color: var(--purple);
     text-decoration: none;
+    text-underline-offset: 3px;
 }
 
 .footer a:hover {
