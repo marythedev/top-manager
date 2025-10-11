@@ -69,8 +69,8 @@ textarea.input-field {
 
 
 /* Task form: Date input */
-input[type="date"] {
-    text-align: left;
+input {
+    background-color: white;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
@@ -92,7 +92,14 @@ select {
 }
 
 .checkbox input[type="checkbox"] {
-    accent-color: white;
+    accent-color: var(--purple);
+}
+
+@media (max-width: 700px) {
+    .checkbox input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+    }
 }
 
 
