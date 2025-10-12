@@ -14,7 +14,6 @@ require('dotenv').config();     //for environment variables
 const express = require("express");
 
 
-
 //set up application
 const PORT = process.env.PORT || 3000;
 const app = express();
