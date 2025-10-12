@@ -42,14 +42,7 @@ cd top-manager
 npm install
 ```
 
-Create a `.env` file in the root directory:
-
-```env
-MONGODB_URI=<mongodb+srv://uri (your mongo connection string)>
-USER_COLLECTION=users
-TASK_COLLECTION=tasks
-PROJECT_COLLECTION=projects
-```
+Rename `.env.template` file to `.env` and update variables with appropriate values.
 
 Start the server:
 
@@ -66,9 +59,9 @@ Open `http://localhost:3000` in your browser.
 1. **Sign Up**: Create your account securely.
 2. **Log In**: Login and access your dashboard.
 3. **Create Projects**: Organize your work by projects.
-4. **Add Tasks**: Set priority, due dates and assign tasks to projects (optional).
+4. **Add Tasks**: Set priority, due dates and assign tasks to projects.
 5. **Manage Your Work**: Edit or delete task and projects once completed.
-6. **Update Account Info**: Change your username/password or delete your account.
+6. **Update Account Info**: Change your password or delete your account.
 
 ---
 
@@ -108,5 +101,5 @@ TopManager/
 
 ## 🤝 Contact
 
-Designed and developed by [**marythedev**](https://www.linkedin.com/in/marythedev/).  
+Designed and developed by [**@marythedev**](https://www.linkedin.com/in/marythedev/).  
 Questions or suggestions? Use the [**Contact Us**](https://top-manager.vercel.app/contact) page within the app.
